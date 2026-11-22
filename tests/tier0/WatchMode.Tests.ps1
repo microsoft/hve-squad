@@ -185,7 +185,7 @@ BeforeAll {
             "| researcher | | Squad Researcher | | runSubagent / task | default | $prefix/research/ |"
             "| lead | | Squad Lead | | runSubagent / task | default | $prefix/plans/ |"
             "| developer | | Squad Implementor | | runSubagent / task | default | $prefix/changes/ |"
-            "| tester | | Squad Reviewer | Code Review Functional | runSubagent / task | fast | $prefix/reviews/ |"
+            "| tester | | Squad Reviewer | | runSubagent / task | fast | $prefix/reviews/ |"
             '| architect | | System Architecture Reviewer | | runSubagent / task | default | docs/architecture/ |'
             $(if ($IncludeSecurityCouncil) {
                     '| security | | Security Planner | | runSubagent / task | default | docs/security/ |'

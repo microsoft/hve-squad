@@ -19,7 +19,7 @@ BeforeAll {
     Import-Module (Join-Path $PSScriptRoot 'SquadPackage.psm1') -Force
     $script:Model = Get-SquadPackageModel -PackageRoot $PackageRoot
     $script:Inventory = @('hve-core:security-planner', 'hve-core:rai-planner', 'hve-core:privacy-planner',
-        'hve-core:accessibility-framework-assessor', 'hve-core:prd-builder', 'hve-core:dt-coach', 'hve-core:code-review-functional')
+        'hve-core:accessibility-framework-assessor', 'hve-core:prd-builder', 'hve-core:dt-coach')
 
     function Write-DoctorFile {
         param([string]$Path, [string]$Text)

@@ -1,0 +1,1582 @@
+{
+  "schemaVersion": 1,
+  "sessions": [
+    {
+      "sessionId": "221b7e64-6853-42df-851d-3b457d91f0c6",
+      "source": "native-log",
+      "first": "2026-11-22T19:23:52.263Z",
+      "last": "2026-11-22T19:44:09.526Z",
+      "through": "2026-11-22T19:44:09.522Z",
+      "records": 144,
+      "identityDigest": "BFC6F5A419872ACB622CE501C3E564C95F1A541491E752F7CAA67319D865F8B7",
+      "requestDetailStatus": "complete",
+      "historyCoverage": {
+        "autopilot-run-45060332589.md": [],
+        "Squad Implementor.md": [
+          "da827100",
+          "ca1a7e50"
+        ],
+        "Squad Lead.md": [
+          "e46a8a15"
+        ],
+        "Squad Researcher.md": [
+          "2df5f4e7"
+        ],
+        "Squad Reviewer.md": [
+          "b4ae7fb9",
+          "29e4e0cd"
+        ],
+        "Squad Scribe.md": [
+          "31307ad9",
+          "d5e0a496",
+          "58362d06",
+          "c74fa0a7",
+          "40cfdf86",
+          "9310d50e",
+          "b2b48fb0",
+          "6ac66952",
+          "1ef7af64",
+          "15dcbc2e"
+        ]
+      },
+      "rows": [
+        {
+          "role": "researcher",
+          "member": "",
+          "agent": "Squad Researcher",
+          "models": [
+            "Claude Sonnet 5.5 (copilot)"
+          ],
+          "tier": "default",
+          "runs": 1,
+          "requests": 7,
+          "inputTokens": 1897,
+          "cacheReadTokens": 266909,
+          "cacheWriteTokens": 53559,
+          "outputTokens": 6985,
+          "nanoAiu": 23423240000.0,
+          "descendants": [],
+          "requestDetails": [
+            {
+              "identityHash": "E045DAF36842713FA26088D6901B5D8202F8740521BC3E4E67973B6C22922478",
+              "timestamp": "2026-11-22T19:30:30.784Z",
+              "model": "Claude Sonnet 5.5 (copilot)",
+              "inputTokens": 1885,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 33116,
+              "outputTokens": 485,
+              "nanoAiu": 9141000000.0
+            },
+            {
+              "identityHash": "9CDBB35A2DEC5DFF4E50939FF29EA8BB833B7B5DB2AC273BA7C60547788553BA",
+              "timestamp": "2026-11-22T19:30:34.931Z",
+              "model": "Claude Sonnet 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 33116,
+              "cacheWriteTokens": 6238,
+              "outputTokens": 483,
+              "nanoAiu": 2374060000.0
+            },
+            {
+              "identityHash": "5447FC78447261567C4C4F582AAD6346D33DCAB335516C45D14D5751ED436225",
+              "timestamp": "2026-11-22T19:30:38.756Z",
+              "model": "Claude Sonnet 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 39354,
+              "cacheWriteTokens": 7134,
+              "outputTokens": 413,
+              "nanoAiu": 2590440000.0
+            },
+            {
+              "identityHash": "CD20F4A9B256A76A2F85C594AB0AFE44DAD59600B1AA4BBDD08CACE7090C5F75",
+              "timestamp": "2026-11-22T19:30:50.939Z",
+              "model": "Claude Sonnet 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 46488,
+              "cacheWriteTokens": 2534,
+              "outputTokens": 291,
+              "nanoAiu": 1389780000.0
+            },
+            {
+              "identityHash": "19898B4C0518B9D054936342BA440E5FE38C507BE9DDCB6FA9A9A99C67E983EF",
+              "timestamp": "2026-11-22T19:30:53.586Z",
+              "model": "Claude Sonnet 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 49022,
+              "cacheWriteTokens": 313,
+              "outputTokens": 273,
+              "nanoAiu": 841870000.0
+            },
+            {
+              "identityHash": "B4BAAD4DA070AFE56AA8E9025263993837C9CB095D629DAFC9B33FFF44B0ED56",
+              "timestamp": "2026-11-22T19:31:19.946Z",
+              "model": "Claude Sonnet 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 49335,
+              "cacheWriteTokens": 259,
+              "outputTokens": 3994,
+              "nanoAiu": 4552500000.0
+            },
+            {
+              "identityHash": "DBF5B02279683DCE3FBC6E544845659C7193A107EDF3FAD9874494B3F7D3EB59",
+              "timestamp": "2026-11-22T19:31:26.054Z",
+              "model": "Claude Sonnet 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 49594,
+              "cacheWriteTokens": 3965,
+              "outputTokens": 1046,
+              "nanoAiu": 2533590000.0
+            }
+          ]
+        },
+        {
+          "role": "lead",
+          "member": "",
+          "agent": "Squad Lead",
+          "models": [
+            "Claude Sonnet 5.5 (copilot)"
+          ],
+          "tier": "default",
+          "runs": 1,
+          "requests": 4,
+          "inputTokens": 2140,
+          "cacheReadTokens": 132341,
+          "cacheWriteTokens": 24162,
+          "outputTokens": 3791,
+          "nanoAiu": 11582910000.0,
+          "descendants": [],
+          "requestDetails": [
+            {
+              "identityHash": "9551A5DA44E16BC8F7360D4CCDE9778055E17E042325297D63F930ACDEB78F72",
+              "timestamp": "2026-11-22T19:32:07.170Z",
+              "model": "Claude Sonnet 5.5 (copilot)",
+              "inputTokens": 2134,
+              "cacheReadTokens": 20485,
+              "cacheWriteTokens": 11856,
+              "outputTokens": 154,
+              "nanoAiu": 3749650000.0
+            },
+            {
+              "identityHash": "1E07640895DE31990013BD1742FC8AC862FCC1457A86BA98034CF8D0D08E4012",
+              "timestamp": "2026-11-22T19:32:08.835Z",
+              "model": "Claude Sonnet 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 32341,
+              "cacheWriteTokens": 5599,
+              "outputTokens": 103,
+              "nanoAiu": 1826560000.0
+            },
+            {
+              "identityHash": "B6F6053FFA4219F2A971521F8179D5E3F30D732E9D76234EE4B195D2EDD5836C",
+              "timestamp": "2026-11-22T19:32:27.743Z",
+              "model": "Claude Sonnet 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 37940,
+              "cacheWriteTokens": 3635,
+              "outputTokens": 3049,
+              "nanoAiu": 4337550000.0
+            },
+            {
+              "identityHash": "844A823F9E6F3799B67A3212955A1E4A231DC4B18F633B0CC20653B9D9FF352A",
+              "timestamp": "2026-11-22T19:32:31.486Z",
+              "model": "Claude Sonnet 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 41575,
+              "cacheWriteTokens": 3072,
+              "outputTokens": 485,
+              "nanoAiu": 1669150000.0
+            }
+          ]
+        },
+        {
+          "role": "developer",
+          "member": "",
+          "agent": "Squad Implementor",
+          "models": [
+            "Claude Sonnet 5.5 (copilot)"
+          ],
+          "tier": "default",
+          "runs": 1,
+          "requests": 15,
+          "inputTokens": 2424,
+          "cacheReadTokens": 727539,
+          "cacheWriteTokens": 38771,
+          "outputTokens": 7089,
+          "nanoAiu": 24541940000.0,
+          "descendants": [],
+          "requestDetails": [
+            {
+              "identityHash": "ED8D5E004BD722ADDD9922ECFDA02562C72A18BF7B5331AA6C36EEAB6975F4B4",
+              "timestamp": "2026-11-22T19:33:16.127Z",
+              "model": "Claude Sonnet 5.5 (copilot)",
+              "inputTokens": 2396,
+              "cacheReadTokens": 20485,
+              "cacheWriteTokens": 14522,
+              "outputTokens": 182,
+              "nanoAiu": 4496550000.0
+            },
+            {
+              "identityHash": "2121D114EF4A5132FFBB6F8456DA240E89D74B37CA4F64B9A555342F1EB8FC0D",
+              "timestamp": "2026-11-22T19:33:19.359Z",
+              "model": "Claude Sonnet 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 35007,
+              "cacheWriteTokens": 7722,
+              "outputTokens": 435,
+              "nanoAiu": 2715970000.0
+            },
+            {
+              "identityHash": "5F27CAEF812E4FC96AE9EDE6801BDB0D45D30E90FE82CAC2551F1AC3BD38CFA1",
+              "timestamp": "2026-11-22T19:33:29.419Z",
+              "model": "Claude Sonnet 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 42729,
+              "cacheWriteTokens": 2947,
+              "outputTokens": 1662,
+              "nanoAiu": 2826440000.0
+            },
+            {
+              "identityHash": "488F77299A9DF7BBFAEB74BC55383A4F608C763B6CDAB9BD2DAC0F193D585C51",
+              "timestamp": "2026-11-22T19:33:34.424Z",
+              "model": "Claude Sonnet 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 45676,
+              "cacheWriteTokens": 2644,
+              "outputTokens": 496,
+              "nanoAiu": 1614160000.0
+            },
+            {
+              "identityHash": "0249112395A0E57361EF178784CA5DA647291F53F247A41F5819B2ECC4FBD6E4",
+              "timestamp": "2026-11-22T19:33:46.094Z",
+              "model": "Claude Sonnet 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 48320,
+              "cacheWriteTokens": 1016,
+              "outputTokens": 297,
+              "nanoAiu": 1034600000.0
+            },
+            {
+              "identityHash": "6D61A87B06095616BEA09B8FDAC603C08F41D64DBFCF2A6D5E8D317897C78BBC",
+              "timestamp": "2026-11-22T19:33:49.982Z",
+              "model": "Claude Sonnet 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 49336,
+              "cacheWriteTokens": 1364,
+              "outputTokens": 161,
+              "nanoAiu": 995760000.0
+            },
+            {
+              "identityHash": "138CE4851A86609A6EC10333F83126B4FE32C2F197E3C6F14E7C8781A0AD13EC",
+              "timestamp": "2026-11-22T19:33:53.582Z",
+              "model": "Claude Sonnet 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 50700,
+              "cacheWriteTokens": 448,
+              "outputTokens": 231,
+              "nanoAiu": 850400000.0
+            },
+            {
+              "identityHash": "F7D71B2AFD9A1B6C5A9A8F868341AA3F1C8E5BDC89A68A670E1FCF1A55E15FC4",
+              "timestamp": "2026-11-22T19:34:11.664Z",
+              "model": "Claude Sonnet 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 51148,
+              "cacheWriteTokens": 1074,
+              "outputTokens": 239,
+              "nanoAiu": 1019380000.0
+            },
+            {
+              "identityHash": "BE59F2C0FD3F6C21DA9F851F1D3BF7E93E690BF66AEF505509273B9CE7E7BB2E",
+              "timestamp": "2026-11-22T19:35:11.379Z",
+              "model": "Claude Sonnet 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 52222,
+              "cacheWriteTokens": 978,
+              "outputTokens": 947,
+              "nanoAiu": 1714120000.0
+            },
+            {
+              "identityHash": "0906E312FA7D297F191AB68F00DDD69CEDE2F99ECFCA75E3AF3BEC3CA7B65CAB",
+              "timestamp": "2026-11-22T19:35:14.793Z",
+              "model": "Claude Sonnet 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 53200,
+              "cacheWriteTokens": 1099,
+              "outputTokens": 248,
+              "nanoAiu": 1055150000.0
+            },
+            {
+              "identityHash": "F3278B2221500BFCE7E5D49A9809669D1765C8D25B0960641837BF93BC25E456",
+              "timestamp": "2026-11-22T19:35:21.929Z",
+              "model": "Claude Sonnet 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 54299,
+              "cacheWriteTokens": 563,
+              "outputTokens": 259,
+              "nanoAiu": 943140000.0
+            },
+            {
+              "identityHash": "F9331E148C32975C726BB7B49309D57928CEBB5DF08995CCB0BC70A591313FBC",
+              "timestamp": "2026-11-22T19:35:29.338Z",
+              "model": "Claude Sonnet 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 54862,
+              "cacheWriteTokens": 306,
+              "outputTokens": 258,
+              "nanoAiu": 883520000.0
+            },
+            {
+              "identityHash": "A85C7996AAD2826D5F7FFA681B94D3918D04282E3F46497535CB2287E94F886D",
+              "timestamp": "2026-11-22T19:36:13.589Z",
+              "model": "Claude Sonnet 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 55168,
+              "cacheWriteTokens": 277,
+              "outputTokens": 221,
+              "nanoAiu": 842330000.0
+            },
+            {
+              "identityHash": "143674388FF314259ED10BA27585C1EF2D727DB6D7F65ABC9006EF9FD34CBE45",
+              "timestamp": "2026-11-22T19:37:00.175Z",
+              "model": "Claude Sonnet 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 55445,
+              "cacheWriteTokens": 3497,
+              "outputTokens": 385,
+              "nanoAiu": 1814100000.0
+            },
+            {
+              "identityHash": "5DBCEBDA5DFFEFB67C042D1B497B14B504C5D6C9E115FB3BBD663DB717216F3E",
+              "timestamp": "2026-11-22T19:37:07.243Z",
+              "model": "Claude Sonnet 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 58942,
+              "cacheWriteTokens": 314,
+              "outputTokens": 1068,
+              "nanoAiu": 1736320000.0
+            }
+          ]
+        },
+        {
+          "role": "tester",
+          "member": "",
+          "agent": "Squad Reviewer",
+          "models": [
+            "Claude Haiku 5.5 (copilot)"
+          ],
+          "tier": "fast",
+          "runs": 1,
+          "requests": 12,
+          "inputTokens": 1717,
+          "cacheReadTokens": 616158,
+          "cacheWriteTokens": 76093,
+          "outputTokens": 13908,
+          "nanoAiu": 2279890500.0,
+          "descendants": [],
+          "requestDetails": [
+            {
+              "identityHash": "37AE116754CAA1117E121892BF89FC99F878EA188668CCBF5C6D32EB625543D8",
+              "timestamp": "2026-11-22T19:37:56.010Z",
+              "model": "Claude Haiku 5.5 (copilot)",
+              "inputTokens": 1695,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 32249,
+              "outputTokens": 431,
+              "nanoAiu": 441612500.0
+            },
+            {
+              "identityHash": "5751815DE427ED3D5AE2B54511B90481EEFABAB6407D9C81BBE3137B46121472",
+              "timestamp": "2026-11-22T19:37:57.649Z",
+              "model": "Claude Haiku 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 32249,
+              "cacheWriteTokens": 5756,
+              "outputTokens": 284,
+              "nanoAiu": 118419000.0
+            },
+            {
+              "identityHash": "7D58334002A59EF9B46899F2EE313900BB5ED369F523D24355C1BDC5A634D2E8",
+              "timestamp": "2026-11-22T19:38:01.661Z",
+              "model": "Claude Haiku 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 38005,
+              "cacheWriteTokens": 5300,
+              "outputTokens": 906,
+              "nanoAiu": 149575000.0
+            },
+            {
+              "identityHash": "32D209BABE6B26BA48CFD6922005791374182C52CED6E0D0CC8E9720B95C571D",
+              "timestamp": "2026-11-22T19:38:07.399Z",
+              "model": "Claude Haiku 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 43305,
+              "cacheWriteTokens": 6871,
+              "outputTokens": 1263,
+              "nanoAiu": 192362500.0
+            },
+            {
+              "identityHash": "25117664C9715A99F157EBC2768646E65D1F129BE6D938A474EFB629239421A1",
+              "timestamp": "2026-11-22T19:38:21.432Z",
+              "model": "Claude Haiku 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 50176,
+              "cacheWriteTokens": 5998,
+              "outputTokens": 1142,
+              "nanoAiu": 182271000.0
+            },
+            {
+              "identityHash": "EB15807A4EE5B9D8B228232BCA0D70ACE7216EA667A17C91FE2B86BED6A0698E",
+              "timestamp": "2026-11-22T19:38:33.154Z",
+              "model": "Claude Haiku 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 56174,
+              "cacheWriteTokens": 3957,
+              "outputTokens": 535,
+              "nanoAiu": 132406500.0
+            },
+            {
+              "identityHash": "E127F6E637811F8D9F0AF664392572BC5072BACEC3AA8F82F58208C3E1A40031",
+              "timestamp": "2026-11-22T19:38:36.956Z",
+              "model": "Claude Haiku 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 60131,
+              "cacheWriteTokens": 3591,
+              "outputTokens": 289,
+              "nanoAiu": 119488500.0
+            },
+            {
+              "identityHash": "E1CF8B07C935347A7A8AE1880AB2B5ABF1B36F6940E3B5FFED3EFFEED277B8F2",
+              "timestamp": "2026-11-22T19:38:39.549Z",
+              "model": "Claude Haiku 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 63722,
+              "cacheWriteTokens": 1117,
+              "outputTokens": 602,
+              "nanoAiu": 107804500.0
+            },
+            {
+              "identityHash": "06946009A011BBDC17817FBA14260BC8DBA5517CE154098DCD8E45238E51F45F",
+              "timestamp": "2026-11-22T19:38:43.841Z",
+              "model": "Claude Haiku 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 64839,
+              "cacheWriteTokens": 756,
+              "outputTokens": 738,
+              "nanoAiu": 111209000.0
+            },
+            {
+              "identityHash": "EDC0450ECC92931D51EE3E18921BD5A0D5933C4ADADE6E8D4B65DD62528FFE2F",
+              "timestamp": "2026-11-22T19:40:25.568Z",
+              "model": "Claude Haiku 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 65595,
+              "cacheWriteTokens": 4288,
+              "outputTokens": 1583,
+              "nanoAiu": 198365000.0
+            },
+            {
+              "identityHash": "74AC437DAA9E67BE38C7397B53BBDFDF32D41861A2BBA5142D7EE8FEE80C22A6",
+              "timestamp": "2026-11-22T19:40:49.371Z",
+              "model": "Claude Haiku 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 69883,
+              "cacheWriteTokens": 2196,
+              "outputTokens": 5071,
+              "nanoAiu": 350903000.0
+            },
+            {
+              "identityHash": "3F2EB6146375F7856A0760B1F13D191E32CD993D191AD454A6DC11E427B65650",
+              "timestamp": "2026-11-22T19:40:53.522Z",
+              "model": "Claude Haiku 5.5 (copilot)",
+              "inputTokens": 2,
+              "cacheReadTokens": 72079,
+              "cacheWriteTokens": 4014,
+              "outputTokens": 1064,
+              "nanoAiu": 175474000.0
+            }
+          ]
+        },
+        {
+          "role": "orchestration",
+          "member": "",
+          "agent": "Coordinator+Scribe",
+          "models": [
+            "claude-sonnet-5"
+          ],
+          "tier": "mixed",
+          "runs": 1,
+          "requests": 106,
+          "inputTokens": 26296,
+          "cacheReadTokens": 15374119,
+          "cacheWriteTokens": 207104,
+          "outputTokens": 60948,
+          "nanoAiu": 425465580000.0,
+          "descendants": [],
+          "requestDetails": [
+            {
+              "identityHash": "1BD5B4987E2A1A3659ACA77D5A89CD9ED45888C552A1D090DA8698AA910CB7ED",
+              "timestamp": "2026-11-22T19:23:55.917Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 11918,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 39811,
+              "outputTokens": 326,
+              "nanoAiu": 12662350000.0
+            },
+            {
+              "identityHash": "F9B9A61CFE66B6B606452DE67ADFD252AD6BB7AAFECCFD73D287E54290109FD2",
+              "timestamp": "2026-11-22T19:24:00.222Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 39811,
+              "cacheWriteTokens": 15855,
+              "outputTokens": 429,
+              "nanoAiu": 5189370000.0
+            },
+            {
+              "identityHash": "D6A8E5FF34618317C708199F190DEEFE746F9E198823A29A5A04C9E11FFC61AE",
+              "timestamp": "2026-11-22T19:24:04.455Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 55666,
+              "cacheWriteTokens": 2067,
+              "outputTokens": 462,
+              "nanoAiu": 2092470000.0
+            },
+            {
+              "identityHash": "3DC3102EECAA311EB56030C7DB7F83F932CA94C4729BA5FF35BF334FA60AD458",
+              "timestamp": "2026-11-22T19:24:08.924Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 57733,
+              "cacheWriteTokens": 3319,
+              "outputTokens": 444,
+              "nanoAiu": 2428810000.0
+            },
+            {
+              "identityHash": "908BB87D809E3352B3F9F18728CF0692261BFEE2A4CF8925B0F5E058D98BC817",
+              "timestamp": "2026-11-22T19:24:10.636Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 61052,
+              "cacheWriteTokens": 1606,
+              "outputTokens": 135,
+              "nanoAiu": 1757940000.0
+            },
+            {
+              "identityHash": "CBAA636484454F0615C9A042020481E0F7EAA3A9B042F23909F09DDCAEDF0710",
+              "timestamp": "2026-11-22T19:24:12.824Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 62658,
+              "cacheWriteTokens": 146,
+              "outputTokens": 177,
+              "nanoAiu": 1467060000.0
+            },
+            {
+              "identityHash": "17735C289BE897BCA3BF1BEBACBD9D0EB77E8C5B562FA3D5ACAD7C09AA0006C6",
+              "timestamp": "2026-11-22T19:24:15.891Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 62804,
+              "cacheWriteTokens": 287,
+              "outputTokens": 335,
+              "nanoAiu": 1663230000.0
+            },
+            {
+              "identityHash": "B84AD9C2EC63CAB2AA046149C19171F941CA22FFE248BFCE2B69D6ECEEF084B4",
+              "timestamp": "2026-11-22T19:24:19.584Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 63091,
+              "cacheWriteTokens": 1972,
+              "outputTokens": 401,
+              "nanoAiu": 2156220000.0
+            },
+            {
+              "identityHash": "B6730C6E2B800915D85F459CFCD93E71D09049A97DF005B527757A7701F2B380",
+              "timestamp": "2026-11-22T19:24:30.479Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 65063,
+              "cacheWriteTokens": 2878,
+              "outputTokens": 1058,
+              "nanoAiu": 3079160000.0
+            },
+            {
+              "identityHash": "B8896F28467E614B7977C2D2353046B23C3EC25CA0325FF98EB6E20A40EAC435",
+              "timestamp": "2026-11-22T19:24:34.259Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 67941,
+              "cacheWriteTokens": 1589,
+              "outputTokens": 312,
+              "nanoAiu": 2068470000.0
+            },
+            {
+              "identityHash": "2218A2CFA4888F8DD5C7FABB5CF562C3B3AA5C76709742CBFFA4AD910B0BF169",
+              "timestamp": "2026-11-22T19:24:42.884Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 69530,
+              "cacheWriteTokens": 740,
+              "outputTokens": 993,
+              "nanoAiu": 2569000000.0
+            },
+            {
+              "identityHash": "2DC98AD427EECCCB6ECBB6132559D778A2F5E85E338ED7939AE05C213CBBAE52",
+              "timestamp": "2026-11-22T19:24:52.354Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 70270,
+              "cacheWriteTokens": 2306,
+              "outputTokens": 887,
+              "nanoAiu": 2869300000.0
+            },
+            {
+              "identityHash": "5F3A62E5495711F932C2E7E0A386875D51E5F5D0AAA14AE6F1DF8310FCC3BE06",
+              "timestamp": "2026-11-22T19:24:56.130Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 72576,
+              "cacheWriteTokens": 3569,
+              "outputTokens": 241,
+              "nanoAiu": 2585170000.0
+            },
+            {
+              "identityHash": "39022AAFE2BBB2E5BE610483CDC478EF2C9DBF00E5C2761F43CBD889622604BC",
+              "timestamp": "2026-11-22T19:24:58.733Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 76145,
+              "cacheWriteTokens": 429,
+              "outputTokens": 242,
+              "nanoAiu": 1872550000.0
+            },
+            {
+              "identityHash": "275B470E6C72635E543E6D48FAB41273208201FA5D39BBE8E6F77A1EFFBDA74C",
+              "timestamp": "2026-11-22T19:25:03.508Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 76574,
+              "cacheWriteTokens": 1196,
+              "outputTokens": 453,
+              "nanoAiu": 2283880000.0
+            },
+            {
+              "identityHash": "90E6676D7A41149CD964C7907CB2580013732396E76858360CF6DE1CC66A77CB",
+              "timestamp": "2026-11-22T19:25:08.012Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 77770,
+              "cacheWriteTokens": 3251,
+              "outputTokens": 362,
+              "nanoAiu": 2730550000.0
+            },
+            {
+              "identityHash": "FD37B1EB02012EC9A604173E98594B3CC932E498A9750E83E15694F6082589FB",
+              "timestamp": "2026-11-22T19:25:09.611Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 81021,
+              "cacheWriteTokens": 505,
+              "outputTokens": 98,
+              "nanoAiu": 1845070000.0
+            },
+            {
+              "identityHash": "CCBD8B00B7BB751BC527D9B9548AD88B629145B049BDBA143DCAB78493E11FB1",
+              "timestamp": "2026-11-22T19:25:11.516Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 81526,
+              "cacheWriteTokens": 146,
+              "outputTokens": 127,
+              "nanoAiu": 1794420000.0
+            },
+            {
+              "identityHash": "8ACA5EB4C5403586AC705D56F03188CB6070B94936D020A495859E738FD84B9A",
+              "timestamp": "2026-11-22T19:25:13.488Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 81672,
+              "cacheWriteTokens": 206,
+              "outputTokens": 126,
+              "nanoAiu": 1811340000.0
+            },
+            {
+              "identityHash": "08ADEDFAB5373FDFDCEE55D30476D88CDCB77C7044B930BADDAEA2EBEDC7004A",
+              "timestamp": "2026-11-22T19:25:16.037Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 81878,
+              "cacheWriteTokens": 8768,
+              "outputTokens": 202,
+              "nanoAiu": 4031960000.0
+            },
+            {
+              "identityHash": "C5EA86C2F118D8D3B9D4762CCC7A647F67DEBFE99D5FE1BCEE24F81647030FAF",
+              "timestamp": "2026-11-22T19:25:28.118Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 90646,
+              "cacheWriteTokens": 7001,
+              "outputTokens": 970,
+              "nanoAiu": 4533570000.0
+            },
+            {
+              "identityHash": "E67CFCDAEFE2E4335C65C359E716EEA37DA577E53F6E3B8FFA52DA0817F7A790",
+              "timestamp": "2026-11-22T19:25:39.434Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 97647,
+              "cacheWriteTokens": 2120,
+              "outputTokens": 1053,
+              "nanoAiu": 3536340000.0
+            },
+            {
+              "identityHash": "CACD0A8780B28CC92A2942CDA0952D2690420B31AFB73C16DBFCFEA498526BFD",
+              "timestamp": "2026-11-22T19:25:51.519Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 99767,
+              "cacheWriteTokens": 2291,
+              "outputTokens": 956,
+              "nanoAiu": 3524490000.0
+            },
+            {
+              "identityHash": "9AE9ABBFD271EB174F983501C8C55B9B30FF0F2E2257243D2FE27D0A381796A8",
+              "timestamp": "2026-11-22T19:25:53.315Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 102058,
+              "cacheWriteTokens": 172,
+              "outputTokens": 83,
+              "nanoAiu": 2167560000.0
+            },
+            {
+              "identityHash": "5C379DC0A25B28115B051EAA29A746E0EB657CFB9DFAD17BD0B817B1C367B855",
+              "timestamp": "2026-11-22T19:25:58.345Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 102230,
+              "cacheWriteTokens": 92,
+              "outputTokens": 393,
+              "nanoAiu": 2461000000.0
+            },
+            {
+              "identityHash": "C30535F09316A68EB0B3830A9D8EBAED9B03295E8A3A7708DEA5408D480433F2",
+              "timestamp": "2026-11-22T19:26:01.245Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 102322,
+              "cacheWriteTokens": 208,
+              "outputTokens": 212,
+              "nanoAiu": 2310840000.0
+            },
+            {
+              "identityHash": "62E961716D39316FB11AF8BA5DFCED7785A6C49707C895DF041517604F41DAB9",
+              "timestamp": "2026-11-22T19:26:10.402Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 14170,
+              "cacheReadTokens": 102530,
+              "cacheWriteTokens": 138,
+              "outputTokens": 700,
+              "nanoAiu": 5619100000.0
+            },
+            {
+              "identityHash": "D9A6B3BF104BD27735EADE6FD2D879EC9A3A8A7C3BFB5FAB74D75E1E77421CC5",
+              "timestamp": "2026-11-22T19:26:27.904Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 102668,
+              "cacheWriteTokens": 15615,
+              "outputTokens": 1536,
+              "nanoAiu": 7493510000.0
+            },
+            {
+              "identityHash": "D14371E55E589DEBEC8884CB550C764014A0D0CC7C1AFAFEFCBAC56B5EC1DDC6",
+              "timestamp": "2026-11-22T19:26:32.324Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 118283,
+              "cacheWriteTokens": 4485,
+              "outputTokens": 389,
+              "nanoAiu": 3876310000.0
+            },
+            {
+              "identityHash": "2F601A709BC73B5E150F57F0A9162645811BEF2E1E62043F5847020671EDF4B4",
+              "timestamp": "2026-11-22T19:26:37.017Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 122768,
+              "cacheWriteTokens": 4356,
+              "outputTokens": 381,
+              "nanoAiu": 3925760000.0
+            },
+            {
+              "identityHash": "0FBE76DE9F654F5FAB80EE9A468797413F50331038CC1CEE08E3B35A7096D5A4",
+              "timestamp": "2026-11-22T19:26:40.545Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 127124,
+              "cacheWriteTokens": 263,
+              "outputTokens": 335,
+              "nanoAiu": 2943630000.0
+            },
+            {
+              "identityHash": "896FD08374EA284C4C1E6D4FA97837AE538E65EB42E2C42BE81E5E01DA1559D9",
+              "timestamp": "2026-11-22T19:26:42.804Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 127387,
+              "cacheWriteTokens": 466,
+              "outputTokens": 213,
+              "nanoAiu": 2877640000.0
+            },
+            {
+              "identityHash": "930EF687428C564E47C51CFE267162DCCF14826D88973780855D8E478E1F2FAC",
+              "timestamp": "2026-11-22T19:26:45.637Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 127853,
+              "cacheWriteTokens": 307,
+              "outputTokens": 145,
+              "nanoAiu": 2779210000.0
+            },
+            {
+              "identityHash": "693CE6D1921E4D130B129240AA175C8691E5E51ACC3C4A9A77A0A28D6EDEF222",
+              "timestamp": "2026-11-22T19:26:53.151Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 128160,
+              "cacheWriteTokens": 2298,
+              "outputTokens": 673,
+              "nanoAiu": 3811100000.0
+            },
+            {
+              "identityHash": "165ABEE3674FF7EB9252699219C3E20F2A58FF7977A64E6BD5062E0A2AA4D756",
+              "timestamp": "2026-11-22T19:26:59.243Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 130458,
+              "cacheWriteTokens": 414,
+              "outputTokens": 196,
+              "nanoAiu": 2909060000.0
+            },
+            {
+              "identityHash": "132668EFE0F7A5DE266B726B95FF235296795A6AEE8352FC9E54D92E16740114",
+              "timestamp": "2026-11-22T19:27:01.350Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 130872,
+              "cacheWriteTokens": 2230,
+              "outputTokens": 188,
+              "nanoAiu": 3363340000.0
+            },
+            {
+              "identityHash": "0A26ACCE4A1E32306D86D6E45ED2A15A0190692996C4E87EEBBE929E013A4BEE",
+              "timestamp": "2026-11-22T19:27:06.646Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 133102,
+              "cacheWriteTokens": 219,
+              "outputTokens": 519,
+              "nanoAiu": 3236190000.0
+            },
+            {
+              "identityHash": "05F9209856FF55196316473452328B4616102FB12CC18AC95BD00D9D73ED0147",
+              "timestamp": "2026-11-22T19:27:11.239Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 133321,
+              "cacheWriteTokens": 3834,
+              "outputTokens": 391,
+              "nanoAiu": 4016320000.0
+            },
+            {
+              "identityHash": "932F010EDB7B0B7DB9B9FA423BEC5FD079EAE6F1CEFC04D459715E8D7C93C0D0",
+              "timestamp": "2026-11-22T19:27:12.985Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 137155,
+              "cacheWriteTokens": 548,
+              "outputTokens": 143,
+              "nanoAiu": 3023500000.0
+            },
+            {
+              "identityHash": "6696F8D6EC99C83CF9E670EEB0B53E0145367E7F83383D4B6EF4E82DA9B18B54",
+              "timestamp": "2026-11-22T19:27:19.186Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 137703,
+              "cacheWriteTokens": 4449,
+              "outputTokens": 503,
+              "nanoAiu": 4369710000.0
+            },
+            {
+              "identityHash": "A1CE65F220BD390909D5E2CFD27A3296BCC1953D85344D1FE6C14728B79FF6AF",
+              "timestamp": "2026-11-22T19:27:27.091Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 142152,
+              "cacheWriteTokens": 2374,
+              "outputTokens": 753,
+              "nanoAiu": 4189940000.0
+            },
+            {
+              "identityHash": "CA23157F23A1CF8308E400C2BEF8F9BA45A007D3CD8816996988AA260CCF3727",
+              "timestamp": "2026-11-22T19:27:29.540Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 144526,
+              "cacheWriteTokens": 198,
+              "outputTokens": 171,
+              "nanoAiu": 3111420000.0
+            },
+            {
+              "identityHash": "58EEDA1BAD46D7817B3A5FEB9E8A692520A90EF9B6300F3885CF3B7823E0547B",
+              "timestamp": "2026-11-22T19:27:33.886Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 144724,
+              "cacheWriteTokens": 879,
+              "outputTokens": 370,
+              "nanoAiu": 3484630000.0
+            },
+            {
+              "identityHash": "EC7E820A243662E9E0985761EB31D012A5595C5B9FA4627BBB4AE3B17B3373A4",
+              "timestamp": "2026-11-22T19:27:45.180Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 145603,
+              "cacheWriteTokens": 570,
+              "outputTokens": 933,
+              "nanoAiu": 3987960000.0
+            },
+            {
+              "identityHash": "2C03966948947F651FBB0E16C40553DF7B3958FE4AFB051E2C433FBC66933F3D",
+              "timestamp": "2026-11-22T19:28:11.072Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 146173,
+              "cacheWriteTokens": 2195,
+              "outputTokens": 2308,
+              "nanoAiu": 5780610000.0
+            },
+            {
+              "identityHash": "41D459A48796CFC2B7AB69FDC94984533E5B837C3EA0C3F43378EAB085C73B92",
+              "timestamp": "2026-11-22T19:28:14.076Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 148368,
+              "cacheWriteTokens": 664,
+              "outputTokens": 233,
+              "nanoAiu": 3366760000.0
+            },
+            {
+              "identityHash": "C3E9FC4DC03BA93370E7E9F1BE401943B6E7217D81F5EBB7E3D99E3A9E20430C",
+              "timestamp": "2026-11-22T19:28:19.034Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 149032,
+              "cacheWriteTokens": 176,
+              "outputTokens": 387,
+              "nanoAiu": 3412040000.0
+            },
+            {
+              "identityHash": "0B0BF130F349FC9DD85FD36CFB4D4DAD38E0342A1501E2F5D081559745D2BBA6",
+              "timestamp": "2026-11-22T19:28:22.623Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 149208,
+              "cacheWriteTokens": 469,
+              "outputTokens": 262,
+              "nanoAiu": 3363810000.0
+            },
+            {
+              "identityHash": "FAB3845E5A789913DC7165078BDC4788E39CB56AAB30AB8E03B8CE12706EC6B4",
+              "timestamp": "2026-11-22T19:28:26.119Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 149677,
+              "cacheWriteTokens": 311,
+              "outputTokens": 264,
+              "nanoAiu": 3335690000.0
+            },
+            {
+              "identityHash": "076AB6759328AD2D3B2FE90586660242862C61931D8F3F8BBF6587DE34896DF8",
+              "timestamp": "2026-11-22T19:28:30.023Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 149988,
+              "cacheWriteTokens": 959,
+              "outputTokens": 255,
+              "nanoAiu": 3494910000.0
+            },
+            {
+              "identityHash": "E4EE3F8207445EEF7A07DF5EC32DB860C8EEB6920AB4BF5E9CE5FA41DEC991A9",
+              "timestamp": "2026-11-22T19:28:33.576Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 150947,
+              "cacheWriteTokens": 169,
+              "outputTokens": 315,
+              "nanoAiu": 3376590000.0
+            },
+            {
+              "identityHash": "B4D17765B7338E20AECEFC84CD4D04683F60F8C36E32AA19895B2922954F40AE",
+              "timestamp": "2026-11-22T19:28:57.550Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 151116,
+              "cacheWriteTokens": 6091,
+              "outputTokens": 1998,
+              "nanoAiu": 6543470000.0
+            },
+            {
+              "identityHash": "90AB7671D980CF21B711FF8E365B5208EA8D0440A9A4856CD944976853980C44",
+              "timestamp": "2026-11-22T19:29:07.663Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 157207,
+              "cacheWriteTokens": 180,
+              "outputTokens": 854,
+              "nanoAiu": 4043540000.0
+            },
+            {
+              "identityHash": "98C29F21972B35F571C526B56618D6DE0A1638A8B8BDBDD198513A3067AAAD6A",
+              "timestamp": "2026-11-22T19:29:24.063Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 157387,
+              "cacheWriteTokens": 343,
+              "outputTokens": 1355,
+              "nanoAiu": 4588890000.0
+            },
+            {
+              "identityHash": "E240C9FC2365CCD5970687E335BCF3ADADA8711A69C3AD70005A216BDC311B0D",
+              "timestamp": "2026-11-22T19:29:37.553Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 157730,
+              "cacheWriteTokens": 251,
+              "outputTokens": 1015,
+              "nanoAiu": 4232750000.0
+            },
+            {
+              "identityHash": "48BEBA565BCBBEE40B9444ECD999E52C36A2D62F1E14BAED86530BE09C4F9E84",
+              "timestamp": "2026-11-22T19:29:42.668Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 157981,
+              "cacheWriteTokens": 300,
+              "outputTokens": 556,
+              "nanoAiu": 3791020000.0
+            },
+            {
+              "identityHash": "F486564EBB6896DEBF0352C6B1437DB6715C71CCE77C6A8F3176714FB46EF4FB",
+              "timestamp": "2026-11-22T19:29:44.745Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 158281,
+              "cacheWriteTokens": 610,
+              "outputTokens": 182,
+              "nanoAiu": 3500520000.0
+            },
+            {
+              "identityHash": "2833BF40347984FF9619F97E6A94CF78C89D18C27BA93120472AF3F22682312A",
+              "timestamp": "2026-11-22T19:29:48.365Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 158891,
+              "cacheWriteTokens": 506,
+              "outputTokens": 411,
+              "nanoAiu": 3715720000.0
+            },
+            {
+              "identityHash": "C9F5ED683E5FD6166D37FC25A83728BB97134B0A82F232A88EAA881CA906C659",
+              "timestamp": "2026-11-22T19:29:52.577Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 159397,
+              "cacheWriteTokens": 467,
+              "outputTokens": 459,
+              "nanoAiu": 3764090000.0
+            },
+            {
+              "identityHash": "88C7AA5B361B229158551B6B665C87EADBCD2DF886D47B8F8B2759D1EF822E90",
+              "timestamp": "2026-11-22T19:29:54.817Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 159864,
+              "cacheWriteTokens": 513,
+              "outputTokens": 194,
+              "nanoAiu": 3519930000.0
+            },
+            {
+              "identityHash": "34064620CA8103F6138BE60B9DFA752C38FFCD2C38CE194DC9E55C813A0EF7D3",
+              "timestamp": "2026-11-22T19:30:26.557Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 160377,
+              "cacheWriteTokens": 224,
+              "outputTokens": 3043,
+              "nanoAiu": 6306940000.0
+            },
+            {
+              "identityHash": "DE87EDB65E1DD012F540D77283ABC57AC29E1495AD4856B0C6D0B920AF97A0EE",
+              "timestamp": "2026-11-22T19:31:28.769Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 160601,
+              "cacheWriteTokens": 3005,
+              "outputTokens": 201,
+              "nanoAiu": 4164670000.0
+            },
+            {
+              "identityHash": "B5EFAC1E3B959C0729207580DA96B6ECA8C35D41F77A28DDAAC28E731B1F1C7C",
+              "timestamp": "2026-11-22T19:31:31.011Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 163606,
+              "cacheWriteTokens": 273,
+              "outputTokens": 176,
+              "nanoAiu": 3516770000.0
+            },
+            {
+              "identityHash": "D7288E15D44D346B182F617D8CA0971FEA80787E12AFA9AEBC611AFB06CEBB69",
+              "timestamp": "2026-11-22T19:31:32.782Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 163879,
+              "cacheWriteTokens": 1854,
+              "outputTokens": 149,
+              "nanoAiu": 3890480000.0
+            },
+            {
+              "identityHash": "C948E393FFC7EE8E6022B869746FA79ED56086D66B3EC358E19E8B713F54D3F7",
+              "timestamp": "2026-11-22T19:31:36.655Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 165733,
+              "cacheWriteTokens": 1077,
+              "outputTokens": 410,
+              "nanoAiu": 3994310000.0
+            },
+            {
+              "identityHash": "8AF6D2C264123B913B499348D97CB52C067E6CAFB27DBFE4DCE204B303FA5E47",
+              "timestamp": "2026-11-22T19:31:46.135Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 166810,
+              "cacheWriteTokens": 776,
+              "outputTokens": 167,
+              "nanoAiu": 3697600000.0
+            },
+            {
+              "identityHash": "DF1AA8A730972258B402EA529E337C0BFFE64FA56DAB3EE437E6C6947727FAB2",
+              "timestamp": "2026-11-22T19:32:04.969Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 167586,
+              "cacheWriteTokens": 3959,
+              "outputTokens": 2180,
+              "nanoAiu": 6521870000.0
+            },
+            {
+              "identityHash": "3654E0A7E0FA113DEF44101C33606A2287BB72F4C44591AF69ACDBBEEEA3C8A7",
+              "timestamp": "2026-11-22T19:32:34.099Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 171545,
+              "cacheWriteTokens": 2668,
+              "outputTokens": 201,
+              "nanoAiu": 4299300000.0
+            },
+            {
+              "identityHash": "173057B3CB7CD8D1F747D41C203C728F1A279FD9EB2E8706123C24F94460B3B2",
+              "timestamp": "2026-11-22T19:32:37.583Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 174213,
+              "cacheWriteTokens": 273,
+              "outputTokens": 356,
+              "nanoAiu": 3908910000.0
+            },
+            {
+              "identityHash": "E04BEF52D0D863ACF27EF7C39D4AA2FB2F185630C0EA337CF0F9CB8A38004055",
+              "timestamp": "2026-11-22T19:32:49.154Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 174486,
+              "cacheWriteTokens": 657,
+              "outputTokens": 492,
+              "nanoAiu": 4146370000.0
+            },
+            {
+              "identityHash": "8FCE628C8A329B863CBA42AF6F0E9F9628B9BB7C25774FD32F1C896CD0778F45",
+              "timestamp": "2026-11-22T19:32:51.296Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 175143,
+              "cacheWriteTokens": 548,
+              "outputTokens": 151,
+              "nanoAiu": 3791260000.0
+            },
+            {
+              "identityHash": "C7804ADB3A7962A7857B163BF6043743AAD93ECF94538C6EC269583C945FFC3E",
+              "timestamp": "2026-11-22T19:33:13.846Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 175691,
+              "cacheWriteTokens": 3093,
+              "outputTokens": 2457,
+              "nanoAiu": 6744470000.0
+            },
+            {
+              "identityHash": "2D3251D4F9D22A7E2FE27C7AFA0DDACEAF076234F2D7E6116D689CE52F14D15C",
+              "timestamp": "2026-11-22T19:37:09.889Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 178784,
+              "cacheWriteTokens": 3528,
+              "outputTokens": 186,
+              "nanoAiu": 4644080000.0
+            },
+            {
+              "identityHash": "75D4E4C565E3FFA7FC5F10EAC7B4BD733EC260D65F704E1BD7D23DFAE8B913DE",
+              "timestamp": "2026-11-22T19:37:12.644Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 182312,
+              "cacheWriteTokens": 930,
+              "outputTokens": 200,
+              "nanoAiu": 4079140000.0
+            },
+            {
+              "identityHash": "D4A6B244AD14F82CE53868E375271AD81869694167933A09E2DACD1978457351",
+              "timestamp": "2026-11-22T19:37:17.621Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 183242,
+              "cacheWriteTokens": 558,
+              "outputTokens": 498,
+              "nanoAiu": 4302740000.0
+            },
+            {
+              "identityHash": "93B5E75244837577FCFFBA0DA31D75B2705C9A2925FF476E6991D66296C8E2AB",
+              "timestamp": "2026-11-22T19:37:27.710Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 183800,
+              "cacheWriteTokens": 802,
+              "outputTokens": 290,
+              "nanoAiu": 4166900000.0
+            },
+            {
+              "identityHash": "AAAC17EEFC4CB16A13EBAF49D659E5EA7B276403F7CAC6E2EA5CFAE546DD7E81",
+              "timestamp": "2026-11-22T19:37:30.338Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 184602,
+              "cacheWriteTokens": 159,
+              "outputTokens": 180,
+              "nanoAiu": 3912190000.0
+            },
+            {
+              "identityHash": "7011EBA74AF1BE8B148FCC6F6E7C4A3C12A2EAA7924656B47E4BBFD6B0221AF9",
+              "timestamp": "2026-11-22T19:37:33.708Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 184761,
+              "cacheWriteTokens": 203,
+              "outputTokens": 244,
+              "nanoAiu": 3990370000.0
+            },
+            {
+              "identityHash": "B31CB35C2CD4BDEBBF9BDE8618905611D4041124E2EDA31B93119911249FC6AD",
+              "timestamp": "2026-11-22T19:37:53.454Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 184964,
+              "cacheWriteTokens": 271,
+              "outputTokens": 1996,
+              "nanoAiu": 5763430000.0
+            },
+            {
+              "identityHash": "5F32D773D3328A438EC645A36318FC571E17DC5BB83046B2A4E5F64F6D4C0F0C",
+              "timestamp": "2026-11-22T19:40:59.082Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 185235,
+              "cacheWriteTokens": 2867,
+              "outputTokens": 445,
+              "nanoAiu": 4866850000.0
+            },
+            {
+              "identityHash": "52F9E23E07510E1843A345620EE6ECFC890AB2981A1E5E44FC21C8F43A1AC3E6",
+              "timestamp": "2026-11-22T19:41:05.294Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 188102,
+              "cacheWriteTokens": 1680,
+              "outputTokens": 605,
+              "nanoAiu": 4787440000.0
+            },
+            {
+              "identityHash": "3B73A6AEBEE401715A64CE8B073B0A48D65B00023F4379E66E5BCB59B0C5894C",
+              "timestamp": "2026-11-22T19:41:14.817Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 189782,
+              "cacheWriteTokens": 912,
+              "outputTokens": 166,
+              "nanoAiu": 4190040000.0
+            },
+            {
+              "identityHash": "C7C1EE3CD78D9A5FC5230F2AEF64CC0FF23F510B35154891865C0555DC6393CE",
+              "timestamp": "2026-11-22T19:41:21.503Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 190694,
+              "cacheWriteTokens": 741,
+              "outputTokens": 598,
+              "nanoAiu": 4597530000.0
+            },
+            {
+              "identityHash": "20FBF7EBA80654D692DA9AC12945D571C7AC3AA228C20B35F8006FA582A18C55",
+              "timestamp": "2026-11-22T19:41:26.761Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 191435,
+              "cacheWriteTokens": 684,
+              "outputTokens": 482,
+              "nanoAiu": 4482100000.0
+            },
+            {
+              "identityHash": "4F291AA564196997A4EE39F1F8472D19C44004F82FDF5AC2A24083AF47B9C93D",
+              "timestamp": "2026-11-22T19:41:51.895Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 192119,
+              "cacheWriteTokens": 701,
+              "outputTokens": 2682,
+              "nanoAiu": 6700030000.0
+            },
+            {
+              "identityHash": "B551AA0B88324C753BBF99A0B36B1DDE2C6068EA8128A2098EF37D4966E1E13B",
+              "timestamp": "2026-11-22T19:42:07.882Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 192820,
+              "cacheWriteTokens": 2688,
+              "outputTokens": 1902,
+              "nanoAiu": 6430800000.0
+            },
+            {
+              "identityHash": "474E0A8513AB0AF82338CAE1FA1E7E9F94E8F4F5D564BED5789A8B8AD062354A",
+              "timestamp": "2026-11-22T19:42:10.869Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 195508,
+              "cacheWriteTokens": 1971,
+              "outputTokens": 289,
+              "nanoAiu": 4692310000.0
+            },
+            {
+              "identityHash": "BD35CFD52122AD35B027313E43544A8FFD4F8FFB068562D2BC625104BD1A576D",
+              "timestamp": "2026-11-22T19:42:16.445Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 197479,
+              "cacheWriteTokens": 343,
+              "outputTokens": 556,
+              "nanoAiu": 4591730000.0
+            },
+            {
+              "identityHash": "90E14C347D32705630F5032FEF15613A6E6B31548C8566ED73F0568D968AB397",
+              "timestamp": "2026-11-22T19:42:31.892Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 197822,
+              "cacheWriteTokens": 694,
+              "outputTokens": 1121,
+              "nanoAiu": 5251340000.0
+            },
+            {
+              "identityHash": "008A081DED71AB88C9F06B63D15F0CC8933C829ABC37A0DF98BAAB09227A10FC",
+              "timestamp": "2026-11-22T19:42:34.851Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 198516,
+              "cacheWriteTokens": 1173,
+              "outputTokens": 260,
+              "nanoAiu": 4523970000.0
+            },
+            {
+              "identityHash": "026777F812FD99545769766FB92167DD596F69C2EF17653E70BA11B08A60A3AE",
+              "timestamp": "2026-11-22T19:42:49.809Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 199689,
+              "cacheWriteTokens": 706,
+              "outputTokens": 1495,
+              "nanoAiu": 5665680000.0
+            },
+            {
+              "identityHash": "2FC5F8FDFE7D89EE3224643C0A2F609BD2AC201C032AA4E04A9FFD74F12A3766",
+              "timestamp": "2026-11-22T19:42:54.464Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 200395,
+              "cacheWriteTokens": 1312,
+              "outputTokens": 450,
+              "nanoAiu": 4786300000.0
+            },
+            {
+              "identityHash": "ACC4717FEF96DE96610F4A9E78590A6EDDF612FCE84DA1D548CA6523A10BA990",
+              "timestamp": "2026-11-22T19:43:01.609Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 201707,
+              "cacheWriteTokens": 303,
+              "outputTokens": 825,
+              "nanoAiu": 4935290000.0
+            },
+            {
+              "identityHash": "8993D0857E0423645D0A34DE02E3E99611A4505ED3FDC2D170F4DA6202D960D9",
+              "timestamp": "2026-11-22T19:43:04.041Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 202010,
+              "cacheWriteTokens": 819,
+              "outputTokens": 153,
+              "nanoAiu": 4398350000.0
+            },
+            {
+              "identityHash": "C7B37B64F2308A5B147D1A5CBC4E275F3A2188A6165E4980B1FD3CDBA3CC4CC3",
+              "timestamp": "2026-11-22T19:43:05.673Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 202829,
+              "cacheWriteTokens": 204,
+              "outputTokens": 128,
+              "nanoAiu": 4235980000.0
+            },
+            {
+              "identityHash": "D08DBDB4CDF90711CD0D7FDD2F5BE57AAE15451F9EDAD2BB643197CD81886A3D",
+              "timestamp": "2026-11-22T19:43:07.905Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 203033,
+              "cacheWriteTokens": 179,
+              "outputTokens": 161,
+              "nanoAiu": 4266810000.0
+            },
+            {
+              "identityHash": "EF9392C50274A91A89FCB62C3660F6941C1718DDF55B53E18DF08A3257634B7E",
+              "timestamp": "2026-11-22T19:43:10.669Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 203212,
+              "cacheWriteTokens": 164,
+              "outputTokens": 163,
+              "nanoAiu": 4268640000.0
+            },
+            {
+              "identityHash": "F72CC617CB47C4EBDA01FB34600DDFD6E5DE9FDA7E8CC117342095B15597926C",
+              "timestamp": "2026-11-22T19:43:13.185Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 203376,
+              "cacheWriteTokens": 171,
+              "outputTokens": 235,
+              "nanoAiu": 4345670000.0
+            },
+            {
+              "identityHash": "1A6FADC4B94CFE918F44DD5B2B7547D6E60DC545CACCECB018DD7CEE3EF2ABD8",
+              "timestamp": "2026-11-22T19:43:15.737Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 203547,
+              "cacheWriteTokens": 286,
+              "outputTokens": 195,
+              "nanoAiu": 4337840000.0
+            },
+            {
+              "identityHash": "FFCEBB275650636A3EC7EF93B981CFBD6E78146C2EB3E7F59B59AF6045829898",
+              "timestamp": "2026-11-22T19:43:19.056Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 203833,
+              "cacheWriteTokens": 155,
+              "outputTokens": 206,
+              "nanoAiu": 4321810000.0
+            },
+            {
+              "identityHash": "C363808F42D27DF560DAB983A815F2A3D01E6F95357A82611B770322CA230816",
+              "timestamp": "2026-11-22T19:43:32.593Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 203988,
+              "cacheWriteTokens": 589,
+              "outputTokens": 1115,
+              "nanoAiu": 5342410000.0
+            },
+            {
+              "identityHash": "BA88C9A2169560F6715D5FD476406630B4A18E383177BE4F8965976A4BCE81EE",
+              "timestamp": "2026-11-22T19:43:40.500Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 204577,
+              "cacheWriteTokens": 514,
+              "outputTokens": 498,
+              "nanoAiu": 4718440000.0
+            },
+            {
+              "identityHash": "E6D0ED133A936B25ED565883CACCDD2AFF97302A656780FA9BA58586266AD266",
+              "timestamp": "2026-11-22T19:43:43.729Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 205091,
+              "cacheWriteTokens": 306,
+              "outputTokens": 369,
+              "nanoAiu": 4547720000.0
+            },
+            {
+              "identityHash": "57B58FF153F7B862A893C1E9A3EC52760030E7DCC7B5EA9851870CE521961CE0",
+              "timestamp": "2026-11-22T19:43:55.371Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 205397,
+              "cacheWriteTokens": 591,
+              "outputTokens": 502,
+              "nanoAiu": 4758090000.0
+            },
+            {
+              "identityHash": "4DE374CC093CCE1E8DAC8516F288930109EFE6A33C4B2375D2F0985A2D34C3CA",
+              "timestamp": "2026-11-22T19:44:05.161Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 205988,
+              "cacheWriteTokens": 725,
+              "outputTokens": 252,
+              "nanoAiu": 4553410000.0
+            },
+            {
+              "identityHash": "0584AEEFD1C24D63E2C493523FAF9AA428C458E5BEB3B38D179C2535C37C3CA5",
+              "timestamp": "2026-11-22T19:44:09.522Z",
+              "model": "claude-sonnet-5",
+              "inputTokens": 2,
+              "cacheReadTokens": 206713,
+              "cacheWriteTokens": 391,
+              "outputTokens": 454,
+              "nanoAiu": 4686410000.0
+            }
+          ]
+        }
+      ],
+      "contentDigest": "3B39BFD44B90311C75B5ABC6116F5C8AB936E9B5A4DF73CE30178212283D910F"
+    }
+  ]
+}
