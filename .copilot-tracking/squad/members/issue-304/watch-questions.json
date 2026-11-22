@@ -1,0 +1,32 @@
+{
+  "rows": [
+    {
+      "ID": "ASM-1",
+      "Source": "Peter-N91/hve-squad#304",
+      "Question": "Is reducing the tester role's Alternate Agents to its Primary Squad Reviewer (a capability reduction) an acceptable scope decision for a minor-bump release fragment, as the issue itself instructs?",
+      "Impact": "Choosing drop-only versus authoring a replacement charter changes the deliverable set and the release-note wording; a wrong call would require re-authoring the fragment.",
+      "Status": "Resolved - plans/cast-adaptation-plan.md scoped this as drop-only, no dispatchable replacement exists; changes/cast-adaptation-change.md reflects it; reviews/cast-adaptation-review.md approved."
+    },
+    {
+      "ID": "ASM-2",
+      "Source": "Peter-N91/hve-squad#304",
+      "Question": "Does removing 7 agents: frontmatter entries from the coordinators and the coding-standards doctor domain shift tests/tier0/baselines/prefill-baseline.json, requiring regeneration rather than a hand-edit?",
+      "Impact": "A stale baseline assertion would fail CI even though the removal is intentional and reviewed; regenerating it the wrong way would mask a real regression.",
+      "Status": "Resolved - reviews/cast-adaptation-review.md found no stale references in prefill-baseline.json; no edit needed. Full tier0 Packaging.Tests.ps1 run deferred to PR CI."
+    },
+    {
+      "ID": "ASM-3",
+      "Source": "Peter-N91/hve-squad#304",
+      "Question": "Does Squad Reviewer alone (via the deployed code-review skill) fully cover the tester role's prior Code Review Alternate perspectives (functional, standards, security, accessibility, readiness), or does a gap remain?",
+      "Impact": "An unfilled reviewer-class gap would leave diff-level perspectives unreachable even though the roster row still resolves.",
+      "Status": "Resolved - research/2026-11-22/cast-delta-research.md confirmed Accessibility Framework Assessor and Security Planner cover product-level perspectives; Squad Reviewer covers tester; no gap, no new charter."
+    },
+    {
+      "ID": "ASM-4",
+      "Source": "Peter-N91/hve-squad#304",
+      "Question": "Are the 2 failing SquadDoctor.Tests.ps1 cases (SDOC-02, SDOC-03) caused by the gitignored, provisioned .agents/skills generated tree rather than by the edited squad-src source, and will packaging regenerate that tree before CI?",
+      "Impact": "If the generated tree is not regenerated before merge, CI would fail on a stale coding-standards reference even though the source change is correct.",
+      "Status": "Resolved - reviews/cast-adaptation-review.md diffed squad-src against .agents; only the removed coding-standards entries differ in the stale generated copy. Regeneration is a disclosed follow-up."
+    }
+  ]
+}
