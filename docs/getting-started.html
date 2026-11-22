@@ -108,7 +108,7 @@ copilot</code></pre>
         <pre><code>copilot plugin marketplace update hve-squad
 copilot plugin update hve-squad</code></pre>
         <h3>Check agent availability</h3>
-        <p data-release-change="20261106-squad-doctor">Select <strong>Squad Doctor</strong> directly after every upgrade, in a fresh session; request <code>check</code>, then <code>repair</code> to confirm supported fixes. No squad initialization is required. The Doctor runs deterministic scripts, checks runtime files, seven HVE Core domains and existing squad/member state, and repairs missing or invalid rate tables with backups and rechecks. Unsupported faults remain blockers; it does not invent history or reinstall plugins. Coordinators can invoke this same agent when runtime checks fail.</p>
+        <p data-release-change="20261106-squad-doctor">Select <strong>Squad Doctor</strong> directly after every upgrade, in a fresh session; request <code>check</code>, then <code>repair</code> to confirm supported fixes. No squad initialization is required. The Doctor runs deterministic scripts, checks runtime files, six HVE Core domains and existing squad/member state, and repairs missing or invalid rate tables with backups and rechecks. Unsupported faults remain blockers; it does not invent history or reinstall plugins. Coordinators can invoke this same agent when runtime checks fail.</p>
         <pre data-release-change="20261106-squad-doctor"><code>/squad-doctor check</code></pre>
         <p>Missing HVE Core domains indicate a stale, disabled, or incomplete <code>hve-squad</code> installation: update or reinstall this one plugin and start a fresh session. Do not install a second <code>hve-core</code> plugin.</p>
       </section>

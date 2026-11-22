@@ -53,6 +53,6 @@ that repair with an actionable blocker. Do not dispatch other agents.
 ## Response
 
 Lead with healthy, repaired, or blocked. Include the checked scope, each of the
-seven domains (or the explicitly narrowed domain), exact repairs and backup
+six domains (or the explicitly narrowed domain), exact repairs and backup
 paths, unresolved issue, and the next required user action. A healthy receipt
 certifies only the implemented checks, not arbitrary application correctness.

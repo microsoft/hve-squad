@@ -90,13 +90,13 @@ Describe 'Squad Doctor entrypoints and recovery (SDOC-01, SDOC-06)' {
 }
 
 Describe 'Squad Doctor deterministic checks (SDOC-02)' {
-    It 'checks all seven host domains without initializing or writing files' {
+    It 'checks all six host domains without initializing or writing files' {
         $f = New-DoctorFixture
         $before = Get-DoctorSnapshot $f.Repo
         $result = Invoke-Doctor $f
         $result.Code | Should -Be 0 -Because $result.Raw
         $result.Data.status | Should -Be 'healthy'
-        @($result.Data.findings | Where-Object id -Like 'domain:*') | Should -HaveCount 7
+        @($result.Data.findings | Where-Object id -Like 'domain:*') | Should -HaveCount 6
         @($result.Data.findings | Where-Object status -ne 'pass') | Should -HaveCount 0
         Test-Path -LiteralPath $f.Root | Should -BeFalse
         Get-DoctorSnapshot $f.Repo | Should -BeExactly $before
@@ -106,11 +106,11 @@ Describe 'Squad Doctor deterministic checks (SDOC-02)' {
         $f = New-DoctorFixture
         $unknown = Invoke-Doctor $f -WithoutInventory
         $unknown.Code | Should -Be 2
-        @($unknown.Data.findings | Where-Object status -eq 'unverified') | Should -HaveCount 7
+        @($unknown.Data.findings | Where-Object status -eq 'unverified') | Should -HaveCount 6
         Write-DoctorFile (Join-Path $f.Repo 'inventory.json') '[]'
         $empty = Invoke-Doctor $f
         $empty.Code | Should -Be 2
-        @($empty.Data.findings | Where-Object { $_.id -like 'domain:*' -and $_.status -eq 'fail' }) | Should -HaveCount 7
+        @($empty.Data.findings | Where-Object { $_.id -like 'domain:*' -and $_.status -eq 'fail' }) | Should -HaveCount 6
     }
 
     It 'does not accept Squad glue or similar names as a domain representative' {
