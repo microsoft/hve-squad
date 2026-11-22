@@ -1000,7 +1000,7 @@ Describe 'GATE-48 Watch workflow handoff preflight and record repair' {
 import json, sys, yaml
 from pathlib import Path
 workflow = yaml.safe_load(Path(sys.argv[1]).read_text(encoding="utf-8"))
-names = {"Prepare handoff validator", "Run the squad", "Stage changes for handoff", "Sanitize publication diagnostics"}
+names = {"Prepare handoff validator", "Verify COPILOT_GITHUB_TOKEN least privilege", "Run the squad", "Stage changes for handoff", "Sanitize publication diagnostics"}
 print(json.dumps({step["name"]: step["run"] for step in workflow["jobs"]["interpret"]["steps"] if step.get("name") in names}))
 '@
         $json = & python -c $extractor (Join-Path $script:SourceRootResolved '.github/workflows/squad-watch.yml')
@@ -1017,7 +1017,10 @@ print(json.dumps({step["name"]: step["run"] for step in workflow["jobs"]["interp
             'WATCH_MODULE_HASH', 'BASELINE_HASH', 'VALIDATOR_HASH', 'EXISTING_PR',
             'PUBLICATION_BRANCH_EXISTS', 'COPILOT_GITHUB_TOKEN', 'SQUAD_PROMPT_FILE',
             'MODEL_OVERRIDE', 'SQUAD_MODEL', 'RUN_KIND', 'WATCH_TEST_SCENARIO',
-            'AWF_IMAGE_TAG', 'AWF_ALLOW_DOMAINS', 'DIAGNOSTICS_OUT', 'GH_TOKEN', 'GITHUB_TOKEN'
+            'AWF_IMAGE_TAG', 'AWF_ALLOW_DOMAINS', 'DIAGNOSTICS_OUT', 'GH_TOKEN', 'GITHUB_TOKEN',
+            'REPO', 'API_URL', 'SERVER_URL', 'MOCK_REPO_CODE', 'MOCK_REPO_BODY',
+            'MOCK_OAUTH_HEADER', 'MOCK_COLLAB_CODE', 'MOCK_COLLAB_HEADER', 'MOCK_COLLAB_BODY',
+            'MOCK_PUSH_CODE'
         )
     }
 
@@ -1328,6 +1331,69 @@ Key: $fakeOpenAi
         $stagedRun | Should -Match 'Key: \[REDACTED\]'
 
         Test-Path -LiteralPath (Join-Path $stagedOut 'members/issue-7/linked-outside/secret.txt') | Should -BeFalse
+    }
+
+    It 'verifies token-level repository and push scope in <Variant>: <Case>' -ForEach @(
+        @{ Variant = 'live'; Case = 'public repo owner PAT without repo scope'; Token = 'github_pat_fixture_copilot_only'; RepoCode = '200'; RepoBody = '{"permissions":{"admin":true,"maintain":true,"push":true}}'; CollabCode = '403'; CollabHeader = 'x-accepted-github-permissions: metadata=read'; CollabBody = '{"message":"Resource not accessible by personal access token"}'; PushCode = '500'; ExitCode = 0 }
+        @{ Variant = 'template'; Case = 'public repo owner PAT without repo scope'; Token = 'github_pat_fixture_copilot_only'; RepoCode = '200'; RepoBody = '{"permissions":{"admin":true,"maintain":true,"push":true}}'; CollabCode = '403'; CollabHeader = ''; CollabBody = '{"message":"Resource not accessible by personal access token"}'; PushCode = '500'; ExitCode = 0 }
+        @{ Variant = 'live'; Case = 'public repo owner PAT with metadata read only'; Token = 'github_pat_fixture_metadata_ro'; RepoCode = '200'; RepoBody = '{"permissions":{"admin":true,"push":true}}'; CollabCode = '200'; CollabHeader = ''; CollabBody = '[]'; PushCode = '403'; ExitCode = 0 }
+        @{ Variant = 'live'; Case = 'public repo owner PAT with contents write'; Token = 'github_pat_fixture_contents_rw'; RepoCode = '200'; RepoBody = '{"permissions":{"admin":true,"push":true}}'; CollabCode = '200'; CollabHeader = ''; CollabBody = '[]'; PushCode = '200'; ExitCode = 1 }
+        @{ Variant = 'template'; Case = 'outside collaborator PAT with contents write'; Token = 'github_pat_fixture_outside_rw'; RepoCode = '200'; RepoBody = '{"permissions":{"admin":false,"push":true}}'; CollabCode = '403'; CollabHeader = ''; CollabBody = '{"message":"Must be an organization member"}'; PushCode = '200'; ExitCode = 1 }
+        @{ Variant = 'live'; Case = 'classic PAT prefix rejected'; Token = 'ghp_fixture_classic_pat'; RepoCode = '200'; RepoBody = '{}'; CollabCode = '403'; CollabHeader = ''; CollabBody = '{}'; PushCode = '403'; ExitCode = 1 }
+    ) {
+        $stepBody = if ($Variant -eq 'live') {
+            $script:HandoffSteps['Verify COPILOT_GITHUB_TOKEN least privilege']
+        } else {
+            $script:TemplateHandoffSteps['Verify COPILOT_GITHUB_TOKEN least privilege']
+        }
+        $root = Join-Path $TestDrive ("pat-$Variant-" + ($Case -replace '\s+', '-'))
+        New-Item -ItemType Directory -Path $root -Force | Out-Null
+        $env:RUNNER_TEMP = $root.Replace('\', '/')
+        $env:COPILOT_GITHUB_TOKEN = $Token
+        $env:REPO = 'Peter-N91/hve-squad'
+        $env:API_URL = 'https://api.github.com'
+        $env:SERVER_URL = 'https://github.com'
+        $env:MOCK_REPO_CODE = $RepoCode
+        $env:MOCK_REPO_BODY = $RepoBody
+        $env:MOCK_COLLAB_CODE = $CollabCode
+        $env:MOCK_COLLAB_HEADER = $CollabHeader
+        $env:MOCK_COLLAB_BODY = $CollabBody
+        $env:MOCK_PUSH_CODE = $PushCode
+
+        $stubs = @'
+curl() {
+  local dump_file="" out_file="" url=""
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -D) dump_file="$2"; shift 2 ;;
+      -o) out_file="$2"; shift 2 ;;
+      -w|-H) shift 2 ;;
+      -s|-S|-sS) shift ;;
+      *) url="$1"; shift ;;
+    esac
+  done
+  case "$url" in
+    *"/collaborators"*)
+      [[ -z "$dump_file" ]] || printf 'HTTP/2 %s\r\n%s\r\n\r\n' "$MOCK_COLLAB_CODE" "$MOCK_COLLAB_HEADER" > "$dump_file"
+      [[ -z "$out_file" || "$out_file" == "/dev/null" ]] || printf '%s' "$MOCK_COLLAB_BODY" > "$out_file"
+      printf '%s' "$MOCK_COLLAB_CODE"
+      ;;
+    *"/info/refs?service=git-receive-pack")
+      printf '%s' "$MOCK_PUSH_CODE"
+      ;;
+    *"/repos/"*)
+      [[ -z "$dump_file" ]] || printf 'HTTP/2 %s\r\n\r\n' "$MOCK_REPO_CODE" > "$dump_file"
+      [[ -z "$out_file" || "$out_file" == "/dev/null" ]] || printf '%s' "$MOCK_REPO_BODY" > "$out_file"
+      printf '%s' "$MOCK_REPO_CODE"
+      ;;
+    *)
+      printf '500'
+      ;;
+  esac
+}
+'@
+        $output = @(& bash -c ($stubs + "`n" + $stepBody) 2>&1)
+        $LASTEXITCODE | Should -Be $ExitCode -Because ($output -join "`n")
     }
 }
 
