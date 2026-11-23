@@ -139,7 +139,13 @@ Describe 'CI-02 hve-core sync validates before publication' {
 
     Describe 'CI-03 Isolated CI shards retain a fail-closed required check' {
         It 'freezes the planned checkout and preserves the aggregate check name' {
+            $script:Tier0Workflow | Should -Match 'name: Resolve current pull request refs'
+            $script:Tier0Workflow | Should -Match 'github\.rest\.pulls\.get'
+            $script:Tier0Workflow | Should -Match "\['base_sha', pull\.base\.sha\]"
+            $script:Tier0Workflow | Should -Match "\['head_sha', pull\.head\.sha\]"
+            $script:Tier0Workflow | Should -Match 'core\.setOutput\(name, sha\)'
             $script:Tier0Workflow | Should -Match 'ref: \$\{\{ needs\.plan\.outputs\.sha \}\}'
+            $script:Tier0Workflow | Should -Match 'ref: \$\{\{ needs\.plan\.outputs\.head_sha \}\}'
             $script:Tier0Workflow | Should -Match 'shard: \$\{\{ fromJSON\(needs\.plan\.outputs\.shards\) \}\}'
             $script:Tier0Workflow | Should -Match 'fail-fast: true'
             $script:Tier0Workflow | Should -Match '(?s)required:\s+name: Package conformance\s+if: always\(\)\s+needs: \[plan, conformance\]'
@@ -148,8 +154,18 @@ Describe 'CI-02 hve-core sync validates before publication' {
             $script:Tier0Workflow | Should -Match 'path: tests/tier0/tier0-results\.xml'
         }
 
-        It 'covers shared installer, canonical hooks, and release workflow changes' {
-            foreach ($path in @('tests/lib/**', 'scripts/plugin-hooks/**', '.github/workflows/release.yml')) {
+        It 'rebuilds the current pull request merge instead of trusting a stale event merge SHA' {
+            @([regex]::Matches($script:Tier0Workflow, [regex]::Escape('name: Rebuild current pull request merge'))).Count | Should -Be 2
+            @([regex]::Matches($script:Tier0Workflow, [regex]::Escape('path: .git/tier0-pr-head'))).Count | Should -Be 2
+            @([regex]::Matches($script:Tier0Workflow, [regex]::Escape('git -c user.name='))).Count | Should -Be 2
+            $script:Tier0Workflow | Should -Match 'merge --no-ff --no-edit FETCH_HEAD'
+            $script:Tier0Workflow | Should -Match 'parents\[0\] -ne \$env:PR_BASE_SHA'
+            $script:Tier0Workflow | Should -Match 'parents\[1\] -ne \$env:PR_HEAD_SHA'
+            $script:Tier0Workflow | Should -Not -Match 'ref: \$\{\{ inputs\.source-ref \|\| github\.sha \}\}'
+        }
+
+        It 'covers shared installer, canonical hooks, and live workflow changes' {
+            foreach ($path in @('tests/lib/**', 'scripts/plugin-hooks/**', '.github/workflows/release.yml', '.github/workflows/squad-watch.yml')) {
                 @([regex]::Matches($script:Tier0Workflow, [regex]::Escape("'$path'"))).Count | Should -Be 2
             }
             $script:Tier0Workflow | Should -Match 'group: \$\{\{ github.workflow \}\}-tier0-'
