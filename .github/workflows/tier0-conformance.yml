@@ -32,6 +32,7 @@ on:
       - 'tests/tier0/**'
       - 'tests/lib/**'
       - '.github/workflows/tier0-conformance.yml'
+      - '.github/workflows/squad-watch.yml'
       - '.github/workflows/release.yml'
   push:
     branches:
@@ -44,6 +45,7 @@ on:
       - 'tests/tier0/**'
       - 'tests/lib/**'
       - '.github/workflows/tier0-conformance.yml'
+      - '.github/workflows/squad-watch.yml'
       - '.github/workflows/release.yml'
   workflow_call:
     inputs:
