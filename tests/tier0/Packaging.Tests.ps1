@@ -598,7 +598,8 @@ print(json.dumps({
         $script:ReferenceSquadWatch | Should -Match ([regex]::Escape('New-SquadWatchHandoff'))
         $script:ReferenceSquadWatch | Should -Match ([regex]::Escape('Verify COPILOT_GITHUB_TOKEN least privilege'))
         $script:RepoSquadWatch | Should -Match ([regex]::Escape('Verify COPILOT_GITHUB_TOKEN least privilege'))
-        $script:RepoSquadWatch | Should -Match 'uses: github/gh-aw-firewall@[0-9a-f]{40} # v0\.29\.13'
+        $script:RepoSquadWatch | Should -Match '(?m)^[ \t]*uses:[ \t]+github/gh-aw-firewall@[0-9a-f]{40}[ \t]+#[ \t]+v[0-9]+\.[0-9]+\.[0-9]+[ \t]*\r?$'
+        $script:RepoSquadWatch | Should -Match "(?m)^[ \t]*version:[ \t]+'v[0-9]+\.[0-9]+\.[0-9]+'[ \t]*\r?$"
         $script:RepoSquadWatch | Should -Match ([regex]::Escape('--exclude-env COPILOT_GITHUB_TOKEN'))
         $script:RepoSquadWatch | Should -Match ([regex]::Escape('--exclude-env GH_TOKEN'))
         $script:RepoSquadWatch | Should -Match ([regex]::Escape('--exclude-env GITHUB_TOKEN'))

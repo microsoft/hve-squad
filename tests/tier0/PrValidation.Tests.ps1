@@ -148,8 +148,8 @@ Describe 'CI-02 hve-core sync validates before publication' {
             $script:Tier0Workflow | Should -Match 'path: tests/tier0/tier0-results\.xml'
         }
 
-        It 'covers shared installer, canonical hooks, and release workflow changes' {
-            foreach ($path in @('tests/lib/**', 'scripts/plugin-hooks/**', '.github/workflows/release.yml')) {
+        It 'covers shared installer, canonical hooks, and live workflow changes' {
+            foreach ($path in @('tests/lib/**', 'scripts/plugin-hooks/**', '.github/workflows/release.yml', '.github/workflows/squad-watch.yml')) {
                 @([regex]::Matches($script:Tier0Workflow, [regex]::Escape("'$path'"))).Count | Should -Be 2
             }
             $script:Tier0Workflow | Should -Match 'group: \$\{\{ github.workflow \}\}-tier0-'
