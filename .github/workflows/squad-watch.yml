@@ -1307,7 +1307,7 @@ jobs:
       - name: Set up Agentic Workflow Firewall
         id: setup_awf
         if: steps.prep.outputs.authorized == 'true' && steps.prep.outputs.suppressInterpret != 'true'
-        uses: github/gh-aw-firewall@62b7e8ff1884aa476185369fa6be85585029f4c9 # v0.29.13
+        uses: github/gh-aw-firewall@4223c9a11118a60e877cecfe560249a2002019cb # v0.29.14
         with:
           version: 'v0.29.13'
 
