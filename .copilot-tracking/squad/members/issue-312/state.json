@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "1.4",
+  "updated": "2026-11-23T20:07:09Z",
+  "turn": 6,
+  "mode": "autopilot",
+  "activeRoles": [],
+  "openEscalations": [],
+  "currentRun": {
+    "sessionModel": "",
+    "modelOverrides": {},
+    "estCostUsd": 30.1395,
+    "estCreditsTotal": 3013.95,
+    "costPreflight": {
+      "runId": "",
+      "roundId": "",
+      "ceilingUsd": null,
+      "evaluatedSpendUsd": 0,
+      "remainingUsd": null,
+      "plannedDispatches": 0,
+      "projectedCostUsd": 0,
+      "reserveMultiplier": 3.0,
+      "admissionCostUsd": 0,
+      "confidence": "not-applicable",
+      "basis": "not-requested",
+      "decision": "not-requested",
+      "reason": "No cost ceiling configured."
+    }
+  },
+  "notify": {
+    "approvalChannel": "in-chat",
+    "enabled": false,
+    "email": "",
+    "github": {
+      "handle": "",
+      "repo": ""
+    }
+  },
+  "trigger": {
+    "source": "issue",
+    "ref": "Peter-N91/hve-squad#312",
+    "eventId": "issues:6566522774:labeled",
+    "actor": "Peter-N91",
+    "receivedAt": "2026-11-23T18:53:35.124Z",
+    "runId": "autopilot-run-45243130867"
+  }
+}
