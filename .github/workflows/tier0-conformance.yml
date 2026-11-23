@@ -8,8 +8,9 @@ name: Tier 0 Conformance
 # as well as a release. See tests/squad-behavior-contract.md for the case list.
 #
 # Two modes, because a pull request branch cannot be installed:
-#   source mode (pull_request) — installs the manifest, then overlays the branch's
-#     squad-src/ on top. The manifest's self-references are bare paths, so APM
+#   source mode (pull_request) — resolves the current base and head through the
+#     API, rebuilds their merge, then installs the manifest and overlays that
+#     branch's squad-src/. The manifest's self-references are bare paths, so APM
 #     resolves them against the default branch and every file a branch ADDS is
 #     reported missing; overlaying is what makes the branch testable at all.
 #   ref mode (workflow_call, workflow_dispatch) — installs a published ref exactly
@@ -89,15 +90,72 @@ jobs:
     timeout-minutes: 5
     outputs:
       sha: ${{ steps.plan.outputs.sha }}
+      head_sha: ${{ steps.refs.outputs.head_sha }}
       shards: ${{ steps.plan.outputs.shards }}
       modern: ${{ steps.plan.outputs.modern }}
     steps:
+      - name: Resolve current pull request refs
+        id: refs
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            const number = context.payload.pull_request?.number;
+            if (!number) {
+              throw new Error('Cannot resolve a pull request number.');
+            }
+            const { data: pull } = await github.rest.pulls.get({
+              ...context.repo,
+              pull_number: number,
+            });
+            for (const [name, sha] of [
+              ['base_sha', pull.base.sha],
+              ['head_sha', pull.head.sha],
+            ]) {
+              if (!/^[0-9a-f]{40}$/.test(sha || '')) {
+                throw new Error(`Pull request ${name} is not a full commit SHA.`);
+              }
+              core.setOutput(name, sha);
+            }
+
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          fetch-depth: 2
+          fetch-depth: 0
           persist-credentials: false
-          ref: ${{ inputs.source-ref || github.sha }}
+          ref: ${{ steps.refs.outputs.base_sha || inputs.source-ref || github.sha }}
+
+      - name: Checkout current pull request head
+        if: github.event_name == 'pull_request'
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          path: .git/tier0-pr-head
+          persist-credentials: false
+          ref: ${{ steps.refs.outputs.head_sha }}
+
+      - name: Rebuild current pull request merge
+        if: github.event_name == 'pull_request'
+        shell: pwsh
+        env:
+          PR_BASE_SHA: ${{ steps.refs.outputs.base_sha }}
+          PR_HEAD_SHA: ${{ steps.refs.outputs.head_sha }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $headPath = Join-Path $env:GITHUB_WORKSPACE '.git/tier0-pr-head'
+          $checkedOutBase = (& git rev-parse HEAD).Trim()
+          $checkedOutHead = (& git -C $headPath rev-parse HEAD).Trim()
+          if ($LASTEXITCODE -ne 0 -or $checkedOutBase -ne $env:PR_BASE_SHA -or $checkedOutHead -ne $env:PR_HEAD_SHA) {
+            throw "Tier 0 checkout mismatch (base=$checkedOutBase, expected=$($env:PR_BASE_SHA); head=$checkedOutHead, expected=$($env:PR_HEAD_SHA))."
+          }
+          & git fetch --no-tags $headPath $env:PR_HEAD_SHA
+          if ($LASTEXITCODE -ne 0) { throw 'Cannot import the current pull request head.' }
+          & git -c user.name='Tier 0 conformance' -c user.email='tier0@example.invalid' merge --no-ff --no-edit FETCH_HEAD
+          if ($LASTEXITCODE -ne 0) { throw 'The current pull request base and head do not merge cleanly.' }
+          $parents = @((& git rev-list --parents -n 1 HEAD).Trim().Split(' ') | Select-Object -Skip 1)
+          if ($parents.Count -ne 2 -or $parents[0] -ne $env:PR_BASE_SHA -or $parents[1] -ne $env:PR_HEAD_SHA) {
+            throw 'Tier 0 did not reconstruct the expected pull request merge.'
+          }
 
       - name: Select the exact test plan
         id: plan
@@ -105,6 +163,7 @@ jobs:
         env:
           INPUT_REF: ${{ inputs.ref }}
           INPUT_SCOPE: ${{ inputs.scope || 'All' }}
+          PR_BASE_SHA: ${{ steps.refs.outputs.base_sha }}
         run: |
           $ErrorActionPreference = 'Stop'
           $runner = Get-Command ./tests/tier0/Invoke-Tier0Tests.ps1 -ErrorAction Stop
@@ -120,8 +179,10 @@ jobs:
             Write-Warning 'Legacy hotfix runner: preserving its complete, unsharded suite instead of skipping unsupported selections.'
             $shards = @('All')
           }
-          $sha = & git rev-parse HEAD
+          $revision = if ($env:PR_BASE_SHA) { 'HEAD^1' } else { 'HEAD' }
+          $sha = & git rev-parse $revision
           if ($LASTEXITCODE -ne 0 -or $sha -notmatch '^[0-9a-f]{40}$') { throw 'Cannot freeze the Tier 0 checkout.' }
+          if ($env:PR_BASE_SHA -and $sha -ne $env:PR_BASE_SHA) { throw 'The frozen Tier 0 checkout is not the resolved pull request base.' }
           "sha=$sha" >> $env:GITHUB_OUTPUT
           "modern=$($modern.ToString().ToLowerInvariant())" >> $env:GITHUB_OUTPUT
           "shards=$(ConvertTo-Json -InputObject $shards -Compress)" >> $env:GITHUB_OUTPUT
@@ -141,9 +202,41 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          fetch-depth: 2
+          fetch-depth: 0
           persist-credentials: false
           ref: ${{ needs.plan.outputs.sha }}
+
+      - name: Checkout current pull request head
+        if: github.event_name == 'pull_request'
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          path: .git/tier0-pr-head
+          persist-credentials: false
+          ref: ${{ needs.plan.outputs.head_sha }}
+
+      - name: Rebuild current pull request merge
+        if: github.event_name == 'pull_request'
+        shell: pwsh
+        env:
+          PR_BASE_SHA: ${{ needs.plan.outputs.sha }}
+          PR_HEAD_SHA: ${{ needs.plan.outputs.head_sha }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $headPath = Join-Path $env:GITHUB_WORKSPACE '.git/tier0-pr-head'
+          $checkedOutBase = (& git rev-parse HEAD).Trim()
+          $checkedOutHead = (& git -C $headPath rev-parse HEAD).Trim()
+          if ($LASTEXITCODE -ne 0 -or $checkedOutBase -ne $env:PR_BASE_SHA -or $checkedOutHead -ne $env:PR_HEAD_SHA) {
+            throw "Tier 0 checkout mismatch (base=$checkedOutBase, expected=$($env:PR_BASE_SHA); head=$checkedOutHead, expected=$($env:PR_HEAD_SHA))."
+          }
+          & git fetch --no-tags $headPath $env:PR_HEAD_SHA
+          if ($LASTEXITCODE -ne 0) { throw 'Cannot import the current pull request head.' }
+          & git -c user.name='Tier 0 conformance' -c user.email='tier0@example.invalid' merge --no-ff --no-edit FETCH_HEAD
+          if ($LASTEXITCODE -ne 0) { throw 'The current pull request base and head do not merge cleanly.' }
+          $parents = @((& git rev-list --parents -n 1 HEAD).Trim().Split(' ') | Select-Object -Skip 1)
+          if ($parents.Count -ne 2 -or $parents[0] -ne $env:PR_BASE_SHA -or $parents[1] -ne $env:PR_HEAD_SHA) {
+            throw 'Tier 0 did not reconstruct the expected pull request merge.'
+          }
 
       # setup-only: the suite drives apm itself, so it needs the CLI and nothing else.
       - name: Install the APM CLI
@@ -178,7 +271,7 @@ jobs:
           # on the reset rather than failing, which reads as a hung job.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           INPUT_REF: ${{ inputs.ref }}
-          # HEAD^1 is the base of the exact PR merge tree under test.
+          # HEAD^1 is the freshly resolved base of the exact PR merge tree under test.
           TIER0_BASE_SHA: ${{ github.event_name == 'pull_request' && 'HEAD^1' || '' }}
           INPUT_SCOPE: ${{ inputs.scope || 'All' }}
           INPUT_SHARD: ${{ matrix.shard }}
