@@ -3,10 +3,12 @@ name: squad-governance-report
 description: "Reads squad state and generates a self-contained HTML governance dashboard (gates, verdicts, cost, dispatches, compliance, timeline, outcomes). Use when the user asks for a squad governance report, dashboard, or audit view."
 license: MIT
 metadata:
-  authors: "Peter-N91/hve-squad"
+  authors: "microsoft/hve-squad"
 ---
 
 # Squad Governance Report
+
+Read installed `squad/references/responsible-use.md` once.
 
 ## Inputs
 

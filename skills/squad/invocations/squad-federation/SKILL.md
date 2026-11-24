@@ -3,10 +3,12 @@ name: squad-federation
 description: "Routes a request to the Squad Federation Coordinator, which dispatches one or more named sub-squads. Use when the user's project has (or wants) multiple named sub-squads, or names init, promote, watch, or a specific squad=<name> target."
 license: MIT
 metadata:
-  authors: "Peter-N91/hve-squad"
+  authors: "microsoft/hve-squad"
 ---
 
 # Squad Federation
+
+Read installed `squad/references/responsible-use.md` once.
 
 ## Inputs
 

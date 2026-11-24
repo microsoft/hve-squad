@@ -3,10 +3,12 @@ name: squad-init-hooks
 description: "Writes the squad's hook backstops into the consuming repository's .github/hooks/ for hosts that require repository hooks or do not reliably execute plugin hooks. Use for Copilot CLI enforcement, cloud-agent/Watch Mode enforcement, or when the user asks to run 'squad-init-hooks'."
 license: MIT
 metadata:
-  authors: "Peter-N91/hve-squad"
+  authors: "microsoft/hve-squad"
 ---
 
 # Squad Init Hooks
+
+Read installed `squad/references/responsible-use.md` once.
 
 ## Why This Exists
 

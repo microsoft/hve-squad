@@ -3,10 +3,12 @@ name: squad-connector-builder
 description: "Starts the Squad Connector Builder to interactively scaffold a validated connector or create editable contract-compatible templates with a removable runner and runbook."
 license: MIT
 metadata:
-  authors: "Peter-N91/hve-squad"
+  authors: "microsoft/hve-squad"
 ---
 
 # Squad Connector Builder
+
+Read installed `squad/references/responsible-use.md` once.
 
 ## Inputs
 

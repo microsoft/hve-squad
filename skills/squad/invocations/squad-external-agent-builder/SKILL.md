@@ -3,10 +3,12 @@ name: squad-external-agent-builder
 description: "Starts the Squad External Agent Builder to create a standalone agent or multi-agent orchestrator, or adapt an existing implementation, for HVE Squad interoperability."
 license: MIT
 metadata:
-  authors: "Peter-N91/hve-squad"
+  authors: "microsoft/hve-squad"
 ---
 
 # Squad External Agent Builder
+
+Read installed `squad/references/responsible-use.md` once.
 
 ## Inputs
 

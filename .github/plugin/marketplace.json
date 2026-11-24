@@ -1,24 +1,24 @@
 {
   "name": "hve-squad",
   "owner": {
-    "name": "Peter-N91"
+    "name": "Microsoft"
   },
   "metadata": {
-    "description": "HVE Squad plugin marketplace published from Peter-N91/hve-squad.",
-    "version": "0.21.0"
+    "description": "HVE Squad plugin marketplace published from microsoft/hve-squad.",
+    "version": "0.22.0"
   },
   "plugins": [
     {
       "name": "hve-squad",
-      "description": "HVE Squad and its pinned HVE Core cast in one GitHub Copilot plugin: 36 Squad agents, 59 HVE Core agent entries, and 10 Squad invocation skills.",
-      "version": "0.21.0",
+      "description": "HVE Squad and its pinned HVE Core cast in one GitHub Copilot plugin: 36 Squad agents, 51 HVE Core agent entries, and 10 Squad invocation skills.",
+      "version": "0.22.0",
       "source": ".",
       "author": {
-        "name": "Peter-N91",
-        "url": "https://github.com/Peter-N91"
+        "name": "Microsoft",
+        "url": "https://www.microsoft.com"
       },
-      "homepage": "https://peter-n91.github.io/hve-squad/",
-      "repository": "https://github.com/Peter-N91/hve-squad",
+      "homepage": "https://microsoft.github.io/hve-squad/",
+      "repository": "https://github.com/microsoft/hve-squad",
       "license": "MIT"
     }
   ]
