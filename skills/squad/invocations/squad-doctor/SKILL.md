@@ -3,10 +3,12 @@ name: squad-doctor
 description: "Dispatches Squad Doctor for deterministic post-upgrade checks, runtime diagnosis, and confirmed script-supported repairs."
 license: MIT
 metadata:
-  authors: "Peter-N91/hve-squad"
+  authors: "microsoft/hve-squad"
 ---
 
 # Squad Doctor
+
+Read installed `squad/references/responsible-use.md` once.
 
 ## Inputs
 Pass through `check` (default) or `repair`, explicit `squadRoot`, `issue`, and

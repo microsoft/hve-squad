@@ -3,10 +3,12 @@ name: squad-learn
 description: "Drafts a sanitized learning from consumer-local squad memory and opens a pull request to promote it upstream or to a tenant learnings repo. Use when the user asks to promote, share, or upstream a learning the squad captured."
 license: MIT
 metadata:
-  authors: "Peter-N91/hve-squad"
+  authors: "microsoft/hve-squad"
 ---
 
 # Squad Learn
+
+Read installed `squad/references/responsible-use.md` once.
 
 ## Inputs
 

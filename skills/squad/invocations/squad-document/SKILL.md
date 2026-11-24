@@ -3,10 +3,12 @@ name: squad-document
 description: "Searches squad state and artifacts to answer a question or produce a focused document (md/html/pdf/docx) without the user reading decision logs or routing tables directly. Use when the user asks the squad to summarize, document, or answer a question from its own history."
 license: MIT
 metadata:
-  authors: "Peter-N91/hve-squad"
+  authors: "microsoft/hve-squad"
 ---
 
 # Squad Document
+
+Read installed `squad/references/responsible-use.md` once.
 
 ## Inputs
 

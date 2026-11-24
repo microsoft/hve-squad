@@ -3,10 +3,12 @@ name: squad-run
 description: "Routes a request to the Squad Coordinator, which dispatches a cast of HVE Core agents in parallel and persists squad state. Use when the user asks to run, initialize, or continue a squad, or names a squad profile, pack, discovery depth, model tier, owner, or autonomy mode (autonomous/autopilot)."
 license: MIT
 metadata:
-  authors: "Peter-N91/hve-squad"
+  authors: "microsoft/hve-squad"
 ---
 
 # Squad Run
+
+Read installed `squad/references/responsible-use.md` once.
 
 ## Inputs
 

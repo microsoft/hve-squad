@@ -1,8 +1,8 @@
 {
   "repository": "microsoft/hve-core",
-  "commit": "cfbba35a6541a39f446e1f8bde0fea46c055da6b",
+  "commit": "a81603f3fc7f93083910d8b5cb7f4095407ab786",
   "version": "3.2.2",
-  "pluginManifestHash": "049439ca2de55a233d995b39a0b86466acb3e22799791079bb09fe46b9d26664",
+  "pluginManifestHash": "882458249909d8822441d5cfed364a89531ee05547d4c82d62bfbb04f96139b2",
   "files": [
     {
       "source": ".github/agents/accessibility/accessibility-planner.agent.md",
@@ -23,38 +23,6 @@
     {
       "source": ".github/agents/coding-standards/code-review.agent.md",
       "target": ".github/agents/coding-standards/code-review.agent.md"
-    },
-    {
-      "source": ".github/agents/coding-standards/subagents/code-review-accessibility.agent.md",
-      "target": ".github/agents/coding-standards/subagents/code-review-accessibility.agent.md"
-    },
-    {
-      "source": ".github/agents/coding-standards/subagents/code-review-explainer.agent.md",
-      "target": ".github/agents/coding-standards/subagents/code-review-explainer.agent.md"
-    },
-    {
-      "source": ".github/agents/coding-standards/subagents/code-review-functional.agent.md",
-      "target": ".github/agents/coding-standards/subagents/code-review-functional.agent.md"
-    },
-    {
-      "source": ".github/agents/coding-standards/subagents/code-review-orientation.agent.md",
-      "target": ".github/agents/coding-standards/subagents/code-review-orientation.agent.md"
-    },
-    {
-      "source": ".github/agents/coding-standards/subagents/code-review-readiness.agent.md",
-      "target": ".github/agents/coding-standards/subagents/code-review-readiness.agent.md"
-    },
-    {
-      "source": ".github/agents/coding-standards/subagents/code-review-security.agent.md",
-      "target": ".github/agents/coding-standards/subagents/code-review-security.agent.md"
-    },
-    {
-      "source": ".github/agents/coding-standards/subagents/code-review-standards.agent.md",
-      "target": ".github/agents/coding-standards/subagents/code-review-standards.agent.md"
-    },
-    {
-      "source": ".github/agents/coding-standards/subagents/code-review-walkback.agent.md",
-      "target": ".github/agents/coding-standards/subagents/code-review-walkback.agent.md"
     },
     {
       "source": ".github/agents/data-science-engineering/data-science-engineering-coach.agent.md",
@@ -239,6 +207,74 @@
     {
       "source": ".github/agents/security/subagents/supply-chain-skill-assessor.agent.md",
       "target": ".github/agents/security/subagents/supply-chain-skill-assessor.agent.md"
+    },
+    {
+      "source": ".github/extensions/hve-core/code-review/extension.mjs",
+      "target": ".github/extensions/hve-core/code-review/extension.mjs"
+    },
+    {
+      "source": ".github/extensions/hve-core/code-review/lib/actions.mjs",
+      "target": ".github/extensions/hve-core/code-review/lib/actions.mjs"
+    },
+    {
+      "source": ".github/extensions/hve-core/code-review/lib/lifecycle.mjs",
+      "target": ".github/extensions/hve-core/code-review/lib/lifecycle.mjs"
+    },
+    {
+      "source": ".github/extensions/hve-core/code-review/lib/model.mjs",
+      "target": ".github/extensions/hve-core/code-review/lib/model.mjs"
+    },
+    {
+      "source": ".github/extensions/hve-core/code-review/lib/server.mjs",
+      "target": ".github/extensions/hve-core/code-review/lib/server.mjs"
+    },
+    {
+      "source": ".github/extensions/hve-core/code-review/tests/lifecycle.test.mjs",
+      "target": ".github/extensions/hve-core/code-review/tests/lifecycle.test.mjs"
+    },
+    {
+      "source": ".github/extensions/hve-core/code-review/tests/map.test.mjs",
+      "target": ".github/extensions/hve-core/code-review/tests/map.test.mjs"
+    },
+    {
+      "source": ".github/extensions/hve-core/code-review/tests/model.test.mjs",
+      "target": ".github/extensions/hve-core/code-review/tests/model.test.mjs"
+    },
+    {
+      "source": ".github/extensions/hve-core/code-review/tests/server.test.mjs",
+      "target": ".github/extensions/hve-core/code-review/tests/server.test.mjs"
+    },
+    {
+      "source": ".github/extensions/hve-core/code-review/tests/views.test.mjs",
+      "target": ".github/extensions/hve-core/code-review/tests/views.test.mjs"
+    },
+    {
+      "source": ".github/extensions/hve-core/code-review/ui/app.mjs",
+      "target": ".github/extensions/hve-core/code-review/ui/app.mjs"
+    },
+    {
+      "source": ".github/extensions/hve-core/code-review/ui/diagram.mjs",
+      "target": ".github/extensions/hve-core/code-review/ui/diagram.mjs"
+    },
+    {
+      "source": ".github/extensions/hve-core/code-review/ui/dom.mjs",
+      "target": ".github/extensions/hve-core/code-review/ui/dom.mjs"
+    },
+    {
+      "source": ".github/extensions/hve-core/code-review/ui/index.html",
+      "target": ".github/extensions/hve-core/code-review/ui/index.html"
+    },
+    {
+      "source": ".github/extensions/hve-core/code-review/ui/map.mjs",
+      "target": ".github/extensions/hve-core/code-review/ui/map.mjs"
+    },
+    {
+      "source": ".github/extensions/hve-core/code-review/ui/styles.css",
+      "target": ".github/extensions/hve-core/code-review/ui/styles.css"
+    },
+    {
+      "source": ".github/extensions/hve-core/code-review/ui/views.mjs",
+      "target": ".github/extensions/hve-core/code-review/ui/views.mjs"
     },
     {
       "source": ".github/extensions/hve-core/rpi-workflow/extension.mjs",
@@ -1777,60 +1813,88 @@
       "target": ".github/skills/accessibility/accessibility-coverage-matrix/SKILL.md"
     },
     {
-      "source": ".github/skills/coding-standards/code-review/references/change-risk-model.md",
-      "target": ".github/skills/coding-standards/code-review/references/change-risk-model.md"
+      "source": ".github/skills/coding-standards/code-review/references/accessibility.md",
+      "target": ".github/skills/coding-standards/code-review/references/accessibility.md"
     },
     {
-      "source": ".github/skills/coding-standards/code-review/references/context-bootstrap.md",
-      "target": ".github/skills/coding-standards/code-review/references/context-bootstrap.md"
+      "source": ".github/skills/coding-standards/code-review/references/context.md",
+      "target": ".github/skills/coding-standards/code-review/references/context.md"
     },
     {
-      "source": ".github/skills/coding-standards/code-review/references/cross-skill-forks.md",
-      "target": ".github/skills/coding-standards/code-review/references/cross-skill-forks.md"
+      "source": ".github/skills/coding-standards/code-review/references/delivery.md",
+      "target": ".github/skills/coding-standards/code-review/references/delivery.md"
     },
     {
-      "source": ".github/skills/coding-standards/code-review/references/depth-tiers.md",
-      "target": ".github/skills/coding-standards/code-review/references/depth-tiers.md"
+      "source": ".github/skills/coding-standards/code-review/references/functional.md",
+      "target": ".github/skills/coding-standards/code-review/references/functional.md"
     },
     {
-      "source": ".github/skills/coding-standards/code-review/references/diff-computation.md",
-      "target": ".github/skills/coding-standards/code-review/references/diff-computation.md"
+      "source": ".github/skills/coding-standards/code-review/references/integrations.md",
+      "target": ".github/skills/coding-standards/code-review/references/integrations.md"
     },
     {
-      "source": ".github/skills/coding-standards/code-review/references/dispatch-loop.md",
-      "target": ".github/skills/coding-standards/code-review/references/dispatch-loop.md"
+      "source": ".github/skills/coding-standards/code-review/references/investigation.md",
+      "target": ".github/skills/coding-standards/code-review/references/investigation.md"
     },
     {
-      "source": ".github/skills/coding-standards/code-review/references/emission-modes.md",
-      "target": ".github/skills/coding-standards/code-review/references/emission-modes.md"
+      "source": ".github/skills/coding-standards/code-review/references/readiness.md",
+      "target": ".github/skills/coding-standards/code-review/references/readiness.md"
     },
     {
-      "source": ".github/skills/coding-standards/code-review/references/lens-checklists.md",
-      "target": ".github/skills/coding-standards/code-review/references/lens-checklists.md"
+      "source": ".github/skills/coding-standards/code-review/references/review-contract.md",
+      "target": ".github/skills/coding-standards/code-review/references/review-contract.md"
     },
     {
-      "source": ".github/skills/coding-standards/code-review/references/output-formats.md",
-      "target": ".github/skills/coding-standards/code-review/references/output-formats.md"
+      "source": ".github/skills/coding-standards/code-review/references/security.md",
+      "target": ".github/skills/coding-standards/code-review/references/security.md"
     },
     {
-      "source": ".github/skills/coding-standards/code-review/references/review-artifacts.md",
-      "target": ".github/skills/coding-standards/code-review/references/review-artifacts.md"
+      "source": ".github/skills/coding-standards/code-review/references/specialist.md",
+      "target": ".github/skills/coding-standards/code-review/references/specialist.md"
     },
     {
-      "source": ".github/skills/coding-standards/code-review/references/review-targets.md",
-      "target": ".github/skills/coding-standards/code-review/references/review-targets.md"
+      "source": ".github/skills/coding-standards/code-review/references/standards.md",
+      "target": ".github/skills/coding-standards/code-review/references/standards.md"
     },
     {
-      "source": ".github/skills/coding-standards/code-review/references/severity-taxonomy.md",
-      "target": ".github/skills/coding-standards/code-review/references/severity-taxonomy.md"
+      "source": ".github/skills/coding-standards/code-review/scripts/lib/model.mjs",
+      "target": ".github/skills/coding-standards/code-review/scripts/lib/model.mjs"
     },
     {
-      "source": ".github/skills/coding-standards/code-review/references/walkthrough-protocol.md",
-      "target": ".github/skills/coding-standards/code-review/references/walkthrough-protocol.md"
+      "source": ".github/skills/coding-standards/code-review/scripts/lib/operations.mjs",
+      "target": ".github/skills/coding-standards/code-review/scripts/lib/operations.mjs"
+    },
+    {
+      "source": ".github/skills/coding-standards/code-review/scripts/lib/snapshot.mjs",
+      "target": ".github/skills/coding-standards/code-review/scripts/lib/snapshot.mjs"
+    },
+    {
+      "source": ".github/skills/coding-standards/code-review/scripts/lib/storage.mjs",
+      "target": ".github/skills/coding-standards/code-review/scripts/lib/storage.mjs"
+    },
+    {
+      "source": ".github/skills/coding-standards/code-review/scripts/review.mjs",
+      "target": ".github/skills/coding-standards/code-review/scripts/review.mjs"
+    },
+    {
+      "source": ".github/skills/coding-standards/code-review/SECURITY.md",
+      "target": ".github/skills/coding-standards/code-review/SECURITY.md"
     },
     {
       "source": ".github/skills/coding-standards/code-review/SKILL.md",
       "target": ".github/skills/coding-standards/code-review/SKILL.md"
+    },
+    {
+      "source": ".github/skills/coding-standards/code-review/templates/review.md",
+      "target": ".github/skills/coding-standards/code-review/templates/review.md"
+    },
+    {
+      "source": ".github/skills/coding-standards/code-review/tests/review-state.test.mjs",
+      "target": ".github/skills/coding-standards/code-review/tests/review-state.test.mjs"
+    },
+    {
+      "source": ".github/skills/coding-standards/code-review/tests/snapshot.test.mjs",
+      "target": ".github/skills/coding-standards/code-review/tests/snapshot.test.mjs"
     },
     {
       "source": ".github/skills/coding-standards/hve-artifact-authoring/assets/agent-template.md",

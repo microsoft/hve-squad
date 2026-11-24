@@ -3,10 +3,12 @@ name: squad-coach
 description: "Helps a user open the advisory Squad Coach for source-grounded HVE Squad guidance and a detailed runbook. Use for onboarding or questions about how to achieve a goal with the installed Squad version."
 license: MIT
 metadata:
-  authors: "Peter-N91/hve-squad"
+  authors: "microsoft/hve-squad"
 ---
 
 # Squad Coach
+
+Read installed `squad/references/responsible-use.md` once.
 
 ## Input
 
