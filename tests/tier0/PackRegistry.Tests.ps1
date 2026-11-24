@@ -1146,25 +1146,44 @@ Describe 'External Cast backstop pins and split-mode renewal automation' -Tag 'U
         $rows = @(Get-MarkdownTableRows -Body $registeredBody -HeaderCell 'Role')
         $sqlRows = @($rows | Where-Object { $_[5].Trim() -match '^`microsoft/microsoft-sql`' })
         $expectedSql = @(
-            'analyze-readiness-at-scale', 'design-azure-sql-schema', 'diagnose-blocking-and-deadlocks',
-            'diagnose-connection-errors', 'diagnose-resource-pressure', 'diagnose-slow-query',
-            'entra-id-auth', 'generate-migration-prerequisite-plan', 'get-migration-assessment',
+            'analyze-readiness-at-scale', 'check-live-blocking', 'connectivity-troubleshoot',
+            'deadlock-analysis-azuresql', 'design-azure-sql-schema', 'entra-id-auth',
+            'investigate-sql-cpu-pressure', 'investigate-sql-data-io-pressure',
+            'investigate-sql-log-io-pressure', 'investigate-sql-memory-issues', 'generate-migration-prerequisite-plan', 'get-migration-assessment',
             'github-actions-for-sql', 'prevent-sql-injection', 'read-execution-plan',
             'recommend-migration-path', 'rls-multi-tenant', 'schema-migrations-safely',
-            'sql-database-projects', 't-sql-correctness'
+            'slow-query-investigation', 'sql-database-projects', 't-sql-correctness'
         )
-        $sqlRows | Should -HaveCount 17
+        $regatedSql = @(
+            'check-live-blocking', 'connectivity-troubleshoot', 'deadlock-analysis-azuresql',
+            'investigate-sql-cpu-pressure', 'investigate-sql-data-io-pressure',
+            'investigate-sql-log-io-pressure', 'investigate-sql-memory-issues', 'slow-query-investigation'
+        )
+        $sqlRows | Should -HaveCount 21
         (@($sqlRows | ForEach-Object { $_[3].Trim().Trim('`') } | Sort-Object) -join ',') |
             Should -BeExactly (($expectedSql | Sort-Object) -join ',')
         foreach ($row in $sqlRows) {
             $row[2].Trim() | Should -BeExactly 'opt-in'
             $row[4].Trim() | Should -BeExactly 'skill'
-            $row[5].Trim() | Should -Match '^`microsoft/microsoft-sql` \(`vendor-official`\), `plugins/(microsoft-sql-migration|microsoft-sql)/skills/[^`]+/SKILL\.md`$'
-            $row[6].Trim() | Should -Match '^`apm install microsoft/microsoft-sql/plugins/(microsoft-sql-migration|microsoft-sql)/skills/[^#]+#eeb1c6867c2d128763516a1aad41671c593cc189 --target copilot`$'
+            $name = $row[3].Trim().Trim('`')
+            if ($name -in $regatedSql) {
+                $row[5].Trim() | Should -BeExactly ('`microsoft/microsoft-sql` (`vendor-official`), `plugins/microsoft-sql-admin/skills/{0}/SKILL.md`' -f $name)
+                $row[6].Trim() | Should -BeExactly ('`apm install microsoft/microsoft-sql/plugins/microsoft-sql-admin/skills/{0}#3224561abf68c98c1ab47e27d2a06e30acdd330a --target copilot`' -f $name)
+                $row[10].Trim() | Should -BeExactly '2026-11-23'
+            }
+            else {
+                $row[5].Trim() | Should -Match '^`microsoft/microsoft-sql` \(`vendor-official`\), `plugins/(microsoft-sql-migration|microsoft-sql)/skills/[^`]+/SKILL\.md`$'
+                $row[6].Trim() | Should -Match '^`apm install microsoft/microsoft-sql/plugins/(microsoft-sql-migration|microsoft-sql)/skills/[^#]+#eeb1c6867c2d128763516a1aad41671c593cc189 --target copilot`$'
+                $row[10].Trim() | Should -BeExactly '2026-11-16'
+            }
             $row[7].Trim() | Should -BeExactly 'MIT'
             $row[8].Trim() | Should -Match 'Do not auto-install'
-            $row[10].Trim() | Should -BeExactly '2026-11-16'
         }
+
+        @($rows | Where-Object { $_[3].Trim().Trim('`') -in @(
+                    'diagnose-slow-query', 'diagnose-blocking-and-deadlocks',
+                    'diagnose-resource-pressure', 'diagnose-connection-errors'
+                ) }) | Should -BeNullOrEmpty
 
         @($rows | Where-Object { $_[3].Trim().Trim('`') -in @(
                     'sql-backup-restore-to-azure-sql-vm-migration', 'sql-bacpac-to-azure-sql-db-migration',
@@ -1176,6 +1195,8 @@ Describe 'External Cast backstop pins and split-mode renewal automation' -Tag 'U
         $blocklist = Get-MarkdownSectionBody -Body $script:RosterCatalogBody -Heading 'External Cast Blocklist'
         $blocklist | Should -Match 'sql-migration-advisor@fredgis'
         $blocklist | Should -Match 'eeb1c6867c2d128763516a1aad41671c593cc189'
+        $blocklist | Should -Match 'authentication-diagnostics'
+        $blocklist | Should -Match 'deadlock-analysis`'
 
         $sqlCharter = Get-Content -LiteralPath (Join-Path $SourceRoot 'squad-src/.github/agents/squad/squad-sql-migration-advisor.agent.md') -Raw
         $sqlCharter | Should -Match 'microsoft/microsoft-sql/plugins/microsoft-sql-migration/skills/recommend-migration-path#eeb1c6867c2d128763516a1aad41671c593cc189'

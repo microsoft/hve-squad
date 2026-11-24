@@ -1,0 +1,32 @@
+{
+  "rows": [
+    {
+      "ID": "ASM-1",
+      "Source": "Peter-N91/hve-squad#312",
+      "Question": "Do the research stage's medium-confidence successor matches (name-similarity based) hold up under a live fetch of each candidate SKILL.md's actual frontmatter and content against upstream HEAD 3224561, rather than the name-similarity inference alone?",
+      "Impact": "A wrong successor match would register a skill with a different scope than the retired row, leaving azure-diagnose with either a coverage gap or an unintended capability.",
+      "Status": "Resolved - changes/external-cast-regate-change.md fetched all 8 successor SKILL.md files live at the pin and confirmed frontmatter, scope, and the absence of hooks or a hard MCP dependency for each."
+    },
+    {
+      "ID": "ASM-2",
+      "Source": "Peter-N91/hve-squad#312",
+      "Question": "Does the root LICENSE at the new upstream HEAD 3224561 still match the prior verbatim-MIT posture verified at the old pin eeb1c68, given the plugin reorganization that moved these skills?",
+      "Impact": "A licensing regression at the new pin would make continued registration of these rows a licensing-policy violation even if the gate's other seven steps pass.",
+      "Status": "Resolved - changes/external-cast-regate-change.md diffed LICENSE between eeb1c68 and 3224561 and found it identical, verbatim MIT."
+    },
+    {
+      "ID": "ASM-3",
+      "Source": "Peter-N91/hve-squad#312",
+      "Question": "Can the diagnose-resource-pressure row's single-skill coverage (CPU, data/log IO, memory, and worker/session-limit errors 10928/10929/10936 plus MAXDOP) be fully replicated by the four narrower investigate-sql-* successor skills, or does a coverage gap remain for the limit-error and MAXDOP cases?",
+      "Impact": "If the four successors do not cover the limit-error/MAXDOP cases the old single skill did, azure-diagnose would silently lose diagnostic coverage for those specific errors.",
+      "Status": "Resolved - changes/external-cast-regate-change.md confirmed 10928/MAXDOP appear only in investigate-sql-cpu-pressure's references; roster-catalog.md and the squad-azure-diagnose.agent.md charter both flag the residual gap, not coverage."
+    },
+    {
+      "ID": "ASM-4",
+      "Source": "Peter-N91/hve-squad#312",
+      "Question": "Does the edited tests/tier0/PackRegistry.Tests.ps1 actually pass against the edited roster-catalog.md, given that this sandboxed run has no installed Pester module to execute the suite directly?",
+      "Impact": "An untested assertion change could pass code review by inspection yet fail in CI, blocking the pull request and requiring a follow-up fix.",
+      "Status": "Resolved with limitation - reviews/external-cast-regate-review.md traced every edited assertion against current roster-catalog.md and confirmed a match; Invoke-Pester could not run here and is deferred to pull-request CI."
+    }
+  ]
+}
