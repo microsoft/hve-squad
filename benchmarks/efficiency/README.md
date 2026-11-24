@@ -58,7 +58,7 @@ quality or workflow checks passed. Remaining steps are a plan, not an ETA.
 Before you run it:
 
 * PowerShell 7.4 or later, Git, the APM CLI (`apm`, version 0.29.0 as in
-  [Getting Started](https://peter-n91.github.io/hve-squad/getting-started.html)) and the
+  [Getting Started](https://microsoft.github.io/hve-squad/getting-started.html)) and the
   GitHub Copilot CLI (`copilot`, signed in) on your `PATH`, plus network access.
 * A throwaway machine, container or VM. The benchmark runs an autonomous Copilot
   agent with tool filters, not an OS sandbox.

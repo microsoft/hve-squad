@@ -60,7 +60,7 @@ Two workflows read that directory:
 **Rolling Preview** runs on every merge to `main`. It renders the pending fragments into a single GitHub pre-release, named for the version they currently resolve to, and force-moves that pre-release's tag to the new head. Nothing is consumed and no file is written — the preview only reads. The result is one installable ref that always reflects what `main` currently adds up to:
 
 ```powershell
-apm install "Peter-N91/hve-squad#v0.14.0-pre"
+apm install "microsoft/hve-squad#v0.14.0-pre"
 ```
 
 The documentation build reads the same pending fragments. When a guide describes unreleased package behavior, its English and French sources mark the smallest affected label, paragraph, list item, heading, table cell, or code block with `data-release-change="<fragment-name>"`. The build renders the current rolling tag only when that exact fragment is still pending; it does not infer availability from Git history or badge a whole stable section because one line changed. A documentation-only pull request with `skip-changelog` adds no marker and receives no package preview badge. Release Prep deletes the consumed fragments, so the next Pages build removes those badges without a source edit.

@@ -489,7 +489,7 @@ Describe 'Power Platform and M365 official selection' -Tag 'Unit' {
         $guidance | Should -Match 'complete.*support|support.*complete'
         $guidance | Should -Match 'source snapshot'
         $guidance | Should -Match 'not registered squad capabilities'
-        $guidance | Should -Match 'https://peter-n91\.github\.io/hve-squad/usage\.html#power-platform-setup'
+        $guidance | Should -Match 'https://microsoft\.github\.io/hve-squad/usage\.html#power-platform-setup'
         $script:ProfilesBody | Should -Match '(?s)For `power-platform`, read \[power-platform-official-resources\.md\].*?before asking to install resources'
 
         foreach ($name in @('squad-pp-architect', 'squad-pp-connector')) {
@@ -576,7 +576,7 @@ Describe 'Power Platform and M365 official selection' -Tag 'Unit' {
         $guidance | Should -Match 'wiqd'
         $guidance | Should -Match 'teams-dev'
         $guidance | Should -Match 'not registered squad capabilities'
-        $guidance | Should -Match 'https://peter-n91\.github\.io/hve-squad/usage\.html#m365-copilot-setup'
+        $guidance | Should -Match 'https://microsoft\.github\.io/hve-squad/usage\.html#m365-copilot-setup'
         $script:ProfilesBody | Should -Match '(?s)For `m365-copilot`, read \[m365-copilot-platform-options\.md\].*?before asking to install resources'
 
         foreach ($name in @('squad-m365-agent-architect', 'squad-m365-agent-integrator')) {
@@ -682,7 +682,7 @@ Describe 'Foundry pack-aware selection' -Tag 'Unit' {
         $options | Should -Match 'separate Foundry MCP server'
         $options | Should -Match 'mcpServers\.azure'
         $options | Should -Match 'not registered squad capabilities'
-        $options | Should -Match 'https://peter-n91\.github\.io/hve-squad/usage\.html#foundry-setup'
+        $options | Should -Match 'https://microsoft\.github\.io/hve-squad/usage\.html#foundry-setup'
         $script:FoundryBlueprintBody | Should -Match 'Host visibility is not selection'
         $script:ProfilesBody | Should -Match '(?s)For `foundry`, read \[foundry-platform-options\.md\].*?before asking to install resources'
         $script:ProfilesBody | Should -Match 'only when this pack is active'
@@ -791,7 +791,7 @@ Describe 'Fabric and Power BI official pack' -Tag 'Unit' {
         $blueprint | Should -Match 'fabric-sqlendpoint'
         $blueprint | Should -Match '\.github/mcp\.json'
         $blueprint | Should -Match 'common/COMMON-CLI\.md'
-        $blueprint | Should -Match 'https://peter-n91\.github\.io/hve-squad/usage\.html#fabric-setup'
+        $blueprint | Should -Match 'https://microsoft\.github\.io/hve-squad/usage\.html#fabric-setup'
         $script:ProfilesBody | Should -Match '(?s)For `fabric`, read \[fabric-blueprint\.md\].*?before asking to install resources'
         $script:ProfilesBody | Should -Match 'select the admitted Fabric skills only when this pack is active'
         $script:RoutingBody | Should -Match 'only while `fabric` is active'
@@ -903,7 +903,7 @@ Describe '.NET official pack' -Tag 'Unit' {
         $guidance | Should -Match 'setup-local-sdk'
         $guidance | Should -Match 'Microsoft\.AITools\.BinlogMcp'
         $guidance | Should -Match 'not registered squad capabilities'
-        $guidance | Should -Match 'https://peter-n91\.github\.io/hve-squad/usage\.html#dotnet-setup'
+        $guidance | Should -Match 'https://microsoft\.github\.io/hve-squad/usage\.html#dotnet-setup'
         $script:ProfilesBody | Should -Match '(?s)For `dotnet`, read \[dotnet-platform-options\.md\].*?before asking to install resources'
         $script:RoutingBody | Should -Match 'only while `dotnet` is active'
 
@@ -1046,7 +1046,7 @@ Describe 'AKS and Azure Functions official packs' -Tag 'Unit' {
         $aksGuidance | Should -Match 'airunway-aks-setup'
         $aksGuidance | Should -Match 'ghcfa-telem'
         $aksGuidance | Should -Match 'not registered squad capabilities'
-        $aksGuidance | Should -Match 'https://peter-n91\.github\.io/hve-squad/usage\.html#aks-setup'
+        $aksGuidance | Should -Match 'https://microsoft\.github\.io/hve-squad/usage\.html#aks-setup'
 
         $fnGuidance = Get-Content -LiteralPath (Join-Path $script:ReferenceRoot 'azure-functions-platform-options.md') -Raw
         $fnGuidance | Should -Match 'Host visibility is not selection'
@@ -1056,7 +1056,7 @@ Describe 'AKS and Azure Functions official packs' -Tag 'Unit' {
         $fnGuidance | Should -Match 'telemetry\.mjs'
         $fnGuidance | Should -Match 'azure-prepare'
         $fnGuidance | Should -Match 'not registered squad capabilities'
-        $fnGuidance | Should -Match 'https://peter-n91\.github\.io/hve-squad/usage\.html#azure-functions-setup'
+        $fnGuidance | Should -Match 'https://microsoft\.github\.io/hve-squad/usage\.html#azure-functions-setup'
 
         $script:ProfilesBody | Should -Match '(?s)For `aks`, read \[aks-platform-options\.md\].*?before asking to install resources'
         $script:ProfilesBody | Should -Match '(?s)For `azure-functions`, read \[azure-functions-platform-options\.md\].*?before asking to install resources'
@@ -1458,7 +1458,7 @@ Describe 'Azure Cloud and FinOps official pack' -Tag 'Unit' {
         $guidance | Should -Match 'azure-advisor-cost-optimization'
         $guidance | Should -Match 'azure-deployment-preflight'
         $guidance | Should -Match 'not registered squad capabilities'
-        $guidance | Should -Match 'https://peter-n91\.github\.io/hve-squad/usage\.html#azure-cloud-setup'
+        $guidance | Should -Match 'https://microsoft\.github\.io/hve-squad/usage\.html#azure-cloud-setup'
 
         $script:ProfilesBody | Should -Match '(?s)For `azure-cloud`, read \[azure-cloud-platform-options\.md\].*?before asking to install resources'
         $script:RoutingBody | Should -Match 'azure-cloud'

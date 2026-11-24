@@ -35,7 +35,7 @@ test("published release tags are authoritative regardless of pending version bum
     const release = resolveReleaseInfo(metadata, bumps.map((bump, i) => fragment(`change-${i}`, bump)));
     assert.equal(release.stableTag, metadata.latest.tag_name);
     assert.equal(release.previewTag, metadata.releases[0].tag_name);
-    assert.equal(release.previewUrl, `https://github.com/Peter-N91/hve-squad/releases/tag/${metadata.releases[0].tag_name}`);
+    assert.equal(release.previewUrl, `https://github.com/microsoft/hve-squad/releases/tag/${metadata.releases[0].tag_name}`);
   }
 });
 
@@ -183,8 +183,8 @@ for (const language of ["en", "fr"]) {
   test(`${language}: exact preview and stable install commands are rendered without browser JavaScript`, () => {
     const $ = load('<main><div data-release-install="preview"></div><div data-release-install="stable"></div></main>');
     populateReleaseInstalls($, pending, ui);
-    assert.equal($('[data-release-install="preview"] pre code').text(), `apm install "Peter-N91/hve-squad#${pending.previewTag}" --target copilot`);
-    assert.equal($('[data-release-install="stable"] pre code').text(), `apm install "Peter-N91/hve-squad#${pending.stableTag}" --target copilot`);
+    assert.equal($('[data-release-install="preview"] pre code').text(), `apm install "microsoft/hve-squad#${pending.previewTag}" --target copilot`);
+    assert.equal($('[data-release-install="stable"] pre code').text(), `apm install "microsoft/hve-squad#${pending.stableTag}" --target copilot`);
     assert.equal($('[data-release-install="preview"] a').attr("href"), pending.previewUrl);
   });
 
@@ -294,7 +294,7 @@ test("both languages track published preview renames, hotfixes and consumed feat
       assert.equal(setup('[data-release-install="preview"] pre').length, release.previewTag ? 1 : 0);
       if (release.previewTag) {
         assert.equal(setup('[data-release-install="preview"] pre code').text(),
-          `apm install "Peter-N91/hve-squad#${release.previewTag}" --target copilot`);
+          `apm install "microsoft/hve-squad#${release.previewTag}" --target copilot`);
       }
     }
   }
@@ -336,7 +336,7 @@ for (const [state, metadata, fragments] of [
       $("[data-release-install]").each((index, element) => {
         const tag = $(element).attr("data-release-install") === "preview" ? release.previewTag : release.stableTag;
         assert.deepEqual($(element).find("pre code").toArray().map(code => $(code).text()),
-          tag ? [`apm install "Peter-N91/hve-squad#${tag}" --target copilot`] : [], page.outputPath);
+          tag ? [`apm install "microsoft/hve-squad#${tag}" --target copilot`] : [], page.outputPath);
       });
     }
   });

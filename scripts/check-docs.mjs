@@ -73,7 +73,7 @@ for (const page of pages) {
     const channel = $(element).attr("data-release-install");
     const tag = channel === "preview" ? page.release.previewTag : page.release.stableTag;
     assert.deepEqual($(element).find("pre code").toArray().map(code => $(code).text()),
-      tag ? [`apm install "Peter-N91/hve-squad#${tag}" --target copilot`] : [],
+      tag ? [`apm install "microsoft/hve-squad#${tag}" --target copilot`] : [],
       `${page.outputPath}: incorrect ${channel} installation command`);
   });
   const sourceIds = source("main [id]").toArray().map(element => source(element).attr("id"));

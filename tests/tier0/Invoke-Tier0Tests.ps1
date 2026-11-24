@@ -65,7 +65,7 @@ param(
     [string]$Ref = 'main',
 
     [Parameter(ParameterSetName = 'Install')]
-    [string]$Package = 'Peter-N91/hve-squad',
+    [string]$Package = 'microsoft/hve-squad',
 
     [Parameter(Mandatory, ParameterSetName = 'Installed')]
     [string]$PackageRoot,

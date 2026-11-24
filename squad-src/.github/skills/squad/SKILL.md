@@ -3,7 +3,7 @@ name: squad
 description: 'Run or initialize a squad with deterministic scripts, native HVE agent dispatch, gated persistence and verified state. Use when operating .copilot-tracking/squad/.'
 license: MIT
 metadata:
-  authors: "Peter-N91/hve-squad"
+  authors: "microsoft/hve-squad"
   spec_version: "1.0"
   last_updated: "2026-10-25"
 ---

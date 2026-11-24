@@ -840,7 +840,7 @@ name: squad-coach
 description: "Helps a user open the advisory Squad Coach for source-grounded HVE Squad guidance and a detailed runbook. Use for onboarding or questions about how to achieve a goal with the installed Squad version."
 license: MIT
 metadata:
-  authors: "Peter-N91/hve-squad"
+  authors: "microsoft/hve-squad"
 ---
 
 # Squad Coach
@@ -866,7 +866,7 @@ name: squad-connector-builder
 description: "Starts the Squad Connector Builder to interactively scaffold a validated connector or create editable contract-compatible templates with a removable runner and runbook."
 license: MIT
 metadata:
-  authors: "Peter-N91/hve-squad"
+  authors: "microsoft/hve-squad"
 ---
 
 # Squad Connector Builder
@@ -893,7 +893,7 @@ name: squad-external-agent-builder
 description: "Starts the Squad External Agent Builder to create a standalone agent or multi-agent orchestrator, or adapt an existing implementation, for HVE Squad interoperability."
 license: MIT
 metadata:
-  authors: "Peter-N91/hve-squad"
+  authors: "microsoft/hve-squad"
 ---
 
 # Squad External Agent Builder
@@ -921,7 +921,7 @@ name: squad-run
 description: "Routes a request to the Squad Coordinator, which dispatches a cast of HVE Core agents in parallel and persists squad state. Use when the user asks to run, initialize, or continue a squad, or names a squad profile, pack, discovery depth, model tier, owner, or autonomy mode (autonomous/autopilot)."
 license: MIT
 metadata:
-  authors: "Peter-N91/hve-squad"
+  authors: "microsoft/hve-squad"
 ---
 
 # Squad Run
@@ -957,7 +957,7 @@ name: squad-document
 description: "Searches squad state and artifacts to answer a question or produce a focused document (md/html/pdf/docx) without the user reading decision logs or routing tables directly. Use when the user asks the squad to summarize, document, or answer a question from its own history."
 license: MIT
 metadata:
-  authors: "Peter-N91/hve-squad"
+  authors: "microsoft/hve-squad"
 ---
 
 # Squad Document
@@ -985,7 +985,7 @@ name: squad-federation
 description: "Routes a request to the Squad Federation Coordinator, which dispatches one or more named sub-squads. Use when the user's project has (or wants) multiple named sub-squads, or names init, promote, watch, or a specific squad=<name> target."
 license: MIT
 metadata:
-  authors: "Peter-N91/hve-squad"
+  authors: "microsoft/hve-squad"
 ---
 
 # Squad Federation
@@ -1024,7 +1024,7 @@ name: squad-governance-report
 description: "Reads squad state and generates a self-contained HTML governance dashboard (gates, verdicts, cost, dispatches, compliance, timeline, outcomes). Use when the user asks for a squad governance report, dashboard, or audit view."
 license: MIT
 metadata:
-  authors: "Peter-N91/hve-squad"
+  authors: "microsoft/hve-squad"
 ---
 
 # Squad Governance Report
@@ -1051,7 +1051,7 @@ name: squad-learn
 description: "Drafts a sanitized learning from consumer-local squad memory and opens a pull request to promote it upstream or to a tenant learnings repo. Use when the user asks to promote, share, or upstream a learning the squad captured."
 license: MIT
 metadata:
-  authors: "Peter-N91/hve-squad"
+  authors: "microsoft/hve-squad"
 ---
 
 # Squad Learn
@@ -1078,7 +1078,7 @@ name: squad-doctor
 description: "Dispatches Squad Doctor for deterministic post-upgrade checks, runtime diagnosis, and confirmed script-supported repairs."
 license: MIT
 metadata:
-  authors: "Peter-N91/hve-squad"
+  authors: "microsoft/hve-squad"
 ---
 
 # Squad Doctor
@@ -1104,7 +1104,7 @@ name: squad-init-hooks
 description: "Writes the squad's hook backstops into the consuming repository's .github/hooks/ for hosts that require repository hooks or do not reliably execute plugin hooks. Use for Copilot CLI enforcement, cloud-agent/Watch Mode enforcement, or when the user asks to run 'squad-init-hooks'."
 license: MIT
 metadata:
-  authors: "Peter-N91/hve-squad"
+  authors: "microsoft/hve-squad"
 ---
 
 # Squad Init Hooks
@@ -1332,11 +1332,11 @@ if ($MyInvocation.InvocationName -ne '.') {
             version     = $source.PluginVersion
             description = "HVE Squad and its pinned HVE Core cast in one GitHub Copilot plugin: $($agentFiles.Count) Squad agents, $($hveCoreAgents.Count) HVE Core agent entries, and $($invocationSkills.Count) Squad invocation skills."
             author      = [ordered]@{
-                name = 'Peter-N91'
-                url  = 'https://github.com/Peter-N91'
+                name = 'Microsoft'
+                url  = 'https://www.microsoft.com'
             }
-            homepage    = 'https://peter-n91.github.io/hve-squad/'
-            repository  = 'https://github.com/Peter-N91/hve-squad'
+            homepage    = 'https://microsoft.github.io/hve-squad/'
+            repository  = 'https://github.com/microsoft/hve-squad'
             license     = 'MIT'
             keywords    = @('hve', 'hve-squad', 'agents', 'skills', 'copilot')
             agents      = @((@('agents/squad/') + $hveCoreAgents) | Sort-Object -Unique)
@@ -1355,9 +1355,9 @@ if ($MyInvocation.InvocationName -ne '.') {
         # ── marketplace.json: the branch itself is the versioned source ──
         $marketplaceManifest = [ordered]@{
             name       = $MarketplaceName
-            owner      = [ordered]@{ name = 'Peter-N91' }
+            owner      = [ordered]@{ name = 'Microsoft' }
             metadata   = [ordered]@{
-                description = 'HVE Squad plugin marketplace published from Peter-N91/hve-squad.'
+                description = 'HVE Squad plugin marketplace published from microsoft/hve-squad.'
                 version     = $source.PluginVersion
             }
             plugins    = @(
@@ -1381,14 +1381,14 @@ if ($MyInvocation.InvocationName -ne '.') {
 # hve-squad plugin
 
 This generated branch contains the installable **hve-squad** GitHub Copilot
-plugin built from ``Peter-N91/hve-squad@$sourceLabel``. It bundles the HVE Core
+plugin built from ``microsoft/hve-squad@$sourceLabel``. It bundles the HVE Core
 plugin components from commit ``$hveCorePin`` in the same plugin root.
 
 The plugin contains no MCP server configuration. Install and operate
 ``hve-squad-mcp`` separately when an MCP host needs the outbound Squad tools.
 
 Installation, update, preview-channel, and verification instructions:
-https://peter-n91.github.io/hve-squad/getting-started.html
+https://microsoft.github.io/hve-squad/getting-started.html
 "@
         Write-TextFile -Path (Join-Path $OutputRoot 'README.md') -Content ($readme + "`n") -DryRun:$DryRun
         $licensePath = 'LICENSE.TXT'

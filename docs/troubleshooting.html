@@ -30,7 +30,7 @@ Licensed under the MIT license.
         <a href="maintaining.html">Maintaining</a>
         <a href="troubleshooting.html" class="active">Troubleshooting</a>
         <a href="contributing.html">Contributing</a>
-        <a href="https://github.com/Peter-N91/hve-squad">GitHub</a>
+        <a href="https://github.com/microsoft/hve-squad">GitHub</a>
         <a class="language-link" href="fr/troubleshooting.html" lang="fr">Fran&ccedil;ais</a>
       </div>
     </div>
@@ -51,11 +51,11 @@ Licensed under the MIT license.
       <p data-release-change="20261106-squad-doctor">Confirm that the single <code>hve-squad</code> plugin is installed and enabled in the client you are using. Select <strong>Squad Doctor</strong> directly and request <code>check</code>. Request <code>repair</code> to approve supported script fixes; unknown failures remain explicit blockers. If the agent or a required domain is missing, refresh the <code>hve-squad</code> marketplace, update or reinstall the plugin, and start a fresh session. A terminal update does not update an app using another <code>COPILOT_HOME</code>.</p>
 
       <h3>VS Code reports bundled HVE Core agents missing</h3>
-      <p>The current plugin reads every HVE Squad and HVE Core agent from its own <code>plugin.json</code>; it does not depend on VS Code exposing sibling cache paths. Open the installed plugin details and confirm that <code>.github/plugin/hve-core-source.json</code> exists, then update or reinstall <code>hve-squad</code> from <code>Peter-N91/hve-squad#plugin</code> and start a fresh Copilot session.</p>
+      <p>The current plugin reads every HVE Squad and HVE Core agent from its own <code>plugin.json</code>; it does not depend on VS Code exposing sibling cache paths. Open the installed plugin details and confirm that <code>.github/plugin/hve-core-source.json</code> exists, then update or reinstall <code>hve-squad</code> from <code>microsoft/hve-squad#plugin</code> and start a fresh Copilot session.</p>
       <p>If both the stable and preview marketplaces are configured, uninstall one copy. They expose the same agent names and must not be enabled together. Do not repair this condition by installing the official <code>hve-core</code> plugin separately.</p>
 
       <h3>VS Code reports <code>npx: No such file or directory</code> for <code>hve-squad</code></h3>
-      <p>This identifies an old plugin build that bundled the separate MCP server. The current plugin contains no <code>mcp.json</code> or <code>.mcp.json</code>. Remove the old marketplace/plugin installation and install the single plugin from <code>Peter-N91/hve-squad#plugin</code>. Configure <code>hve-squad-mcp</code> separately only when you need that product.</p>
+      <p>This identifies an old plugin build that bundled the separate MCP server. The current plugin contains no <code>mcp.json</code> or <code>.mcp.json</code>. Remove the old marketplace/plugin installation and install the single plugin from <code>microsoft/hve-squad#plugin</code>. Configure <code>hve-squad-mcp</code> separately only when you need that product.</p>
 
       <h3>Copilot CLI lists the plugin hooks but does not execute them</h3>
       <p>Plugin hook execution is a current CLI runtime limitation, not evidence that the agent rules are absent. Run <code>squad-init-hooks</code> once in the consuming repository to write the same cross-platform backstops under <code>.github/hooks/</code>. Local CLI sessions can use the generated files immediately; commit them for Copilot cloud agent and Watch Mode.</p>
@@ -77,7 +77,7 @@ Licensed under the MIT license.
       <p>
         Pin APM CLI 0.29.0, remove the partial dependency state, and reinstall the HVE Squad
         package. The CLI pin is separate from the package pin in
-        <code>Peter-N91/hve-squad#vX.Y.z</code>.
+        <code>microsoft/hve-squad#vX.Y.z</code>.
       </p>
 
       <p><strong>Windows (PowerShell)</strong></p>
@@ -92,7 +92,7 @@ Set-Location C:\Temp\myapp
 Remove-Item -Recurse -Force apm_modules, apm.lock.yaml, apm.yml -ErrorAction SilentlyContinue
 
 # 4. Reinstall the HVE Squad release you need.
-apm install "Peter-N91/hve-squad#vX.Y.z" --target copilot</code></pre>
+apm install "microsoft/hve-squad#vX.Y.z" --target copilot</code></pre>
 
       <p><strong>macOS (Apple Silicon or Intel)</strong></p>
       <pre><code># 1. Remove the Homebrew copy if it is installed; the pinned installer cannot overwrite it.
@@ -109,7 +109,7 @@ apm --version
 # 4. From the affected project root, remove the partial APM state and reinstall.
 cd /path/to/myapp
 rm -rf apm_modules apm.lock.yaml apm.yml
-apm install "Peter-N91/hve-squad#vX.Y.z" --target copilot</code></pre>
+apm install "microsoft/hve-squad#vX.Y.z" --target copilot</code></pre>
       <p>
         Add <code>export PATH="$HOME/.local/bin:$PATH"</code> to <code>~/.zshrc</code> to keep the
         path after reopening the terminal. As an isolated alternative, use
@@ -142,7 +142,7 @@ apm install "Peter-N91/hve-squad#vX.Y.z" --target copilot</code></pre>
       <pre><code>gh auth login            # recommended — APM picks it up automatically
 # or set a token (public read is enough; hve-core is public)
 $env:GITHUB_TOKEN = "ghp_xxx"
-apm install "Peter-N91/hve-squad#vX.Y.z" --target copilot</code></pre>
+apm install "microsoft/hve-squad#vX.Y.z" --target copilot</code></pre>
       <p>
         APM's GitHub token precedence is <code>GITHUB_APM_PAT_&lt;ORG&gt;</code> →
         <code>GITHUB_APM_PAT</code> → <code>GITHUB_TOKEN</code> → <code>GH_TOKEN</code> →
@@ -182,7 +182,7 @@ apm install "Peter-N91/hve-squad#vX.Y.z" --target copilot</code></pre>
         <code>.github/prompts/</code>, <code>.claude/</code>, <code>.cursor/</code>, etc.). Re-run with
         <code>--target copilot</code>:
       </p>
-      <pre><code>apm install "Peter-N91/hve-squad#vX.Y.z" --target copilot</code></pre>
+      <pre><code>apm install "microsoft/hve-squad#vX.Y.z" --target copilot</code></pre>
       <p>
         Or add a <code>targets:</code> block to your project's <code>apm.yml</code> so future installs
         work without the flag (see <a href="getting-started.html">Getting Started → Option B</a>).
@@ -348,8 +348,8 @@ $env:PATH = "C:\Program Files\Graphviz\bin;$env:PATH"</code></pre>
       <h2>Versioning</h2>
       <ul>
         <li>Releases follow <a href="https://semver.org/">Semantic Versioning</a>.</li>
-        <li>See <a href="https://github.com/Peter-N91/hve-squad/blob/main/CHANGELOG.md">CHANGELOG.md</a> for what is included in each version.</li>
-        <li>Consumers can pin to a tagged version, for example <code>apm install "Peter-N91/hve-squad#vX.Y.z"</code>.</li>
+        <li>See <a href="https://github.com/microsoft/hve-squad/blob/main/CHANGELOG.md">CHANGELOG.md</a> for what is included in each version.</li>
+        <li>Consumers can pin to a tagged version, for example <code>apm install "microsoft/hve-squad#vX.Y.z"</code>.</li>
         <li>Releases are cut by hand when the pending work is judged ready, not on a schedule.</li>
         <li>Between releases, everything already merged is installable from a rolling pre-release: see the <a href="getting-started.html#testing-the-pre-release">current pre-release tag and install command</a>. That tag moves on every merge, so it is for testing rather than for anything you depend on. A pre-release never shows as <strong>Latest</strong>.</li>
         <li>Installing with no ref at all resolves to the default branch, not to the latest release, and APM warns about the drift. Always pin.</li>
@@ -378,7 +378,7 @@ $env:PATH = "C:\Program Files\Graphviz\bin;$env:PATH"</code></pre>
     <div class="container">
       <p>
         hve-squad · built on <a href="https://github.com/microsoft/hve-core">Microsoft HVE Core</a>
-        agents and conventions · <a href="https://github.com/Peter-N91/hve-squad">Source on GitHub</a>
+        agents and conventions · <a href="https://github.com/microsoft/hve-squad">Source on GitHub</a>
       </p>
     </div>
   </footer>

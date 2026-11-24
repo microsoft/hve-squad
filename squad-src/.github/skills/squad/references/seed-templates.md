@@ -3,7 +3,7 @@ name: squad-seed-templates
 description: "First-run squad state templates stamped once during Init: team.md and routing.md."
 license: MIT
 metadata:
-  authors: "Peter-N91/hve-squad"
+  authors: "microsoft/hve-squad"
   spec_version: "1.0"
   last_updated: "2026-10-24"
 ---

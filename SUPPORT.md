@@ -8,14 +8,14 @@ description: How to get help, file issues, and check support scope for HVE Squad
 ## How to file issues and get help
 
 This project uses GitHub Issues to track bugs and feature requests. Please search the
-[existing issues](https://github.com/Peter-N91/hve-squad/issues) before filing new issues to
+[existing issues](https://github.com/microsoft/hve-squad/issues) before filing new issues to
 avoid duplicates. For new issues, file your bug or feature request as a new issue at
-[github.com/Peter-N91/hve-squad/issues/new/choose](https://github.com/Peter-N91/hve-squad/issues/new/choose).
+[github.com/microsoft/hve-squad/issues/new/choose](https://github.com/microsoft/hve-squad/issues/new/choose).
 
 Before opening an issue, check the resources below:
 
-- **Documentation and setup guides:** [peter-n91.github.io/hve-squad](https://peter-n91.github.io/hve-squad/)
-- **Known installation and runtime issues:** [Troubleshooting guide](https://peter-n91.github.io/hve-squad/troubleshooting.html) (including running **Squad Doctor** `check` in a fresh session)
+- **Documentation and setup guides:** [microsoft.github.io/hve-squad](https://microsoft.github.io/hve-squad/)
+- **Known installation and runtime issues:** [Troubleshooting guide](https://microsoft.github.io/hve-squad/troubleshooting.html) (including running **Squad Doctor** `check` in a fresh session)
 - **Contribution and bug-report guidance:** [CONTRIBUTING.md](CONTRIBUTING.md)
 - **Upstream HVE Core assets:** Defects in upstream HVE Core agents, prompts, instructions, or skills belong in [microsoft/hve-core/issues](https://github.com/microsoft/hve-core/issues). Issues with how HVE Squad packages, configures, or routes those assets belong in this repository. When in doubt, file here and maintainers will redirect if needed.
 

@@ -30,7 +30,7 @@ Licensed under the MIT license.
         <a href="maintaining.html">Maintaining</a>
         <a href="troubleshooting.html">Troubleshooting</a>
         <a href="contributing.html">Contributing</a>
-        <a href="https://github.com/Peter-N91/hve-squad">GitHub</a>
+        <a href="https://github.com/microsoft/hve-squad">GitHub</a>
         <a class="language-link" href="fr/connector.html" lang="fr">Fran&ccedil;ais</a>
       </div>
     </div>
@@ -460,9 +460,9 @@ Show the proposed member, binding, route, and root before writing.</code></pre><
 
       <p>
         Start with the <a href="#consumer-walkthrough">consumer walkthrough on this page</a>.
-        The <a href="https://github.com/Peter-N91/hve-squad/blob/main/docs/templates/connector-example/CONSUMER-GUIDE.md">consumer guide</a>
+        The <a href="https://github.com/microsoft/hve-squad/blob/main/docs/templates/connector-example/CONSUMER-GUIDE.md">consumer guide</a>
         is its portable Markdown companion, with the same folders, registration decisions, and output ownership.
-        <a href="https://github.com/Peter-N91/hve-squad/blob/main/docs/templates/connector-example/consumer-team.1.1.md">The consumer team example</a>
+        <a href="https://github.com/microsoft/hve-squad/blob/main/docs/templates/connector-example/consumer-team.1.1.md">The consumer team example</a>
         is a broader roster variant that defaults to a single implementor and includes three extra capabilities.
         These are source-only starters, not automatically installed or executed agents.
         Update or rebuild your installed squad package before expecting source changes to affect it.
@@ -1049,26 +1049,26 @@ Show the proposed member, binding, route, and root before writing.</code></pre><
       <h2>Worked example: acme-coordinator-v2</h2>
 
       <p>
-        The <a href="https://github.com/Peter-N91/hve-squad/blob/main/docs/templates/connector-example/">connector example directory</a> contains a complete,
+        The <a href="https://github.com/microsoft/hve-squad/blob/main/docs/templates/connector-example/">connector example directory</a> contains a complete,
         worked example of every file shape the contract defines, plus blank templates you can copy and
         adapt:
       </p>
 
       <ul>
         <li>
-          <a href="https://github.com/Peter-N91/hve-squad/blob/main/docs/templates/connector-example/manifest.json"><code>manifest.json</code></a> — a
+          <a href="https://github.com/microsoft/hve-squad/blob/main/docs/templates/connector-example/manifest.json"><code>manifest.json</code></a> — a
           realistic capability manifest declaring a coordinator that can implement development tasks
           for the <code>developer</code> role.
         </li>
         <li>
-          <a href="https://github.com/Peter-N91/hve-squad/blob/main/docs/templates/connector-example/delegation-request.sample.json"
+          <a href="https://github.com/microsoft/hve-squad/blob/main/docs/templates/connector-example/delegation-request.sample.json"
             ><code>delegation-request.sample.json</code></a
           >
           — what the shim writes to <code>dropPath</code>: a bounded task to add input validation to
           an invoice calculator.
         </li>
         <li>
-          <a href="https://github.com/Peter-N91/hve-squad/blob/main/docs/templates/connector-example/result-envelope.sample.json"
+          <a href="https://github.com/microsoft/hve-squad/blob/main/docs/templates/connector-example/result-envelope.sample.json"
             ><code>result-envelope.sample.json</code></a
           >
           — what the coordinator writes back in legacy 1.0 form: a change record describing the fix.
@@ -1076,26 +1076,26 @@ Show the proposed member, binding, route, and root before writing.</code></pre><
           authoritative marker is Scribe-rendered from validated binding provenance.
         </li>
         <li>
-          <a href="https://github.com/Peter-N91/hve-squad/blob/main/docs/templates/connector-example/sample-consumer-coordinator.md"
+          <a href="https://github.com/microsoft/hve-squad/blob/main/docs/templates/connector-example/sample-consumer-coordinator.md"
             ><code>sample-consumer-coordinator.md</code></a
           >
           — a pseudo-code sketch of how an external coordinator could honor the contract. This is
           illustrative only and is never executed by anything in this repository.
         </li>
         <li>
-          <a href="https://github.com/Peter-N91/hve-squad/blob/main/docs/templates/connector-example/manifest.template.json"
+          <a href="https://github.com/microsoft/hve-squad/blob/main/docs/templates/connector-example/manifest.template.json"
             ><code>manifest.template.json</code></a
           >,
-          <a href="https://github.com/Peter-N91/hve-squad/blob/main/docs/templates/connector-example/delegation-request.template.json"
+          <a href="https://github.com/microsoft/hve-squad/blob/main/docs/templates/connector-example/delegation-request.template.json"
             ><code>delegation-request.template.json</code></a
           >,
-          <a href="https://github.com/Peter-N91/hve-squad/blob/main/docs/templates/connector-example/result-envelope.template.json"
+          <a href="https://github.com/microsoft/hve-squad/blob/main/docs/templates/connector-example/result-envelope.template.json"
             ><code>result-envelope.template.json</code></a
           >
           — blank templates you can copy and fill in for your own connector.
         </li>
         <li>
-          <a href="https://github.com/Peter-N91/hve-squad/blob/main/docs/templates/connector-example/COMPATIBILITY-CHECKLIST.md"
+          <a href="https://github.com/microsoft/hve-squad/blob/main/docs/templates/connector-example/COMPATIBILITY-CHECKLIST.md"
             ><code>COMPATIBILITY-CHECKLIST.md</code></a
           >
           — a standalone, copyable restatement of this guide's checklist.
@@ -1104,7 +1104,7 @@ Show the proposed member, binding, route, and root before writing.</code></pre><
 
       <p>
         Copy these files as a starting point. Adapt them to your coordinator's own paths, roles, and
-        capabilities. Read <a href="https://github.com/Peter-N91/hve-squad/blob/main/squad-src/.github/skills/squad/references/connector-contract.md"
+        capabilities. Read <a href="https://github.com/microsoft/hve-squad/blob/main/squad-src/.github/skills/squad/references/connector-contract.md"
           ><code>connector-contract.md</code></a
         >
         for the normative specification of every field and every validation rule.

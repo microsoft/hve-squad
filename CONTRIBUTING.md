@@ -29,7 +29,7 @@ or comments.
 ## Reporting a bug
 
 Open an issue at
-[github.com/Peter-N91/hve-squad/issues](https://github.com/Peter-N91/hve-squad/issues)
+[github.com/microsoft/hve-squad/issues](https://github.com/microsoft/hve-squad/issues)
 using the **Bug report** template. It asks for the version, the host you ran on,
 what you expected against what happened, and steps to reproduce. HVE Squad state
 (`team.md` or `federation.md`, plus the relevant `history/` entry) is usually
@@ -262,17 +262,17 @@ records the cases and known gaps.
 
 Releases are cut by hand when the pending work is judged ready, so merging is no longer the moment a change reaches consumers. What merging does reach is the **rolling pre-release**: one GitHub pre-release, rebuilt on every merge to the default branch, tagged with the version the pending fragments currently resolve to.
 
-Use [Install and test the pre-release](https://peter-n91.github.io/hve-squad/getting-started.html#testing-the-pre-release)
+Use [Install and test the pre-release](https://microsoft.github.io/hve-squad/getting-started.html#testing-the-pre-release)
 for the exact plugin and APM fallback commands, testing steps, and return-to-stable
 instructions. After a maintainer dispatches **Publish Plugin** with channel
 `preview`, install the preview marketplace in a scratch environment:
 
 ```text
-copilot plugin marketplace add Peter-N91/hve-squad#plugin-preview
+copilot plugin marketplace add microsoft/hve-squad#plugin-preview
 copilot plugin install hve-squad@hve-squad-preview
 ```
 
-Use the rolling tag from the [Releases page](https://github.com/Peter-N91/hve-squad/releases)
+Use the rolling tag from the [Releases page](https://github.com/microsoft/hve-squad/releases)
 with APM CLI 0.29.0 only when repository-deployed customizations are the behavior
 under test. Two things follow from how the preview is built:
 

@@ -77,7 +77,7 @@
 .EXAMPLE
     ./scripts/Update-ApmDependencies.ps1 -Ref main -SquadRef v0.8.0
 .EXAMPLE
-    ./scripts/Update-ApmDependencies.ps1 -SquadSourceRoot squad-src -SquadRepoSlug Peter-N91/hve-squad
+    ./scripts/Update-ApmDependencies.ps1 -SquadSourceRoot squad-src -SquadRepoSlug microsoft/hve-squad
 .NOTES
     Intended for use with: apm run sync-deps
 #>
@@ -115,7 +115,7 @@ param(
 
     [Parameter(Mandatory = $false)]
     [ValidateNotNullOrEmpty()]
-    [string]$SquadRepoSlug = 'Peter-N91/hve-squad',
+    [string]$SquadRepoSlug = 'microsoft/hve-squad',
 
     [Parameter(Mandatory = $false)]
     [string]$SquadRef,

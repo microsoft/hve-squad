@@ -3,7 +3,7 @@ name: squad-model-routing
 description: "Opt-in model routing: persisted modes and Model cells, capability-first Ranked and manual suggestions, host availability, minimum floors, explicit pins, fallback, identity, Cost Preflight, and federation forwarding."
 license: MIT
 metadata:
-  authors: "Peter-N91/hve-squad"
+  authors: "microsoft/hve-squad"
   spec_version: "2.0"
   last_updated: "2026-10-24"
 ---

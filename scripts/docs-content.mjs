@@ -20,7 +20,7 @@ export const navigationGroups = [
   { key: "reference", pages: ["ecosystem", "connector", "troubleshooting"] },
   { key: "project", pages: ["maintaining", "contributing"] },
 ];
-export const publicUrl = "https://peter-n91.github.io/hve-squad/";
+export const publicUrl = "https://microsoft.github.io/hve-squad/";
 
 function validateMessages(reference, translated, path) {
   if (typeof reference === "string") {
@@ -225,7 +225,7 @@ export function buildPages(locales = readLocales(), release = readReleaseInfo())
         hasPageEnd: $("main .pager").length > 0,
         hasDiagrams: $("main .diagram").length > 0,
         canonical: publicUrl + outputPath, defaultCanonical: `${publicUrl}${slug}.html`,
-        sourceUrl: `https://github.com/Peter-N91/hve-squad/blob/main/${sourcePath}`,
+        sourceUrl: `https://github.com/microsoft/hve-squad/blob/main/${sourcePath}`,
         nav: navigationGroups.map(group => ({
           label: locale.ui[group.key],
           pages: [

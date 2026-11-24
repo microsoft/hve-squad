@@ -930,7 +930,7 @@ function Format-CatalogMarkdownLocal {
             'description: "Declared, dated snapshot of the GitHub Copilot model offering: capability class, per-assignment-class fit scores, context/reasoning documentation status, pricing including long-context tiers, rate-row alias, and host-availability precedence."'
             'license: MIT'
             'metadata:'
-            '  authors: "Peter-N91/hve-squad"'
+            '  authors: "microsoft/hve-squad"'
             '  spec_version: "1.1"'
             "  last_updated: `"$StampDate`""
             '---'
@@ -1184,7 +1184,7 @@ function Format-RatesTemplateMarkdownLocal {
             'description: "Cold seed template for consumption-rates.md: per-model token rates, the tier-fallback table, the dispatch-size estimator, and the calibration block."'
             'license: MIT'
             'metadata:'
-            '  authors: "Peter-N91/hve-squad"'
+            '  authors: "microsoft/hve-squad"'
             '  spec_version: "1.0"'
             "  last_updated: `"$StampDate`""
             '---'
