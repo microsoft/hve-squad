@@ -1,0 +1,26 @@
+# CODEOWNERS
+#
+# This file defines code ownership for the hve-squad repository.
+# Code owners are automatically requested for review when someone opens a pull request
+# that modifies files they own.
+#
+# Syntax: <file-pattern> @owner1 @owner2
+# More info: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for all files (fallback)
+* @microsoft/ocp-isv-admins
+
+# Self-protection: CODEOWNERS file changes require team approval
+/.github/CODEOWNERS @microsoft/ocp-isv-admins
+
+# GitHub configuration (workflows, templates, instructions)
+/.github/ @microsoft/ocp-isv-admins
+
+# Automation Scripts
+/scripts/ @microsoft/ocp-isv-admins
+
+# Shipped HVE Squad package source
+/squad-src/ @microsoft/ocp-isv-admins
+
+# Documentation
+/docs/ @microsoft/ocp-isv-admins

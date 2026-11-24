@@ -12,7 +12,7 @@ body:
 
         - **Security vulnerabilities do not belong here.** Follow
           [Microsoft's security reporting guidance](https://aka.ms/SECURITY.md).
-          See [SECURITY.md](https://github.com/Peter-N91/hve-squad/blob/main/SECURITY.md).
+          See [SECURITY.md](https://github.com/microsoft/hve-squad/blob/main/SECURITY.md).
         - **Want the squad to do work for you?** Use the *Squad task* template instead.
 
         hve-squad composes assets from
@@ -62,7 +62,7 @@ body:
     attributes:
       label: Steps to reproduce
       placeholder: |
-        1. apm install "Peter-N91/hve-squad#v0.16.1" --target copilot
+        1. apm install "microsoft/hve-squad#v0.16.1" --target copilot
         2. /squad request="..."
         3. ...
     validations:

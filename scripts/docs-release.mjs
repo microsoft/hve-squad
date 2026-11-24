@@ -5,8 +5,8 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const releasesUrl = "https://github.com/Peter-N91/hve-squad/releases/tag/";
-const releasesApi = "https://api.github.com/repos/Peter-N91/hve-squad/releases";
+const releasesUrl = "https://github.com/microsoft/hve-squad/releases/tag/";
+const releasesApi = "https://api.github.com/repos/microsoft/hve-squad/releases";
 const releaseBumps = new Set(["patch", "minor", "major"]);
 const changeId = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
@@ -136,7 +136,7 @@ export function populateReleaseInstalls($, release, ui) {
       const label = channel === "preview" ? ui.installPreview : ui.installStable;
       const url = channel === "preview" ? release.previewUrl : release.stableUrl;
       block.append($("<p>").text(`${label} `).append($("<a>").attr("href", url).text(tag)));
-      block.append($("<pre>").append($("<code>").text(`apm install "Peter-N91/hve-squad#${tag}" --target copilot`)));
+      block.append($("<pre>").append($("<code>").text(`apm install "microsoft/hve-squad#${tag}" --target copilot`)));
     } else {
       block.append($("<p>").text(ui.noPreview));
     }

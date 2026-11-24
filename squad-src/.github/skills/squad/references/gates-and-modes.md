@@ -3,7 +3,7 @@ name: squad-gates-and-modes
 description: "Operator procedures for the discovery, intake, council, and implementation gates and for the autonomous, autopilot, and notification modes."
 license: MIT
 metadata:
-  authors: "Peter-N91/hve-squad"
+  authors: "microsoft/hve-squad"
   spec_version: "1.1"
   last_updated: "2026-08-19"
 ---

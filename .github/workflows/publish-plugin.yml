@@ -217,7 +217,7 @@ jobs:
             echo "- Bundled HVE Core: \`$HVE_CORE_SHA\`"
             echo
             echo '```text'
-            echo "copilot plugin marketplace add Peter-N91/hve-squad#$TARGET_BRANCH"
+            echo "copilot plugin marketplace add microsoft/hve-squad#$TARGET_BRANCH"
             echo "copilot plugin install hve-squad@$MARKETPLACE_NAME"
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"

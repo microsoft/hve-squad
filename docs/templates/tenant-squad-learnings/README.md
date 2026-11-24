@@ -63,7 +63,7 @@ In each consuming project's `apm.yml`, add the tenant skill folder as a dependen
 ```yaml
 dependencies:
   apm:
-    - Peter-N91/hve-squad/squad-src/.github/skills/squad
+    - microsoft/hve-squad/squad-src/.github/skills/squad
     - your-org/tenant-squad-learnings/squad-src/.github/skills/squad-learnings-tenant#v1.0.0
 ```
 

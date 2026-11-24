@@ -3,7 +3,7 @@ name: squad-model-catalog
 description: "Declared, dated snapshot of the GitHub Copilot model offering: capability class, per-assignment-class fit scores, context/reasoning documentation status, pricing including long-context tiers, rate-row alias, and host-availability precedence."
 license: MIT
 metadata:
-  authors: "Peter-N91/hve-squad"
+  authors: "microsoft/hve-squad"
   spec_version: "1.1"
   last_updated: "2026-11-23"
 ---

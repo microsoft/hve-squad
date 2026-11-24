@@ -30,7 +30,7 @@ Licensed under the MIT license.
         <a href="maintaining.html">Maintaining</a>
         <a href="troubleshooting.html">Troubleshooting</a>
         <a href="contributing.html">Contributing</a>
-        <a href="https://github.com/Peter-N91/hve-squad">GitHub</a>
+        <a href="https://github.com/microsoft/hve-squad">GitHub</a>
         <a class="language-link" href="fr/getting-started.html" lang="fr">Fran&ccedil;ais</a>
       </div>
     </div>
@@ -100,7 +100,7 @@ Licensed under the MIT license.
       <section data-host="cli">
         <h2>Copilot CLI</h2>
         <p data-release-change="20261106-in-repo-self-contained-plugin">Install GitHub Copilot CLI, sign in with an account that has Copilot access, and install the stable marketplace from this repository:</p>
-        <pre><code>copilot plugin marketplace add Peter-N91/hve-squad#plugin
+        <pre><code>copilot plugin marketplace add microsoft/hve-squad#plugin
 copilot plugin install hve-squad@hve-squad
 copilot</code></pre>
         <p>The single plugin includes HVE Squad and the exact HVE Core commit validated with that release. It does not configure <code>hve-squad-mcp</code>. In the agent picker, Squad Coordinator may be displayed as <code>hve-squad:squad-coordinator</code>.</p>
@@ -114,7 +114,7 @@ copilot plugin update hve-squad</code></pre>
       </section>
       <section data-host="app">
         <h2>Copilot App</h2>
-        <p data-release-change="20261106-in-repo-self-contained-plugin">Open your project in the GitHub Copilot app and sign in. In <strong>Customize → Plugins</strong>, add the marketplace <code>Peter-N91/hve-squad#plugin</code> and install <code>hve-squad</code>.</p>
+        <p data-release-change="20261106-in-repo-self-contained-plugin">Open your project in the GitHub Copilot app and sign in. In <strong>Customize → Plugins</strong>, add the marketplace <code>microsoft/hve-squad#plugin</code> and install <code>hve-squad</code>.</p>
         <p>Verify the plugin inside the app itself. A terminal installation can use another <code>COPILOT_HOME</code> and does not prove that the app has the same installation. Look for <strong>Squad Coordinator</strong>, possibly listed as <code>hve-squad:squad-coordinator</code>.</p>
         <p data-release-change="20261106-squad-doctor">Use the app's plugin update action to refresh the plugin. The update replaces both HVE Squad and the bundled pinned HVE Core content together. Start a fresh session, select <strong>Squad Doctor</strong> and request <code>check</code>, then <code>repair</code> for confirmed script-supported fixes. Do not install a second <code>hve-core</code> plugin.</p>
       </section>
@@ -123,7 +123,7 @@ copilot plugin update hve-squad</code></pre>
       <p>Open your project in VS Code with GitHub Copilot Chat enabled and authenticated. The plugin is the primary installation route.</p>
 
       <h3 data-release-change="20261106-in-repo-self-contained-plugin">Install the stable plugin</h3>
-      <p>Run <strong>Chat: Manage Plugin Marketplaces</strong>, add <code>Peter-N91/hve-squad#plugin</code>, then open <strong>Chat: Open Customizations → Plugins</strong> and install <code>hve-squad</code>. Start a fresh Copilot session after installation.</p>
+      <p>Run <strong>Chat: Manage Plugin Marketplaces</strong>, add <code>microsoft/hve-squad#plugin</code>, then open <strong>Chat: Open Customizations → Plugins</strong> and install <code>hve-squad</code>. Start a fresh Copilot session after installation.</p>
       <p>The installed plugin has one root and one version: HVE Squad agents, HVE Core agents, skills, rules, and hooks update together. It contains no MCP server, so a missing Node or <code>npx</code> cannot prevent the plugin from loading.</p>
       <h3>Update</h3>
       <p data-release-change="20261106-squad-doctor">Open <strong>Chat: Open Customizations → Plugins</strong> and choose <strong>Check for and Apply Updates</strong>. Start a fresh session, select <strong>Squad Doctor</strong> and request <code>check</code>; request <code>repair</code> to confirm script-supported fixes. Do not install the official <code>hve-core</code> plugin alongside HVE Squad.</p>
@@ -178,7 +178,7 @@ apm --version  # must report 0.29.0</code></pre>
 
       <h3>Install the package</h3>
       <p>Run <code>apm install</code> from the root of the project you want the squad in.</p>
-      <p>Replace <code>vX.Y.z</code> in the examples with a published tag from <a href="https://github.com/Peter-N91/hve-squad/releases">Releases</a>.</p>
+      <p>Replace <code>vX.Y.z</code> in the examples with a published tag from <a href="https://github.com/microsoft/hve-squad/releases">Releases</a>.</p>
 
       <div class="callout warn">
         <p>
@@ -206,9 +206,9 @@ apm --version  # must report 0.29.0</code></pre>
       </div>
 
       <h3>Option A — pass <code>--target copilot</code> on every install (one-off)</h3>
-      <pre><code>apm install "Peter-N91/hve-squad#vX.Y.z" --target copilot  # pinned (recommended)
+      <pre><code>apm install "microsoft/hve-squad#vX.Y.z" --target copilot  # pinned (recommended)
 # or
-apm install Peter-N91/hve-squad --target copilot           # latest on default branch</code></pre>
+apm install microsoft/hve-squad --target copilot           # latest on default branch</code></pre>
 
       <h3>Option B — declare the target once in your project's <code>apm.yml</code> (persistent, recommended)</h3>
       <p>Create an <code>apm.yml</code> at the root of your consumer project:</p>
@@ -217,7 +217,7 @@ version: 0.1.0
 targets:
   - copilot</code></pre>
       <p>
-        Then <code>apm install "Peter-N91/hve-squad#vX.Y.z"</code> (no flag needed) deploys to
+        Then <code>apm install "microsoft/hve-squad#vX.Y.z"</code> (no flag needed) deploys to
         Copilot from now on. This also makes future <code>apm install</code> / <code>apm update</code>
         runs reproducible.
       </p>
@@ -239,7 +239,7 @@ targets:
 
       <h3>Re-deploy after an update</h3>
       <p>Re-run install with the published tag you want, including <code>--target copilot</code> unless your project declares <code>targets:</code>:</p>
-      <pre><code>apm install "Peter-N91/hve-squad#vX.Y.z" --target copilot</code></pre>
+      <pre><code>apm install "microsoft/hve-squad#vX.Y.z" --target copilot</code></pre>
       <p>To test merged work before release, follow <a href="#testing-the-pre-release">Install and test the pre-release</a> for the current tag and exact command. That tag moves; pin a stable release for work you depend on. Reinstallation refreshes <code>.github/</code>, not your state under <code>.copilot-tracking/squad/</code>.</p>
       </section>
       </div>
@@ -474,11 +474,11 @@ targets:
         independent from the stable <code>plugin</code> marketplace and requires no APM installation.
       </p>
       <pre><code>copilot plugin uninstall hve-squad
-copilot plugin marketplace add Peter-N91/hve-squad#plugin-preview
+copilot plugin marketplace add microsoft/hve-squad#plugin-preview
 copilot plugin install hve-squad@hve-squad-preview</code></pre>
       <p>
         In VS Code or the Copilot app, uninstall the stable plugin, add
-        <code>Peter-N91/hve-squad#plugin-preview</code> in the plugin marketplace UI, and install
+        <code>microsoft/hve-squad#plugin-preview</code> in the plugin marketplace UI, and install
         <code>hve-squad</code>. Do not enable stable and preview copies together because they expose
         the same agent names. To refresh a preview, update the <code>hve-squad-preview</code>
         marketplace and then update the plugin.
@@ -490,7 +490,7 @@ copilot plugin install hve-squad@hve-squad-preview</code></pre>
       </ol>
       <p>
         Return to stable by uninstalling the preview plugin, adding
-        <code>Peter-N91/hve-squad#plugin</code>, and installing
+        <code>microsoft/hve-squad#plugin</code>, and installing
         <code>hve-squad@hve-squad</code>. Plugin changes do not reset state under
         <code>.copilot-tracking/squad/</code>, so keep preview testing isolated.
       </p>
@@ -641,7 +641,7 @@ copilot plugin install hve-squad@hve-squad-preview</code></pre>
     <div class="container">
       <p>
         hve-squad · built on <a href="https://github.com/microsoft/hve-core">Microsoft HVE Core</a>
-        agents and conventions · <a href="https://github.com/Peter-N91/hve-squad">Source on GitHub</a>
+        agents and conventions · <a href="https://github.com/microsoft/hve-squad">Source on GitHub</a>
       </p>
     </div>
   </footer>

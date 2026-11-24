@@ -9,7 +9,7 @@
     Pins this package's own squad self-references in apm.yml to a git ref.
 .DESCRIPTION
     Every dependency in apm.yml that points back at this repository
-    (Peter-N91/hve-squad/squad-src/...) ships as a bare path with no '#ref'.
+    (microsoft/hve-squad/squad-src/...) ships as a bare path with no '#ref'.
     APM resolves a bare path against the repository's default branch, so a
     release tag freezes the dependency *list* but not the dependency *contents*:
     installing an old tag delivers today's squad files.
@@ -17,7 +17,7 @@
     Measured 2026-08-18: installing '#v0.14.0' returned main's coordinator, while
     the hve-core entries in the same manifest — which do carry '#<sha>' — resolved
     correctly to the pinned commit. APM itself warns
-    '47 dependencies unpinned: Peter-N91/hve-squad -- add #tag or #sha to prevent drift'.
+    '47 dependencies unpinned: microsoft/hve-squad -- add #tag or #sha to prevent drift'.
 
     This script appends '#<Ref>' to those entries and nothing else. It is
     deliberately separate from Update-ApmDependencies.ps1, which reaches the same
@@ -57,7 +57,7 @@ param(
 
     [Parameter(Mandatory = $false)]
     [ValidateNotNullOrEmpty()]
-    [string]$RepoSlug = 'Peter-N91/hve-squad',
+    [string]$RepoSlug = 'microsoft/hve-squad',
 
     [Parameter(Mandatory = $false)]
     [switch]$DryRun

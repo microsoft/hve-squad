@@ -3,7 +3,7 @@ name: squad-roster-catalog
 description: "Canonical cast catalog: role-to-agent mapping, the registered External Cast of opt-in and bundled third-party resources, and the Building a Custom Roster role menu."
 license: MIT
 metadata:
-  authors: "Peter-N91/hve-squad"
+  authors: "microsoft/hve-squad"
   spec_version: "1.0"
   last_updated: "2026-11-23"
 ---

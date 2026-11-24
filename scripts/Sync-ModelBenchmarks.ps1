@@ -692,7 +692,7 @@ function Get-BenchmarkSnapshotContentLocal {
         'description: "Pinned benchmark evidence with explicit model/configuration identities, separate dates, verification, selected comparison panels and auditable source terms."'
         'license: MIT'
         'metadata:'
-        '  authors: "Peter-N91/hve-squad"'
+        '  authors: "microsoft/hve-squad"'
         '  spec_version: "1.0"'
         "  last_updated: `"$date`""
         '---'

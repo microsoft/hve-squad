@@ -352,8 +352,13 @@ if ($policy -notmatch 'Preserve human gates and Stop decisions') { throw 'Worker
         $marketplace = Get-Content -LiteralPath $script:MarketplaceManifestPath -Raw | ConvertFrom-Json
         @($marketplace.plugins) | Should -HaveCount 1
         $marketplace.name | Should -BeExactly 'hve-squad'
+        $marketplace.owner.name | Should -BeExactly 'Microsoft'
+        $marketplace.metadata.description | Should -Match 'microsoft/hve-squad'
         $marketplace.plugins[0].name | Should -BeExactly 'hve-squad'
         $marketplace.plugins[0].source | Should -BeExactly '.'
+        $marketplace.plugins[0].author.name | Should -BeExactly 'Microsoft'
+        $marketplace.plugins[0].homepage | Should -BeExactly 'https://microsoft.github.io/hve-squad/'
+        $marketplace.plugins[0].repository | Should -BeExactly 'https://github.com/microsoft/hve-squad'
 
         $manifest = Get-Content -LiteralPath $script:RootManifestPath -Raw | ConvertFrom-Json -AsHashtable
         $manifest.ContainsKey('$schema') | Should -BeFalse

@@ -59,8 +59,8 @@ Describe 'Selected-source replacement' {
         It 'overlays an agent and prompt sharing a package slug after both missing-path failures' {
             $diagnostics = @(
                 '+- hve-squad-squad-coach -- Failed to download dependency'
-                'Peter-N91/hve-squad: Failed to download virtual package: File not found:'
-                "$script:AgentPath in Peter-N91/hve-squad"
+                'microsoft/hve-squad: Failed to download virtual package: File not found:'
+                "$script:AgentPath in microsoft/hve-squad"
                 "+- hve-squad-squad-coach -- File '$script:PromptPath' not found after git sparse checkout"
             )
             $install = { param($InstallArgs, $Target, $Attempt) [pscustomobject]@{ ExitCode = 1; Output = $diagnostics } }.GetNewClosure()
@@ -74,7 +74,7 @@ Describe 'Selected-source replacement' {
 
         It 'rejects a separate unexplained dependency failure even beside tolerated self-references' {
             $diagnostics = @(
-                "+- hve-squad-squad-coach -- File not found: $script:AgentPath in Peter-N91/hve-squad"
+                "+- hve-squad-squad-coach -- File not found: $script:AgentPath in microsoft/hve-squad"
                 '+- hve-core-other -- Authentication failed'
             )
             $install = { param($InstallArgs, $Target, $Attempt) [pscustomobject]@{ ExitCode = 1; Output = $diagnostics } }.GetNewClosure()
@@ -83,7 +83,7 @@ Describe 'Selected-source replacement' {
         }
 
         It 'rejects a failed dependency path the selected overlay does not supply' {
-            $diagnostics = @("+- hve-squad-missing -- File not found: squad-src/.github/agents/squad/missing.agent.md in Peter-N91/hve-squad")
+            $diagnostics = @("+- hve-squad-missing -- File not found: squad-src/.github/agents/squad/missing.agent.md in microsoft/hve-squad")
             $install = { param($InstallArgs, $Target, $Attempt) [pscustomobject]@{ ExitCode = 1; Output = $diagnostics } }.GetNewClosure()
             { Install-SquadPackage -SourceRoot $script:Source -Destination $script:Destination -InstallCommand $install } |
                 Should -Throw '*Not explained by the working copy*'
@@ -98,7 +98,7 @@ Describe 'Selected-source replacement' {
         }
 
         It 'keeps published-ref installation failures fatal' {
-            $diagnostics = @("+- hve-squad-squad-coach -- File not found: $script:AgentPath in Peter-N91/hve-squad")
+            $diagnostics = @("+- hve-squad-squad-coach -- File not found: $script:AgentPath in microsoft/hve-squad")
             $install = { param($InstallArgs, $Target, $Attempt) [pscustomobject]@{ ExitCode = 1; Output = $diagnostics } }.GetNewClosure()
             { Install-SquadPackage -Ref main -Destination $script:Destination -InstallCommand $install } |
                 Should -Throw '*apm install failed*'

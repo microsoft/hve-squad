@@ -3,7 +3,7 @@ name: squad-consumption-rates-template
 description: "Cold seed template for consumption-rates.md: per-model token rates, the tier-fallback table, the dispatch-size estimator, and the calibration block."
 license: MIT
 metadata:
-  authors: "Peter-N91/hve-squad"
+  authors: "microsoft/hve-squad"
   spec_version: "1.0"
   last_updated: "2026-11-23"
 ---

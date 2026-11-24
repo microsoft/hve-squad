@@ -6,7 +6,7 @@ contact_links:
     url: https://aka.ms/SECURITY.md
     about: Follow Microsoft's security reporting guidance. Do not open a public issue.
   - name: Documentation
-    url: https://peter-n91.github.io/hve-squad/
+    url: https://microsoft.github.io/hve-squad/
     about: Getting started, usage, maintaining, and troubleshooting guides.
   - name: Issue in an upstream hve-core asset
     url: https://github.com/microsoft/hve-core/issues

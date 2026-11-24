@@ -231,7 +231,7 @@ function Install-SquadPackage {
         [string]$Ref = 'main',
 
         [Parameter(ParameterSetName = 'Ref')]
-        [string]$Package = 'Peter-N91/hve-squad',
+        [string]$Package = 'microsoft/hve-squad',
 
         [Parameter(Mandatory, ParameterSetName = 'Source')]
         [string]$SourceRoot,

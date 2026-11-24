@@ -40,7 +40,7 @@ The existing squad self-reference in apm.yml looks like this:
 ```yaml
 dependencies:
   apm:
-    - Peter-N91/hve-squad/squad-src/.github/skills/squad
+    - microsoft/hve-squad/squad-src/.github/skills/squad
 ```
 
 Add the `squad-learnings-tenant` folder as another dependency, pinned to a tag:
@@ -48,7 +48,7 @@ Add the `squad-learnings-tenant` folder as another dependency, pinned to a tag:
 ```yaml
 dependencies:
   apm:
-    - Peter-N91/hve-squad/squad-src/.github/skills/squad
+    - microsoft/hve-squad/squad-src/.github/skills/squad
     - your-org/tenant-squad-learnings/squad-src/.github/skills/squad-learnings-tenant#v1.0.0
 ```
 

@@ -155,7 +155,7 @@ jobs:
           fi
 
       # ── Pin squad self-references, then tag that commit ──────────────────
-      #    The 47 Peter-N91/hve-squad entries in apm.yml ship as bare paths, and
+      #    The 47 microsoft/hve-squad entries in apm.yml ship as bare paths, and
       #    APM resolves a bare path against the default branch. Without this step a
       #    tag freezes the dependency *list* but not its *contents*: installing
       #    '#v0.14.0' was measured returning main's coordinator, while the hve-core

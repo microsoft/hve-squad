@@ -85,7 +85,7 @@ param(
 
     [Parameter(Mandatory = $false)]
     [ValidateNotNullOrEmpty()]
-    [string]$RepoSlug = 'Peter-N91/hve-squad',
+    [string]$RepoSlug = 'microsoft/hve-squad',
 
     [Parameter(Mandatory = $false)]
     [ValidatePattern('^\d+\.\d+\.\d+$')]

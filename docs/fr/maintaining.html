@@ -30,7 +30,7 @@ Licensed under the MIT license.
         <a href="maintaining.html" class="active">Maintenance</a>
         <a href="troubleshooting.html">Dépannage</a>
         <a href="contributing.html">Contribuer</a>
-        <a href="https://github.com/Peter-N91/hve-squad">GitHub</a>
+        <a href="https://github.com/microsoft/hve-squad">GitHub</a>
         <a class="language-link" href="../maintaining.html" lang="en">English</a>
       </div>
     </div>
@@ -524,17 +524,17 @@ git diff --check</code></pre>
         (elles ne sont pas clonées, car elles se trouvent dans cette arborescence de travail et peuvent ne pas
         encore avoir été poussées). Les entrées de la squad sont produites sous forme de chemins virtuels distants
         <code>&lt;SquadRepoSlug&gt;/&lt;SquadSourceRoot&gt;/.github/...</code>, par exemple
-        <code>Peter-N91/hve-squad/squad-src/.github/agents/squad/squad-coordinator.agent.md</code>.
+        <code>microsoft/hve-squad/squad-src/.github/agents/squad/squad-coordinator.agent.md</code>.
         Elles sont ajoutées après les entrées hve-core dans <code>dependencies.apm</code>.
       </p>
       <p>La commande de synchronisation accepte les paramètres suivants, propres à la squad :</p>
       <pre><code>pwsh -File scripts/Update-ApmDependencies.ps1 `
   -SquadSourceRoot squad-src `
-  -SquadRepoSlug Peter-N91/hve-squad `
+  -SquadRepoSlug microsoft/hve-squad `
   -SquadRef vX.Y.Z</code></pre>
       <ul>
         <li><code>SquadSourceRoot</code> : chemin local de l’arborescence des sources de la squad (par défaut : <code>squad-src</code>). Si le chemin n’existe pas, l’énumération de la squad est ignorée sans erreur.</li>
-        <li><code>SquadRepoSlug</code> : <code>owner/repo</code> qui héberge les sources de la squad (par défaut : <code>Peter-N91/hve-squad</code>).</li>
+        <li><code>SquadRepoSlug</code> : <code>owner/repo</code> qui héberge les sources de la squad (par défaut : <code>microsoft/hve-squad</code>).</li>
         <li><code>SquadRef</code> : référence git facultative qui épingle les autoréférences de la squad sous la forme <code>#&lt;ref&gt;</code>. En général, vous n’y touchez pas &mdash; <strong>le workflow Release les épingle automatiquement</strong> (voir <em>Tags de version reproductibles</em> ci-dessous). Ce paramètre reste disponible pour épingler un manifeste manuellement.</li>
       </ul>
       <p>Utilisez <code>-DryRun</code> pour prévisualiser à la fois les entrées hve-core et celles de la squad sans écrire dans <code>apm.yml</code>.</p>
@@ -546,7 +546,7 @@ git diff --check</code></pre>
         leur <em>contenu</em> : il a été constaté qu’une installation de <code>#v0.14.0</code> renvoyait
         le coordinateur de <code>main</code>, alors que les entrées hve-core du même manifeste étaient résolues
         correctement parce qu’elles portent <code>#&lt;sha&gt;</code>. APM le signale directement &mdash;
-        <code>47 dependencies unpinned: Peter-N91/hve-squad</code>.
+        <code>47 dependencies unpinned: microsoft/hve-squad</code>.
       </p>
       <p>
         <code>release.yml</code> corrige ce problème sans aucune étape manuelle. Avant de créer la publication, il exécute
@@ -609,7 +609,7 @@ git diff --check</code></pre>
         Chaque pull request ajoute à la place <strong>un nouveau fichier</strong> dans
         <code>.changes/unreleased/</code>, généré par <code>apm run change</code>. Deux pull requests
         ajoutant deux fichiers de noms différents n’entrent jamais en conflit. Le format est documenté dans
-        <a href="https://github.com/Peter-N91/hve-squad/blob/main/.changes/README.md">.changes/README.md</a>
+        <a href="https://github.com/microsoft/hve-squad/blob/main/.changes/README.md">.changes/README.md</a>
         et repris pour les contributeurs sur la page <a href="contributing.html">Contribuer</a>.
       </p>
       <p><code>pr-validation.yml</code> transforme la règle en contrôle mécanique plutôt qu’en commentaire de revue :</p>
@@ -674,7 +674,7 @@ pwsh -File scripts/Invoke-ReleasePrep.ps1 -Version 1.0.0        # exact number, 
       <h2>Processus de publication</h2>
       <p>
         Les publications suivent un processus fondé sur des tags à partir de la branche par défaut (<code>main</code>). Le tag est
-        l’artefact de version que les utilisateurs installent avec <code>apm install "Peter-N91/hve-squad#vX.Y.Z"</code>.
+        l’artefact de version que les utilisateurs installent avec <code>apm install "microsoft/hve-squad#vX.Y.Z"</code>.
         Vous ne choisissez pas le numéro de version manuellement &mdash; c’est le <code>bump</code> le plus élevé parmi les
         fragments en attente qui le détermine.
       </p>
@@ -800,7 +800,7 @@ pwsh -File scripts/Invoke-ReleasePrep.ps1 -Version 1.0.0    # force an exact ver
     <div class="container">
       <p>
         hve-squad · basé sur les agents et conventions de <a href="https://github.com/microsoft/hve-core">Microsoft HVE Core</a>
-        · <a href="https://github.com/Peter-N91/hve-squad">Code source sur GitHub</a>
+        · <a href="https://github.com/microsoft/hve-squad">Code source sur GitHub</a>
       </p>
     </div>
   </footer>

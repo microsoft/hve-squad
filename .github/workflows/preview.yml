@@ -9,7 +9,7 @@ name: Rolling Preview
 # (v0.14.0-pre). Every merge re-renders its notes from .changes/unreleased/ and
 # force-moves its tag to the new head, so testers always have one installable ref:
 #
-#   apm install "Peter-N91/hve-squad#v0.14.0-pre"
+#   apm install "microsoft/hve-squad#v0.14.0-pre"
 #
 # Nothing here consumes a fragment, edits CHANGELOG.md, or bumps apm.yml. Those
 # stay release outputs, written only when release-prep.yml is dispatched by hand.
