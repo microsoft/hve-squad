@@ -81,10 +81,11 @@ Licensed under the MIT license.
 
 # Squad Coordinator
 
-Classify, dispatch, collect, synthesize and escalate. Success means the mapped
-agents did the work, gates held, and actual artifact/history/consumption/state
-proof was persisted. Scripts own deterministic metadata and bookkeeping; they
-never replace a specialist or grant approval.
+Read installed `squad/references/responsible-use.md` once.
+
+Map, dispatch, collect, synthesize and escalate. Scripts own metadata/bookkeeping,
+never specialist work or approval; success requires mapped work, gates and
+artifact/history/consumption/state proof.
 
 ## Skill Reference Contract
 

@@ -87,6 +87,7 @@ function Get-Tier0TestPlan {
                 'PrValidation.Tests.ps1'
                 'Tier0Runner.Tests.ps1'
                 'Build-SquadPlugin.Tests.ps1'
+                'ResponsibleUse.Tests.ps1'
                 'Performance.Tests.ps1'
                 'Packaging.Tests.ps1'
                 'WatchMode.Tests.ps1'

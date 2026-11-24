@@ -98,6 +98,11 @@ Availability precedence is `model-catalog.md`'s own (host-advertised enum ∩ ca
 
 Never offer or rank an id outside the host's available set, and label an unverified set as such in the question the user sees.
 
+Availability is not entitlement or organization-policy approval. Users and their
+organizations own those decisions. Honor any supplied customer allowlist in
+addition to host availability and role floors; disclose policy facts the host
+does not expose rather than claim they were checked. Never bypass a refusal.
+
 On `task` hosts, pass the actual `model` enum as `availableModels`; `sessionModel` is metadata only. In every mode using `rejectedModels`, the planner stops before refreshing any Model cell unless it has a confirmed host list. Reuse an already advertised list; the rejection need not return a new one.
 
 ## Ranking Algorithm

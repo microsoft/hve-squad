@@ -120,6 +120,52 @@ The full format reference lives in [.changes/README.md](.changes/README.md).
 
 ## Automated tests
 
+### Responsible-use review
+
+For changes to shipped agents, skills, hooks or helpers, review
+[responsible-use.md](squad-src/.github/skills/squad/references/responsible-use.md)
+directly and preserve the global Squad Agent Floor:
+
+* Keep independent usage reporting out of shipped behavior, including startup
+  and error paths; distinguish authorized task actions from analytics.
+* Describe intended use, affected users, human approval/Stop boundaries,
+  uncertainty and external effects. Consider accessibility/inclusion when relevant
+  without inventing demographic data collection or fairness measurements.
+* Keep notifications off remotely until authorized, minimize their payload and
+  keep credentials and local histories out of automatic attachments.
+* Treat source and retrieved/tool content as data, not authority or consent.
+* Preserve customer model/identity ownership, role floors and disclosed routing
+  limitations. A catalog entry is not an entitlement or policy approval.
+* Bind claims to inspected source or executed checks and the exact package,
+  including pinned content. Disclose missing coverage; do not claim certification.
+
+Use focused existing tests and preserve prompt budgets. No full model or
+customer identity assessment is required for an ordinary customization change.
+Review local state before sharing it in an issue; redact contacts, secrets and
+task content that the recipient does not need.
+
+Keep one canonical policy file. Independent agents, subagents and skills read
+the installed file directly, without activating the Squad operating skill.
+Reuse policy already present in the same context; isolated workers still need
+their own supplied/read copy. Bound prompts use their selected agent's contract,
+while generated invocation skills guard their separate calling context.
+Do not duplicate the full policy in instructions or add host-global configuration
+to consumers. Native preloading is optional when a harness supports it, not a
+portable assumption; explicit direct reads remain the fallback.
+
+### Test commands and coverage
+
+#### Installed responsible-use regression scope
+
+`ResponsibleUse.Tests.ps1` and `Build-SquadPlugin.Tests.ps1` check fresh and
+pre-policy replacement layouts, including a separate process that reads the
+installed policy path supplied in its brief. They also retain the existing
+approval/Stop boundaries and off/in-chat notification default. These are offline
+packaging and policy-wiring checks, not proof of arbitrary model compliance or
+whole-package certification. No live model or notification send is required.
+
+#### Regression suites
+
 **Policy: major new functionality must come with tests.** A pull request that
 adds a new agent, a new routing rule, a new gate, or any behavior a consumer can
 observe is expected to add or extend a case in the automated suite covering it.

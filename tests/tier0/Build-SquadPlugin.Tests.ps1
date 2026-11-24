@@ -110,6 +110,66 @@ Describe 'PKG-14 Plugin host discovery and hook commands' -Tag 'Unit' {
         $script:BuildExitCode | Should -Be 0 -Because ($script:BuildOutput -join "`n")
     }
 
+    It 'ships one directly addressed Responsible Use contract for every first-party agent (RAI-01)' {
+        $skill = [IO.File]::ReadAllText((Join-Path $script:OutputRoot 'skills/squad/SKILL.md'))
+        $skill | Should -Match '\[Responsible Use\]\(references/responsible-use\.md\)'
+        [IO.File]::ReadAllText((Join-Path $script:OutputRoot 'skills/squad/references/responsible-use.md')) |
+            Should -Match 'No independent usage reporting'
+        foreach ($agent in Get-ChildItem (Join-Path $script:OutputRoot 'agents/squad') -Filter '*.agent.md') {
+            [IO.File]::ReadAllText($agent.FullName) |
+                Should -Match 'Read installed `squad/references/responsible-use\.md` once\.'
+        }
+        @(Get-ChildItem (Join-Path $script:OutputRoot 'skills') -Filter 'responsible-use.md' -Recurse).Count |
+            Should -Be 1
+    }
+
+    It 'guards every standalone invocation context without copying policy text (RAI-07)' {
+        $invocations = @(Get-ChildItem (Join-Path $script:OutputRoot 'skills/squad/invocations') -Filter 'SKILL.md' -Recurse)
+        $invocations.Count | Should -BeGreaterThan 0
+        foreach ($invocation in $invocations) {
+            $body = [IO.File]::ReadAllText($invocation.FullName)
+            [regex]::Matches($body, 'Read installed `squad/references/responsible-use\.md` once\.').Count |
+                Should -Be 1
+            $body | Should -Not -Match 'No independent usage reporting'
+        }
+    }
+
+    It 'preserves worker-local policy reads and gates after a pre-policy plugin upgrade (RAI-01, RAI-03)' {
+        $upgrade = Join-Path $TestDrive 'plugin-upgrade'
+        $oldAgent = Join-Path $upgrade 'agents/squad/squad-coordinator.agent.md'
+        New-Item -ItemType Directory -Path (Split-Path -Parent $oldAgent) -Force | Out-Null
+        Set-Content -LiteralPath $oldAgent -Value '# Pre-policy coordinator' -Encoding utf8NoBOM
+        $build = & pwsh -NoProfile -File $script:BuildScript -SourceRoot $script:SourceRootResolved `
+            -OutputRoot $upgrade -HveCoreRoot $script:HveCoreRoot -AllowUnverifiedHveCoreSource 2>&1 | Out-String
+        $LASTEXITCODE | Should -Be 0 -Because $build
+        foreach ($installed in @($script:OutputRoot, $upgrade)) {
+            $briefText = & pwsh -NoProfile -File (Join-Path $installed 'skills/squad/scripts/Get-SquadDispatchBrief.ps1') `
+                -RepoRoot $installed -SquadRoot '.copilot-tracking/squad' -AsJson 2>&1 | Out-String
+            $LASTEXITCODE | Should -Be 0 -Because $briefText
+            $brief = $briefText | ConvertFrom-Json
+            $brief.responsibleUsePath | Should -BeExactly (Resolve-Path -LiteralPath (Join-Path $installed 'skills/squad/references/responsible-use.md')).Path
+            $worker = Join-Path $TestDrive 'plugin-policy-worker.ps1'
+            Set-Content -LiteralPath $worker -Encoding utf8NoBOM -Value @'
+param([string]$PolicyPath)
+$ErrorActionPreference = 'Stop'
+$policy = [IO.File]::ReadAllText($PolicyPath)
+if ($policy -notmatch 'Preserve human gates and Stop decisions') { throw 'Worker policy missing.' }
+@{ pid = $PID; hash = (Get-FileHash -LiteralPath $PolicyPath -Algorithm SHA256).Hash } | ConvertTo-Json -Compress
+'@
+            $workerText = & pwsh -NoProfile -File $worker -PolicyPath $brief.responsibleUsePath 2>&1 | Out-String
+            $LASTEXITCODE | Should -Be 0 -Because $workerText
+            $workerResult = $workerText | ConvertFrom-Json
+            $workerResult.pid | Should -Not -Be $PID
+            $workerResult.hash | Should -BeExactly (Get-FileHash -LiteralPath (Join-Path $installed 'skills/squad/references/responsible-use.md') -Algorithm SHA256).Hash
+            [IO.File]::ReadAllText((Join-Path $installed 'agents/squad/squad-coordinator.agent.md')) |
+                Should -Match 'Read installed `squad/references/responsible-use\.md` once\.'
+            $notifications = [IO.File]::ReadAllText((Join-Path $installed 'skills/squad/references/rules/squad-notifications.md'))
+            $notifications | Should -Match 'The default is \*\*no\*\*'
+            $notifications | Should -Match 'in-chat` / `enabled: false`'
+            [IO.File]::ReadAllText((Join-Path $installed 'skills/squad/references/gates-and-modes.md')) | Should -Match 'approval'
+        }
+    }
+
     It 'ships the canonical root license and keeps upstream legal material separate and unchanged' {
         foreach ($legalFile in @('LICENSE.TXT', 'NOTICE')) {
             $expected = Get-Content -LiteralPath (Join-Path $script:SourceRootResolved $legalFile) -Raw
@@ -756,7 +816,7 @@ Describe 'PKG-14 Plugin host discovery and hook commands' -Tag 'Unit' {
         }
     }
 
-    It 'installs the plugin with Copilot CLI and validates a blocking hook command from the installed root' -Skip:(-not (Get-Command copilot -ErrorAction SilentlyContinue)) {
+    It 'installs the plugin with Copilot CLI and validates a blocking hook command from the installed root' -Tag 'Native' -Skip:(-not (Get-Command copilot -ErrorAction SilentlyContinue)) {
         $copilotHome = Join-Path $TestDrive 'copilot-hook-smoke'
         $previousCopilotHome = $env:COPILOT_HOME
         $locationPushed = $false
