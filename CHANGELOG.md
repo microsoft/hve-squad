@@ -5,6 +5,56 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.22.0] - 2026-11-24
+
+### Changed
+
+- **Responsible-use guidance now states the approved engineering scope.** The canonical policy limits assistance to authorized software work and excludes independent consequential decisions about people, professional advice and high-consequence deployment authorization. Human gates and evidence limitations remain unchanged.
+
+- Updated hve-core dependency pin to `cfbba35` (cfbba35a6541a39f446e1f8bde0fea46c055da6b).
+
+- Refreshed `model-catalog.md`, `consumption-rates-template.md`, and `model-benchmarks.md` (38 catalog models; 328 score rows across 28 benchmarked models; digest `sha256:f693a1ded97c1cb38a25788586496aa86210fb2c0d732948a898cee9eef2b39e`).
+- Added newly supported Copilot models: `gemini-4-neon`.
+
+- Refreshed `model-catalog.md`, `consumption-rates-template.md`, and `model-benchmarks.md` (38 catalog models; 342 score rows across 31 benchmarked models; digest `sha256:329a7a6a48263244d39bdabe86002247594935aa0539a5488d6071603c4769c8`).
+
+- Refreshed `model-catalog.md`, `consumption-rates-template.md`, and `model-benchmarks.md` (38 catalog models; 342 score rows across 31 benchmarked models; digest `sha256:cf4083f5ce01211e6eb643d1373769808e6e10b28b4e2ce7d313c798f91a878d`).
+
+- Repinned the squad cast to hve-core e13fbf9.
+- Removed the 8 Code Review subagents (Accessibility, Explainer, Functional, Orientation, Readiness, Security, Standards, Walkback) from the cast.
+- Reduced the tester role to its Primary Squad Reviewer, dropping all Code Review Alternates and Selection Cues.
+- Removed the coding-standards domain from the squad doctor.
+
+- Refreshed `model-catalog.md`, `consumption-rates-template.md`, and `model-benchmarks.md` (38 catalog models; 342 score rows across 31 benchmarked models; digest `sha256:0f386491c23911fa96b6e96d9cdf023530f42f96a2fb63d91a44c10be9df273a`).
+
+- **Re-gated drifted azure-diagnose External Cast rows.** Replaced the four `microsoft/microsoft-sql` rows that upstream removed (`diagnose-slow-query`, `diagnose-blocking-and-deadlocks`, `diagnose-resource-pressure`, `diagnose-connection-errors`) with eight successor skills from `plugins/microsoft-sql-admin`, re-gated at `3224561` and verified on 2026-11-23. Blocklisted `authentication-diagnostics` and `deadlock-analysis`, and updated the Squad Azure Diagnose charter and the Tier 0 registry test (`squad-src/.github/skills/squad/references/roster-catalog.md`, `squad-src/.github/agents/squad/squad-azure-diagnose.agent.md`, `tests/tier0/PackRegistry.Tests.ps1`). Closes #312.
+
+- Refreshed `model-catalog.md`, `consumption-rates-template.md`, and `model-benchmarks.md` (38 catalog models; 342 score rows across 31 benchmarked models; digest `sha256:e3ff277821cca55bcee4508a623c36f930c2a513289ac5c79c2f9d3992e782d1`).
+
+- **Package and plugin references still pointed to the pre-transfer repository.** Cut over self-reference paths in `apm.yml`, plugin and marketplace metadata in `scripts/Build-SquadPlugin.ps1`, release/sync/docs scripts, workflows, issue templates, shipped `squad-src` artifacts, and bilingual documentation from `Peter-N91/hve-squad` and `peter-n91.github.io/hve-squad` to `microsoft/hve-squad` and `microsoft.github.io/hve-squad`, and added `.github/CODEOWNERS` for `@microsoft/ocp-isv-admins`.
+
+- Updated hve-core dependency pin to `a81603f` (a81603f3fc7f93083910d8b5cb7f4095407ab786).
+
+- Refreshed `model-catalog.md`, `consumption-rates-template.md`, and `model-benchmarks.md` (38 catalog models; 342 score rows across 31 benchmarked models; digest `sha256:5cdd58677b367d9a683b8c0a7d8d2efb860f4d356e3617acf8950f2a8f8ae9ba`).
+
+### Fixed
+
+- **Watch Mode rejected zero-repository-scope Copilot PATs owned by repository maintainers on public repositories.** `Verify COPILOT_GITHUB_TOKEN least privilege` now probes fine-grained token repository and push scope directly when `GET /repos/{owner}/{repo}` reports the owner's user-level permissions on HTTP 200, while still failing closed on classic and repository-write tokens (`.github/workflows/squad-watch.yml`, `squad-src/.github/skills/squad/squad-watch.workflow.yml`).
+
+### Security
+
+- **Squad assets now share explicit responsible-use and no-reporting safeguards.** Read the policy file directly once per context without loading the Squad workflow; cover isolated workers and standalone invocation skills. Preserve customer model and identity control, minimize opted-in notifications and verify economy consent transactions. Offline regressions cover fresh and upgraded installation layouts and worker-local policy reads.
+
+### Consumer install
+
+Pin to this version:
+
+```powershell
+apm install "microsoft/hve-squad#v0.22.0"
+```
+
+[0.22.0]: https://github.com/microsoft/hve-squad/releases/tag/v0.22.0
+
 ## [0.21.0] - 2026-11-19
 
 ### Added
