@@ -26,6 +26,7 @@ BeforeAll {
     $script:FederationInitialize = Join-Path $skillRoot 'scripts/Initialize-SquadFederation.ps1'
     $script:Handoff = Join-Path $skillRoot 'scripts/Write-SquadHandoff.ps1'
     $script:Ledger = Join-Path $skillRoot 'scripts/Measure-SquadLedger.ps1'
+    Import-Module (Join-Path $skillRoot 'scripts/SquadCoordinator.psm1') -Force
     $script:OriginalCopilotHome = $env:COPILOT_HOME
     $env:COPILOT_HOME = Join-Path $TestDrive 'empty-copilot-home'
     $null = [IO.Directory]::CreateDirectory($env:COPILOT_HOME)
@@ -241,6 +242,9 @@ BeforeAll {
                             'azure-local-multi-rack', 'azure-cloud-migrate', 'azure-upgrade')) {
                         $decisions[$resource] = 'declined'
                     }
+                }
+                elseif ($pack -eq 'ai-infra') {
+                    $decisions['azure-aigateway'] = 'declined'
                 }
             }
             if ($decisions.Count) { $Choices.resourceDecisions = $decisions }
@@ -1274,5 +1278,91 @@ Describe 'All-present registered pack expansion' {
         @($azurePlan.Receipt.addedRoles) | Should -BeNullOrEmpty
         (Invoke-Expansion -Repo $azureRepo -Plan $azurePlan).ExitCode | Should -Be 0
         [IO.File]::ReadAllText((Join-Path $azureRoot 'team.md')) | Should -Match '(?m)^Packs: azure-cloud$'
+    }
+
+    It 'expands ai-infra across azure and full, preserves declined azure-aigateway across sequential +foundry/+ai-infra expansion, and keeps sibling reach on partial removal (SRC-27, PRF-30)' {
+        $azureRepo = New-RepoFixture
+        $azureRoot = Initialize-ProfileSquad -Repo $azureRepo -Profile 'azure'
+        $aiPlan = New-ExpansionPlanReady -Repo $azureRepo -Root $azureRoot -Choices @{
+            confirmed = $true
+            runId = 'azure-ai-infra-apply'
+            packs = @('ai-infra')
+        }
+        $aiPlan.Result.ExitCode | Should -Be 0 -Because $aiPlan.Result.Output
+        @($aiPlan.Receipt.addedRoles) | Should -Be @('observability')
+        $aiPlan.Receipt.packResources.Count | Should -Be 1
+        $aiPlan.Receipt.packResources['azure-aigateway'] | Should -BeExactly 'declined'
+        (Invoke-Expansion -Repo $azureRepo -Plan $aiPlan).ExitCode | Should -Be 0
+        $azureTeamPath = Join-Path $azureRoot 'team.md'
+        [IO.File]::ReadAllText($azureTeamPath) | Should -Match '(?m)^Packs: ai-infra$'
+        [IO.File]::ReadAllText($azureTeamPath) | Should -Match '\| observability \|'
+
+        $seqPlan = New-ExpansionPlanReady -Repo $azureRepo -Root $azureRoot -Choices @{
+            confirmed = $true
+            runId = 'azure-ai-infra-then-foundry'
+            packs = @('foundry')
+            availableSkills = @('azure-aigateway')
+        }
+        $seqPlan.Result.ExitCode | Should -Be 0 -Because $seqPlan.Result.Output
+        (@($seqPlan.Receipt.addedRoles | Sort-Object) -join ',') | Should -BeExactly 'data-scientist,prompt-engineer,rai'
+        $seqPlan.Receipt.packResources['azure-aigateway'] | Should -BeExactly 'declined'
+        (Invoke-Expansion -Repo $azureRepo -Plan $seqPlan).ExitCode | Should -Be 0
+        $bothTeam = [IO.File]::ReadAllText($azureTeamPath)
+        $bothTeam | Should -Match '(?m)^Packs: ai-infra, foundry$'
+        [IO.File]::ReadAllText((Join-Path $azureRoot 'decisions.md')) | Should -Match 'Provenance: azure \+ai-infra \+foundry'
+        [IO.File]::ReadAllText((Join-Path $azureRoot 'decisions.md')) | Should -Match 'azure-aigateway=declined'
+
+        # Partial removal of foundry keeps shared roles (observability) and ai-infra pack reach intact
+        $partialRemoved = $bothTeam -replace '(?m)^Packs: ai-infra, foundry\r?\n', "Packs: ai-infra`n"
+        $partialRemoved = [regex]::Replace($partialRemoved, '(?m)^\| (data-scientist|prompt-engineer|rai) \|.*\r?\n', '')
+        [IO.File]::WriteAllText($azureTeamPath, $partialRemoved, [Text.UTF8Encoding]::new($false))
+        $afterPartial = [IO.File]::ReadAllText($azureTeamPath)
+        $afterPartial | Should -Match '(?m)^Packs: ai-infra$'
+        $afterPartial | Should -Not -Match '(?m)^\| data-scientist \|'
+        $remainingPacks = @(
+            [regex]::Match($afterPartial, '(?m)^Packs:\s*(?<packs>[^\r\n]+)').Groups['packs'].Value -split ',\s*' |
+                Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
+        )
+        $remainingInventory = @(Get-SquadPackResourceInventory -InitData (Get-SquadInitData -RepoRoot $azureRepo) -Pack $remainingPacks -RepoRoot $azureRepo)
+        $remainingInventory | Should -HaveCount 1
+        $remainingInventory[0].resource | Should -BeExactly 'azure-aigateway'
+        @($remainingInventory[0].packs) | Should -Be @('ai-infra')
+        @($remainingInventory | ForEach-Object { $_.resource }) | Should -Not -Contain 'use-ai-gateway'
+
+        $reappliedFoundry = New-ExpansionPlanReady -Repo $azureRepo -Root $azureRoot -Choices @{
+            confirmed = $true
+            runId = 'azure-foundry-reapply'
+            packs = @('foundry')
+            availableSkills = @('azure-aigateway')
+        }
+        $reappliedFoundry.Result.ExitCode | Should -Be 0 -Because $reappliedFoundry.Result.Output
+        $reappliedFoundry.Receipt.alreadyPresentRoles | Should -Contain 'observability'
+        (@($reappliedFoundry.Receipt.addedRoles | Sort-Object) -join ',') | Should -BeExactly 'data-scientist,prompt-engineer,rai'
+        $reappliedFoundry.Receipt.packResources['azure-aigateway'] | Should -BeExactly 'declined'
+        (Invoke-Expansion -Repo $azureRepo -Plan $reappliedFoundry).ExitCode | Should -Be 0
+        [IO.File]::ReadAllText($azureTeamPath) | Should -Match '(?m)^Packs: ai-infra, foundry$'
+
+        $fullRepo = New-RepoFixture
+        $fullRoot = Initialize-ProfileSquad -Repo $fullRepo -Profile 'full'
+        $foundryFirst = New-ExpansionPlan -Repo $fullRepo -Root $fullRoot -Choices @{
+            confirmed = $true
+            runId = 'full-foundry-first'
+            packs = @('foundry')
+        }
+        $foundryFirst.Result.ExitCode | Should -Be 0 -Because $foundryFirst.Result.Output
+        (Invoke-Expansion -Repo $fullRepo -Plan $foundryFirst).ExitCode | Should -Be 0
+
+        $aiSecond = New-ExpansionPlan -Repo $fullRepo -Root $fullRoot -Choices @{
+            confirmed = $true
+            runId = 'full-ai-infra-second'
+            packs = @('ai-infra')
+            availableSkills = @('azure-aigateway')
+        }
+        $aiSecond.Result.ExitCode | Should -Be 0 -Because $aiSecond.Result.Output
+        @($aiSecond.Receipt.addedRoles) | Should -BeNullOrEmpty
+        $aiSecond.Receipt.packResources['azure-aigateway'] | Should -BeExactly 'declined'
+        (Invoke-Expansion -Repo $fullRepo -Plan $aiSecond).ExitCode | Should -Be 0
+        [IO.File]::ReadAllText((Join-Path $fullRoot 'team.md')) | Should -Match '(?m)^Packs: foundry, ai-infra$'
+        [IO.File]::ReadAllText((Join-Path $fullRoot 'decisions.md')) | Should -Match 'Provenance: full \+foundry \+ai-infra'
     }
 }

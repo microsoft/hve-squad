@@ -114,6 +114,14 @@ export const PACK_CARDS = Object.freeze([
         keywords: /\b(finops|azure\s+cost|azure\s+local|azure\s+stack\s+hci|azqr|zone\s+redundan|cross-cloud\s+migrat)\b/i,
     },
     {
+        id: 'ai-infra',
+        title: 'AI-Ready Infrastructure & Landing Zones',
+        plainWhy: 'Adds Azure AI landing zone, GPU/HPC sizing, high-throughput storage, GPU FinOps, and platform observability specialists.',
+        hasPreview: false,
+        previewNote: '',
+        keywords: /\b(ai\s+landing\s+zone|ai\s+infra|gpu\s+cluster|hpc\b|slurm\b|cyclecloud|infiniband|rdma\b|managed\s+lustre|dcgm\b|kaito\b)\b/i,
+    },
+    {
         id: 'foundry',
         title: 'Custom AI Assistants (Microsoft Foundry)',
         plainWhy: 'Adds AI model gateway, prompt safety, and AI evaluation specialists.',

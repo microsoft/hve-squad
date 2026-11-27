@@ -65,6 +65,8 @@
 .EXAMPLE
     ./Invoke-Tier1LiveRun.ps1 -SourceRoot . -Scenario pack-lifecycle -Pack foundry
 .EXAMPLE
+    ./Invoke-Tier1LiveRun.ps1 -SourceRoot . -Scenario pack-lifecycle -Pack ai-infra -ProvisionOnly
+.EXAMPLE
     ./Invoke-Tier1LiveRun.ps1 -Ref v0.16.0
 #>
 [CmdletBinding(DefaultParameterSetName = 'Ref')]

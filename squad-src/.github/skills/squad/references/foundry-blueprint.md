@@ -5,7 +5,7 @@ license: MIT
 metadata:
   authors: "microsoft/hve-squad"
   spec_version: "1.0"
-  last_updated: "2026-11-15"
+  last_updated: "2026-11-27"
 ---
 <!--
 Copyright (c) Microsoft Corporation.
@@ -14,7 +14,7 @@ Licensed under the MIT license.
 
 # Foundry Project Blueprint
 
-Use this reference only for an accepted `foundry` pack at the resolved squad root. A role being present does not activate the pack. Generic AI development remains with `developer`; Microsoft 365 Copilot and Copilot Studio retain their own packs.
+Use this reference only for an accepted `foundry` pack at the resolved squad root. A role being present does not activate the pack. Generic AI development remains with `developer`; Microsoft 365 Copilot and Copilot Studio retain their own packs, and shared AI platform infrastructure (AI Landing Zones, GPU/HPC compute, high-throughput storage, GPU FinOps, and platform observability) lives in the opt-in `ai-infra` pack ([ai-infra-blueprint.md](ai-infra-blueprint.md)).
 
 ## Ownership and Dispatch
 
@@ -111,7 +111,7 @@ Use only resources registered in *Registered External Cast* (`roster-catalog.md`
 |---|---|---|---|
 | `microsoft-foundry` | `developer`, `deployer` | Approved agent, model, evaluation, troubleshooting and hosted-agent deployment workflows | Inspect packaged support files and prerequisites before activation; installation or resource mutation needs authorization, and `deployer` actions stay behind the Impactful-Action Gate |
 | `use-ai-gateway` | `developer` | Consume an existing, selected AI Gateway from the application | Needs an existing gateway; never a reason to create or manage one |
-| `azure-aigateway` | `azure-architect` | Configure a selected APIM AI gateway option in HLD/LLD designs | Read-only architecture guidance; not a prerequisite to planning, a reason to select APIM, or Bicep authoring |
+| `azure-aigateway` | `azure-architect` | Configure a selected APIM AI gateway option in HLD/LLD designs | Shared with `ai-infra` ([ai-infra-platform-options.md](ai-infra-platform-options.md)); read-only architecture guidance while `foundry` or `ai-infra` is active and not `declined`; not a prerequisite to planning, a reason to select APIM, or Bicep authoring |
 | `caira` | `developer` | Inspect relevant reference components for the selected stack | Select and adapt only needed components after scenario confirmation; no automatic deployment or full-stack copying |
 | `foundry-iq` | `data-scientist` | Preview Foundry IQ knowledge-base grounding while `foundry` is active | Explicit preview approval required (`0.2.8` preview). Do not select when the pack is absent or declined. Host visibility is not selection. Do not create a knowledge base without approval |
 | `appinsights-instrumentation` | `observability` | Application Insights instrumentation guidance while `foundry` is active | Do not select when the pack is absent or declined. Do not create an Application Insights resource from this guidance |

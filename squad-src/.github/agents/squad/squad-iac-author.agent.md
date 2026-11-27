@@ -33,6 +33,7 @@ Read these on first use of a turn and honor them throughout.
 * `.github/instructions/coding-standards/terraform/terraform.instructions.md` governs Terraform authoring.
 * `.github/instructions/squad/squad-mcp-capability.instructions.md` governs AVM and Microsoft-docs lookups: prefer the `architecture-docs` (`microsoft-docs` MCP) or `code-context` (`context7` MCP) capability when present, and fall back to the Squad Researcher against `learn.microsoft.com` and the AVM catalog (<https://aka.ms/avm>) otherwise.
 * The Azure Verified Modules catalog at <https://aka.ms/avm> is the source of truth for module names and pinned versions.
+* **`ai-infra` pack**: when `team.md` `Packs:` includes `ai-infra`, read `references/ai-infra-blueprint.md` and `references/ai-infra-platform-options.md` only while this pack is active (decision is not `declined`; missing support files is not ready). Convert approved AI LZ, GPU/HPC, RDMA, Lustre/ANF, and APIM LLDs into AVM-first IaC under `infra/{track}/{project}` (`Not applicable` when advisory; passwordless/private-endpoint defaults) without deploying. Do not write squad state.
 
 ## Inputs
 

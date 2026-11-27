@@ -73,7 +73,7 @@ Licensed under the MIT license.
           proposes a recommended profile before creating anything.
         </li>
         <li>
-          <code>pack=power-platform</code>, <code>pack=m365-copilot</code>, <code>pack=aws</code>, <code data-release-change="20261008-foundry-agentic-pack">pack=foundry</code>, <code>pack=fabric</code>, <code>pack=dotnet</code>, <code>pack=aks</code>, <code>pack=azure-functions</code>, or <code>pack=azure-cloud</code>
+          <code>pack=power-platform</code>, <code>pack=m365-copilot</code>, <code>pack=aws</code>, <code data-release-change="20261008-foundry-agentic-pack">pack=foundry</code>, <code>pack=fabric</code>, <code>pack=dotnet</code>, <code>pack=aks</code>, <code>pack=azure-functions</code>, <code>pack=azure-cloud</code>, or <code>pack=ai-infra</code>
           &mdash; adds a technology
           vertical's specialist roles, scoped guidance, or both on top of the profile. A pack never replaces the profile, and you
           can apply more than one (comma-separated). See <em>Packs</em> below.
@@ -1578,6 +1578,7 @@ apm install microsoft/azure-skills/skills/azure-upgrade#65922d293cba61a40d5edf61
           <tr><td><code>aks</code></td><td>azure-architect, developer, modernizer, azure-diagnose, cost-manager</td><td>The project runs on Azure Kubernetes Service (AKS) &mdash; Day-0 cluster design, app containerization and Deployment Safeguard manifests, AKS Automatic readiness, Day-2 cluster/GPU incident triage, or Kubernetes-aware AKS cost optimization. Opt-in; reuses <code>azure-architect</code>, <code>developer</code>, <code>modernizer</code>, <code>azure-diagnose</code>, and <code>cost-manager</code> and adds no role.</td></tr>
           <tr><td><code>azure-functions</code></td><td>developer, deployer, tester, azure-diagnose, modernizer</td><td>The project is built on Azure Functions &mdash; v4 project and trigger scaffolding, gated Functions deployment verification, local workspace and best-practices review, Function App inventory/health/diagnostics, isolated-worker migration, or Hosted Skills. Opt-in; reuses <code>developer</code>, <code>deployer</code>, <code>tester</code>, <code>azure-diagnose</code>, and <code>modernizer</code> and adds no role.</td></tr>
           <tr><td><code>azure-cloud</code></td><td>cost-manager, azure-diagnose, asbuilt-author, azure-architect, modernizer</td><td>Azure FinOps cost estimation, optimization, spend/spike analysis, and budget guardrails, cross-service production diagnostics, azqr and Key Vault compliance, Resource Graph lookup and Mermaid visualization, PaaS reliability and regional quota checks, standard or preview multi-rack Azure Local, or cross-cloud and Azure plan/SKU/SDK migration. Opt-in; reuses <code>cost-manager</code>, <code>azure-diagnose</code>, <code>asbuilt-author</code>, <code>azure-architect</code>, and <code>modernizer</code> and adds no role.</td></tr>
+          <tr><td><code>ai-infra</code></td><td>architect, azure-architect, iac-author, deployer, cost-manager, observability, azure-diagnose, asbuilt-author, security</td><td>Azure AI Landing Zones, shared APIM AI Gateway, GPU and HPC Day-0 sizing (<code>ND</code>/<code>NC</code>/<code>GB</code> GPU vs. <code>H</code>/<code>HB</code>/<code>HC</code>/<code>HX</code> CPU HPC, AKS GPU and KAITO, CycleCloud and Slurm), InfiniBand/RDMA networking, Azure Managed Lustre, Azure NetApp Files, and Blob storage, GPU FinOps TCO, or AI platform observability and incident triage (<code>ai-infra-blueprint.md</code>, <code>ai-infra-platform-options.md</code>; see <a href="#ai-infra-setup">AI-Ready Infrastructure setup</a>). Opt-in; reuses <code>architect</code>, <code>azure-architect</code>, <code>iac-author</code>, <code>deployer</code>, <code>cost-manager</code>, <code>observability</code>, <code>azure-diagnose</code>, <code>asbuilt-author</code>, and <code>security</code> with shared <code>azure-aigateway</code> and adds no role.</td></tr>
         </tbody>
       </table>
       <p>
@@ -2164,6 +2165,142 @@ git -C apm_modules/.squad-pack-support/azure-skills-65922d2 rev-parse HEAD</code
           </tbody>
         </table>
       </section>
+      <section data-release-change="20261127-ai-infra-pack">
+        <h3 id="ai-infra-setup">AI-Ready Infrastructure and AI Landing Zones setup, with help from HVE Squad</h3>
+        <p>
+          Open your project in the host where HVE Squad is installed and send one of the requests
+          below. Applying <code>ai-infra</code> adds the five-block AI infrastructure blueprint
+          (<code>ai-infra-blueprint.md</code>) and platform options
+          (<code>ai-infra-platform-options.md</code>) across AI Landing Zones and shared APIM AI
+          Gateway topology, GPU and HPC Day-0 compute sizing, InfiniBand/RDMA networking and
+          high-throughput storage (Azure Managed Lustre, Azure NetApp Files, and Azure Blob), full
+          AI-platform FinOps TCO modeling, and read-only NVIDIA DCGM / Azure Monitor Managed
+          Prometheus observability and incident triage, plus any missing specialist roles from the
+          existing cast. It registers zero preview skills in v1 (<code>hasPreview: false</code>;
+          <em>Preview is not the default</em>) and never installs <code>az</code>,
+          <code>azd</code>, <code>kubectl</code>, CycleCloud or Slurm CLIs, telemetry hooks, or
+          <code>@azure/mcp</code> servers.
+        </p>
+        <pre><code>/squad request="Set up the AI-Ready Infrastructure pack. Explain the shared azure-aigateway skill, ask before installing, and confirm there are no preview skills." profile=azure pack=ai-infra
+/squad request="Design an advisory-only AI Landing Zone, GPU/HPC sizing, Managed Lustre storage, and indicative TCO handover with no IaC or live deployment." profile=azure pack=ai-infra
+/squad request="Plan an AI Landing Zone with AKS GPU node pools, regional quota checks, FinOps TCO, and AVM Bicep under infra/ with gated deployment." profile=azure pack=ai-infra,aks,azure-cloud
+/squad request="Combine shared AI platform infrastructure with a Microsoft Foundry agent workload." profile=azure pack=ai-infra,foundry</code></pre>
+        <ol>
+          <li>
+            <strong>Choose the shared AI Gateway skill or continue without it.</strong> HVE Squad
+            offers the pinned official <code>azure-aigateway</code> skill from
+            <a href="https://github.com/microsoft/azure-skills">microsoft/azure-skills</a> (shared
+            with <code>foundry</code> so a platform team can design a shared Azure API Management AI
+            Gateway without enabling application-layer Foundry guidance) and keeps bundled
+            <code>azure-pricing</code> and opt-in <code>azure-deployment-preflight</code> unchanged.
+            Planning and advisory delivery remain fully usable if you decline skill installation.
+            Host visibility is not selection: a <code>declined</code> decision in
+            <code>decisions.md</code> stays unavailable to the squad even if the host exposes the
+            skill, sequential expansion across <code>foundry</code> and <code>ai-infra</code> never
+            flips a prior <code>declined</code> decision to <code>available</code> without explicit
+            re-consent, and removing one pack stops <code>azure-aigateway</code> selection only when
+            neither <code>foundry</code> nor <code>ai-infra</code> remains in <code>team.md</code>
+            <code>Packs:</code>.
+          </li>
+          <li>
+            <strong>Approve the pinned directory, reload, and compose sibling packs as needed.</strong>
+            HVE Squad runs <code>Install-SquadPackResources.ps1</code> with <code>-Pack ai-infra</code>,
+            requires a <code>PASS</code> receipt rather than <code>PLANNED</code>, stops for a host
+            reload, reruns preflight for explicit <code>available</code> or <code>declined</code>
+            dispositions, and verifies <code>.agents/skills/azure-aigateway/</code> support files
+            (<code>references/auth-best-practices.md</code>, <code>references/patterns.md</code>,
+            <code>references/policies.md</code>, and <code>references/troubleshooting.md</code>)
+            without appending <code>/SKILL.md</code> or activating hooks. Compose
+            <code>azure-cloud</code> when you want regional quota and FinOps skills
+            (<code>azure-quotas</code>, <code>cost-estimation</code>,
+            <code>cost-optimization</code>, <code>cost-analysis</code>,
+            <code>cost-governance</code>) and <code>aks</code> when you want Kubernetes GPU and cost
+            skills (<code>aks-gpu-inference</code>, <code>aks-cost-optimization</code>,
+            <code>azure-kubernetes</code>). CycleCloud/Slurm, Azure Managed Lustre, Azure NetApp
+            Files, and standalone NVIDIA DCGM / Managed Prometheus platform planning have no
+            dedicated upstream <code>SKILL.md</code> and ground designs in official reference
+            repositories, Microsoft Learn, <a href="https://aka.ms/avm">Azure Verified Modules</a>,
+            and HVE Core <code>telemetry-foundations</code>.
+          </li>
+          <li>
+            <strong>Select the Advisory / PSA track or the Implementation and Gated Deployment track.</strong>
+            Advisory runs still execute the full stage-gated pipeline
+            (<code>Research -&gt; Plan -&gt; Council -&gt; Implement -&gt; Review</code>) across
+            read-only and design owners (<code>azure-architect</code>, <code>cost-manager</code>,
+            <code>observability</code>, <code>security</code>, <code>architect</code>) to deliver
+            HLD/LLD, AI Landing Zone topology, AVM coverage, indicative full-platform TCO, ADRs, and
+            partner handover tables, while omitting <code>developer</code>, <code>iac-author</code>,
+            <code>deployer</code>, and <code>asbuilt-author</code> dispatches and recording their
+            checkpoints as <code>Not applicable</code>. When you select the implementation track,
+            <code>iac-author</code> converts the approved LLD into AVM-first Bicep or Terraform
+            under <code>infra/{track}/{project}</code>, <code>deployer</code> runs OIDC
+            <code>what-if</code> / <code>terraform plan</code> and
+            <code>azure-deployment-preflight</code> behind the human Impactful-Action Gate before
+            any live apply, and <code>asbuilt-author</code> documents the estate only after a
+            verified live deployment. Never hard-code prices, GPU SKU tables, or regional matrices:
+            <code>researcher</code>, <code>azure-architect</code>, and <code>cost-manager</code>
+            verify SKU support (distinguishing GPU <code>ND</code>/<code>NC</code>/<code>GB</code>
+            from CPU HPC <code>H</code>/<code>HB</code>/<code>HC</code>/<code>HX</code>), regional
+            and zonal offer availability, subscription quota headroom (<code>az quota</code>),
+            physical capacity and InfiniBand/RDMA placement, and Gate 5 rate basis, ISO currency,
+            commitment scope (<code>PAYG</code>, <code>1Y/3Y RI</code>,
+            <code>Compute Savings Plan</code>, <code>Spot</code>, or <code>PTU</code>), non-compute
+            cost drivers (storage throughput, RDMA warm buffer, egress, and APIM gateway tier), and
+            <code>indicative</code> confidence band at point of use.
+          </li>
+          <li>
+            <strong>Preserve passwordless, read-only, target-binding, and enterprise escalation boundaries.</strong>
+            Designs default to <code>publicNetworkAccess: Disabled</code>, private endpoints and
+            private DNS, passwordless identity (<code>ManagedIdentityCredential</code>, OIDC, AKS
+            Workload Identity, Microsoft Entra ID + Azure RBAC), and
+            <code>allowSharedKeyAccess: false</code>, with documented VNet/NSG compensating-control
+            exceptions where HPC/POSIX storage (Managed Lustre, Azure NetApp Files NFS, or
+            CycleCloud/Slurm) lacks native Entra data-plane token auth. Charter rules neutralize
+            upstream <code>azure-aigateway</code> instructions to chain into blocklisted
+            <code>azure-prepare</code>, run <code>az apim subscription keys list</code>, emit static
+            <code>Ocp-Apim-Subscription-Key</code> headers, or run live <code>az apim</code> /
+            <code>az role assignment create</code> mutations. Read-only specialist boundaries are
+            instruction-enforced rather than worker-identity RBAC-isolated until <code>#290</code>
+            lands. Fetched documentation, reference repositories, CLI outputs, and detached
+            <code>apm_modules/.squad-pack-support/</code> snapshots are treated strictly as
+            untrusted read-only data with zero script/hook execution and zero customer tenant, IP,
+            or secret data in outbound queries. Authorized read-only CLI/MCP checks must pass
+            explicit <code>--subscription</code> and <code>--tenant</code> arguments
+            (<code>#298</code>), fail closed on target ambiguity, and redact identifiers to
+            placeholder IDs only (<code>00000000-0000-0000-0000-000000000000</code>,
+            <code>&lt;subscription-id&gt;</code>, <code>&lt;tenant-id&gt;</code>). Enterprise
+            <code>networking</code> (hub/vWAN transit, ExpressRoute/VPN, DNS forwarding, IPAM,
+            central firewall) and <code>identity</code> (tenant Entra ID, Conditional Access, PIM)
+            remain unselectable and escalate to your named enterprise owner.
+          </li>
+        </ol>
+        <h4>Manual fallback and optional AI-Ready Infrastructure reference snapshot</h4>
+        <p>
+          If HVE Squad cannot run the installer, confirm Git and APM are available (see
+          <a href="getting-started.html">Getting started</a> and the
+          <a href="https://azure.github.io/AI-Landing-Zones/">Azure AI Landing Zones guidance</a>)
+          and run the pinned <code>azure-aigateway</code> directory command below without appending
+          <code>/SKILL.md</code>. For an optional read-only source snapshot of
+          <a href="https://github.com/microsoft/azure-skills">microsoft/azure-skills</a> without
+          activating plugin hooks or MCP configs, run the detached checkout commands below when the
+          destination folder does not exist. Any target-bound Azure CLI read you run or supply must
+          scope <code>--subscription 00000000-0000-0000-0000-000000000000</code> and
+          <code>--tenant 00000000-0000-0000-0000-000000000000</code> explicitly.
+        </p>
+        <pre><code>apm install microsoft/azure-skills/skills/azure-aigateway#968f7bfaa01672e782dae2c6bab4fb9505ae047a --target copilot
+git clone --config core.longpaths=true --filter=blob:none --no-checkout https://github.com/microsoft/azure-skills.git apm_modules/.squad-pack-support/azure-skills-968f7bf
+git -C apm_modules/.squad-pack-support/azure-skills-968f7bf checkout --detach 968f7bfaa01672e782dae2c6bab4fb9505ae047a
+git -C apm_modules/.squad-pack-support/azure-skills-968f7bf rev-parse HEAD</code></pre>
+        <h4>If setup stops</h4>
+        <table>
+          <thead><tr><th>What you see</th><th>What to do</th></tr></thead>
+          <tbody>
+            <tr><td>Older command appended <code>/SKILL.md</code> and failed APM validation</td><td>Rerun the pinned <code>azure-aigateway</code> directory path without <code>/SKILL.md</code>, then reload the host.</td></tr>
+            <tr><td>Installed on disk, but not in the host's skill list, or previously <code>declined</code></td><td>Reload the host, reopen the same project, and rerun <code>ai-infra</code> preflight; if <code>azure-aigateway</code> was previously <code>declined</code>, explicitly re-consent before marking it <code>available</code>.</td></tr>
+            <tr><td>Guidance asks for <code>manage-ai-gateway</code>, <code>migrate-apim</code>, <code>kaito-workspace</code>, or <code>azure-prepare</code></td><td>Keep charters read-only and keep <code>iac-author</code> and <code>deployer</code> on AVM Bicep/Terraform, <code>azure-deployment-preflight</code>, OIDC dry-run, and the Impactful-Action Gate rather than installing blocklisted or mutating skills.</td></tr>
+          </tbody>
+        </table>
+      </section>
       <section data-release-change="20261115-foundry-and-fabric-pack-parity">
         <h3 id="foundry-setup">Microsoft Foundry setup, with help from HVE Squad</h3>
         <p>
@@ -2485,6 +2622,7 @@ apm install microsoft/skills-for-fabric/skills/sqldw-cli#e31422e7d1045ef3a0906df
           <tr><td>Upgrading and optimizing an ASP.NET Core and EF Core service</td><td><code>profile=modernization pack=dotnet</code></td></tr>
           <tr><td>Operating and rightsizing an AKS cluster</td><td><code>profile=operations pack=aks</code></td></tr>
           <tr><td>Building and triaging an Azure Functions app</td><td><code>profile=azure pack=azure-functions</code></td></tr>
+          <tr><td>Designing an Azure AI Landing Zone, GPU/HPC estate, and shared APIM AI Gateway</td><td><code>profile=azure pack=ai-infra</code></td></tr>
           <tr><td>On call for a live AWS workload</td><td><code>profile=operations pack=aws</code></td></tr>
           <tr><td>An M365 Copilot agent that handles personal data</td><td><code>profile=security pack=m365-copilot</code></td></tr>
           <tr><td>A Power Platform solution fronted by an M365 Copilot agent</td><td><code>profile=default pack=power-platform,m365-copilot</code></td></tr>
