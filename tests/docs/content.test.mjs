@@ -274,6 +274,20 @@ test("both published connector guides embed eight downloadable templates with co
   }
 });
 
+test("connector guides document adapter patterns for remote agents and privately hosted prompts in both languages", () => {
+  for (const prefix of ["", "fr/"]) {
+    const { $ } = readSource("connector", prefix);
+    assert.equal($("main h2#adapter-patterns").length, 1, `${prefix}connector: missing #adapter-patterns section`);
+    const text = $("main").text();
+    for (const term of [
+      "Microsoft Foundry", "SQUAD_REMOTE_AGENT_URI", "SharePoint", "Microsoft Graph",
+      "Resolve-SafeChildPath", "Write-AtomicNewFile", "Get-RequestDeadlineError",
+    ]) {
+      assert(text.includes(term), `${prefix}connector: missing adapter pattern term ${term}`);
+    }
+  }
+});
+
 test("connector template embedding rejects unsupported paths and missing code containers", () => {
   for (const filename of ["../package.json", "agents/../../package.json", "C:\\private.json", "README.md"]) {
     const $ = load(`<main><details data-connector-template="${filename}"><pre><code></code></pre></details></main>`);
