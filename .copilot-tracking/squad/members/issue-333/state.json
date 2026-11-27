@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "1.4",
+  "updated": "2026-11-27T16:44:55Z",
+  "turn": 14,
+  "mode": "autopilot",
+  "activeRoles": [
+    "developer"
+  ],
+  "openEscalations": [],
+  "currentRun": {
+    "sessionModel": "claude-sonnet-5.5",
+    "modelOverrides": {},
+    "estCostUsd": 28.0553,
+    "estCreditsTotal": 2805.53,
+    "costPreflight": {
+      "runId": "",
+      "roundId": "",
+      "ceilingUsd": null,
+      "evaluatedSpendUsd": 0,
+      "remainingUsd": null,
+      "plannedDispatches": 0,
+      "projectedCostUsd": 0,
+      "reserveMultiplier": 3.0,
+      "admissionCostUsd": 0,
+      "confidence": "not-applicable",
+      "basis": "not-requested",
+      "decision": "not-requested",
+      "reason": "No cost ceiling configured."
+    }
+  },
+  "notify": {
+    "approvalChannel": "in-chat",
+    "enabled": false,
+    "email": "",
+    "github": {
+      "handle": "",
+      "repo": ""
+    }
+  }
+}

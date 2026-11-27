@@ -286,6 +286,43 @@ Describe 'Confirmed federation Init planning' {
         $payload.operation | Should -BeExactly 'expand'
         $payload.members[0].initPayload.packResources.Count | Should -Be 15
         Get-TreeHash $root | Should -BeExactly $before
+
+        $aiChoices = Get-ExpansionChoice -Name 'ai-platform' -Pattern 'ai landing zone, gpu cluster'
+        $aiMember = $aiChoices.subSquads[0]
+        $aiMember.profile = 'custom'
+        $aiMember.roles = @('researcher', 'lead', 'developer', 'tester', 'scribe')
+        $aiMember.packs = @('ai-infra')
+        $aiChoicesPath = Join-Path -Path $repo -ChildPath 'ai-infra-expansion.json'
+        $aiPayloadPath = Join-Path -Path $repo -ChildPath 'ai-infra-expansion-payload.json'
+        Write-Json -Path $aiChoicesPath -Value $aiChoices
+        $aiMissing = Invoke-Local -Script $script:Plan -Repo $repo -Arguments @(
+            '-RepoRoot', $repo, '-ChoicesPath', $aiChoicesPath, '-PayloadPath', $aiPayloadPath
+        )
+        $aiMissing.ExitCode | Should -Be 1
+        $aiMissing.Output | Should -Match 'resourceDecisions'
+
+        foreach ($agent in @(
+                'System Architecture Reviewer', 'Squad Azure Architect', 'Squad IaC Author',
+                'Squad Deployer', 'Squad Cost Manager', 'Squad Observability Planner',
+                'Squad Azure Diagnose', 'Squad As-Built Author', 'Security Planner')) {
+            $file = ($agent.ToLowerInvariant() -replace '[^a-z0-9]+', '-') + '.agent.md'
+            [IO.File]::WriteAllText(
+                (Join-Path -Path $repo -ChildPath ".github/agents/$file"),
+                "---`nname: $agent`nuser-invocable: false`n---`n`nFixture agent.`n",
+                [Text.UTF8Encoding]::new($false)
+            )
+        }
+        $aiMember.resourceDecisions = [ordered]@{ 'azure-aigateway' = 'declined' }
+        Write-Json -Path $aiChoicesPath -Value $aiChoices
+        $aiPrepared = Invoke-Local -Script $script:Plan -Repo $repo -Arguments @(
+            '-RepoRoot', $repo, '-ChoicesPath', $aiChoicesPath, '-PayloadPath', $aiPayloadPath
+        )
+        $aiPrepared.ExitCode | Should -Be 0 -Because $aiPrepared.Output
+        $aiPayload = Get-Content -LiteralPath $aiPayloadPath -Raw | ConvertFrom-Json -AsHashtable
+        @($aiPayload.members[0].initPayload.packs) | Should -Be @('ai-infra')
+        $aiPayload.members[0].initPayload.packResources.Count | Should -Be 1
+        $aiPayload.members[0].initPayload.packResources['azure-aigateway'] | Should -BeExactly 'declined'
+        Get-TreeHash -Root $root | Should -BeExactly $before
     }
 
     It 'refuses expansion name, route, and history collisions before writing state' {

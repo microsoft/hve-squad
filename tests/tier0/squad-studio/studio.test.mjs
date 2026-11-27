@@ -16,6 +16,7 @@ const STUDIO_ROOT = path.resolve(
 );
 
 const {
+    PACK_CARDS,
     composeHelperBrief,
     composeRefinementLaunch,
     composeStudioLaunch,
@@ -246,6 +247,19 @@ test('predefined init, intake document upload, pack preview guardrails, and coun
         assert.ok(
             detectSuggestedPacks('Review FinOps Azure cost guardrails and Azure Local sizing').some(
                 (pack) => pack.id === 'azure-cloud',
+            ),
+        );
+        const aiInfraCard = PACK_CARDS.find((pack) => pack.id === 'ai-infra');
+        assert.ok(aiInfraCard, 'PACK_CARDS must include ai-infra');
+        assert.equal(aiInfraCard.hasPreview, false);
+        assert.equal(aiInfraCard.previewNote, '');
+        assert.deepEqual(
+            composeStudioLaunch({ goalId: 'web-app', goalText: 'Build a bakery site' }).packs,
+            [],
+        );
+        assert.ok(
+            detectSuggestedPacks('Design an AI landing zone with InfiniBand RDMA GPU cluster and Managed Lustre').some(
+                (pack) => pack.id === 'ai-infra',
             ),
         );
 

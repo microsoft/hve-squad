@@ -1489,3 +1489,163 @@ Describe 'Azure Cloud and FinOps official pack' -Tag 'Unit' {
         }
     }
 }
+
+Describe 'AI-Ready Infrastructure and AI Landing Zones official pack' -Tag 'Unit' {
+    It 'reuses existing roles, shares the single canonical azure-aigateway entry with foundry with zero preview skills, and blocklists failing candidates (SRC-26, PRF-30)' {
+        function Get-RoleSet {
+            param([string]$Body, [string]$Header, [string]$Name)
+            $rows = @(Get-MarkdownTableRows -Body $Body -HeaderCell $Header)
+            $row = @($rows | Where-Object { $_[1].Trim().Trim('`') -eq $Name })
+            $row | Should -HaveCount 1
+            @($row[0][2] -split ',' | ForEach-Object { $_.Trim().Trim('`') } | Where-Object { $_ } | Sort-Object -Unique)
+        }
+
+        $adds = Get-RoleSet -Body $script:RosterBody -Header 'Pack' -Name 'ai-infra'
+        $mirror = Get-RoleSet -Body $script:ProfilesBody -Header 'Pack' -Name 'ai-infra'
+        ($mirror -join ',') | Should -BeExactly ($adds -join ',')
+        ($adds -join ',') | Should -BeExactly 'architect,asbuilt-author,azure-architect,azure-diagnose,cost-manager,deployer,iac-author,observability,security'
+
+        $profileRows = @(Get-MarkdownTableRows -Body $script:RosterBody -HeaderCell 'Profile')
+        $profileRows | Should -HaveCount 11
+        $full = Get-RoleSet -Body $script:RosterBody -Header 'Profile' -Name 'full'
+        $azure = Get-RoleSet -Body $script:RosterBody -Header 'Profile' -Name 'azure'
+        $architecture = Get-RoleSet -Body $script:RosterBody -Header 'Profile' -Name 'architecture'
+        $operations = Get-RoleSet -Body $script:RosterBody -Header 'Profile' -Name 'operations'
+        $default = Get-RoleSet -Body $script:RosterBody -Header 'Profile' -Name 'default'
+        @($adds | Where-Object { $_ -notin $full }) | Should -BeNullOrEmpty
+        @($adds | Where-Object { $_ -notin $azure }) | Should -BeExactly @('observability')
+        (@($adds | Where-Object { $_ -notin $architecture } | Sort-Object) -join ',') |
+            Should -BeExactly 'asbuilt-author,azure-diagnose,deployer,iac-author,observability,security'
+        (@($adds | Where-Object { $_ -notin $operations } | Sort-Object) -join ',') |
+            Should -BeExactly 'architect,azure-architect,cost-manager,security'
+        (@($adds | Where-Object { $_ -notin $default } | Sort-Object) -join ',') |
+            Should -BeExactly ($adds -join ',')
+
+        $rows = @(Get-MarkdownTableRows `
+                -Body (Get-MarkdownSectionBody -Body $script:RosterCatalogBody -Heading 'Registered External Cast') `
+                -HeaderCell 'Role')
+        $packSkillRows = @(Get-MarkdownTableRows `
+                -Body (Get-MarkdownSectionBody -Body $script:RosterCatalogBody -Heading 'Registered Pack Skills') `
+                -HeaderCell 'Pack')
+        $aiInfraSkills = @($packSkillRows | Where-Object { $_[1].Trim() -eq 'ai-infra' } | ForEach-Object { $_[2].Trim().Trim('`') })
+        $aiInfraSkills | Should -BeExactly @('azure-aigateway')
+
+        $gatewayPacks = @(
+            $packSkillRows |
+                Where-Object { $_[2].Trim().Trim('`') -eq 'azure-aigateway' } |
+                ForEach-Object { $_[1].Trim().Trim('`') } |
+                Sort-Object
+        )
+        ($gatewayPacks -join ',') | Should -BeExactly 'ai-infra,foundry'
+
+        $profileRow = @(Get-MarkdownTableRows -Body $script:ProfilesBody -HeaderCell 'Resource pack' |
+                Where-Object { $_[1].Trim().Trim('`') -eq 'ai-infra' })
+        $profileRow | Should -HaveCount 1
+        @($profileRow[0][2] -split ',' | ForEach-Object { $_.Trim().Trim('`') } | Where-Object { $_ }) |
+            Should -BeExactly @('azure-aigateway')
+
+        $gatewayRows = @($rows | Where-Object { $_[3].Trim().Trim('`') -eq 'azure-aigateway' })
+        $gatewayRows | Should -HaveCount 1
+        $gatewayRows[0][1].Trim() | Should -BeExactly 'azure-architect'
+        $gatewayRows[0][2].Trim() | Should -BeExactly 'opt-in'
+        $gatewayRows[0][4].Trim() | Should -BeExactly 'skill'
+        $gatewayRows[0][6].Trim() | Should -BeExactly '`apm install microsoft/azure-skills/skills/azure-aigateway#968f7bfaa01672e782dae2c6bab4fb9505ae047a --target copilot`'
+        $gatewayRows[0][8].Trim() | Should -Match 'Reach only while `foundry` is active'
+        $gatewayRows[0][8].Trim() | Should -Match 'ai-infra'
+        $gatewayRows[0][8].Trim() | Should -Not -Match 'explicit preview approval'
+        $gatewayRows[0][10].Trim() | Should -BeExactly '2026-11-15'
+
+        $blocklist = Get-MarkdownSectionBody -Body $script:RosterCatalogBody -Heading 'External Cast Blocklist'
+        $blocklistResources = @(Get-MarkdownTableRows -Body $blocklist -HeaderCell 'Resource' | ForEach-Object { $_[1] }) -join ' '
+        foreach ($blocked in @(
+                'manage-ai-gateway', 'migrate-apim', 'apim-bicep', 'apim-terraform',
+                'apim-policies', 'apim-kql', 'kaito-inference', 'kaito-troubleshoot',
+                'kaito-workspace', 'architecture-decision', 'engineering-principles',
+                'documentation-consistency', 'multi-repo-release', 'speckit-*')) {
+            $blocklistResources | Should -Match ('`' + [regex]::Escape($blocked) + '`')
+        }
+        foreach ($sha in @(
+                'feac191bd69d7a2fa4fdba5c233f3a1d1c40fc65',
+                '98c242510ba53f4e83e5f4f19595907c8e0b36bc',
+                'fd52bbbbe528843c0724dac32f76efb81cb52a71',
+                'a243267d0c7b75d25dba3a06c0819b5d86f115e0')) {
+            $blocklist | Should -Match $sha
+        }
+        foreach ($preserved in @('azure-deployment-preflight', 'azure-pricing', 'azure-quotas', 'aks-gpu-inference')) {
+            @($rows | Where-Object { $_[3].Trim().Trim('`') -eq $preserved }) | Should -Not -BeNullOrEmpty
+            $blocklistResources | Should -Not -Match ('`' + [regex]::Escape($preserved) + '`')
+        }
+        foreach ($excluded in @('azure-compute', 'azure-storage', 'airunway-aks-setup', 'azure-observability')) {
+            @($rows | Where-Object { $_[3].Trim().Trim('`') -eq $excluded }) | Should -BeNullOrEmpty
+            $blocklistResources | Should -Not -Match ('`' + [regex]::Escape($excluded) + '`')
+        }
+    }
+
+    It 'enforces blueprint evidence gates, security/advisory boundaries, charter reach guards, and zero static price or SKU tables across references and charters (SRC-27)' {
+        $blueprintPath = Join-Path $script:ReferenceRoot 'ai-infra-blueprint.md'
+        $optionsPath = Join-Path $script:ReferenceRoot 'ai-infra-platform-options.md'
+        $blueprint = Get-Content -LiteralPath $blueprintPath -Raw
+        $options = Get-Content -LiteralPath $optionsPath -Raw
+
+        $blueprint | Should -Match 'Use this reference to frame decisions, not to answer volatile product questions from memory'
+        $blueprint | Should -Match 'Gate 5'
+        $blueprint | Should -Match 'Rate Basis, Currency & Commitment Scope'
+        $blueprint | Should -Match 'Research -> Plan -> Council -> Implement'
+        $blueprint | Should -Match 'Not applicable \(advisory scope\)'
+        $blueprint | Should -Match 'infra/\{track\}/\{project\}'
+        $blueprint | Should -Match '`networking` and `identity` remain \*\*unselectable\*\*'
+        $blueprint | Should -Match 'publicNetworkAccess: Disabled'
+        $blueprint | Should -Match 'ManagedIdentityCredential'
+        $blueprint | Should -Match 'allowSharedKeyAccess: false'
+        $blueprint | Should -Match '--subscription'
+        $blueprint | Should -Match '00000000-0000-0000-0000-000000000000'
+        $blueprint | Should -Match 'instruction-enforced'
+        $blueprint | Should -Match 'no dedicated upstream `SKILL\.md`'
+
+        $options | Should -Match 'Host visibility is not selection'
+        $options | Should -Match 'declined resource stays unavailable'
+        $options | Should -Match 'Preview is not the default'
+        $options | Should -Match 'hasPreview: false'
+        $options | Should -Match 'az apim subscription keys list'
+        $options | Should -Match 'Ocp-Apim-Subscription-Key'
+        $options | Should -Match 'Excluded and Unregistered Candidates \(Not Blocklisted\)'
+        $options | Should -Match 'https://microsoft\.github\.io/hve-squad/usage\.html#ai-infra-setup'
+
+        $script:ProfilesBody | Should -Match '(?s)For `ai-infra`, read \[ai-infra-platform-options\.md\].*?before asking to install resources'
+        $script:RoutingBody | Should -Match 'ai-infra'
+
+        $charterNames = @(
+            'squad-asbuilt-author', 'squad-azure-architect', 'squad-azure-diagnose',
+            'squad-cost-manager', 'squad-deployer', 'squad-iac-author',
+            'squad-observability-planner'
+        )
+        $staticPricePattern = '\$\d|\b(?:USD|EUR|GBP)\s*\d|\d+\.\d+\s*/\s*(?:hr|hour|month|mo|gpu|vcpu)\b'
+        $blueprint | Should -Not -Match $staticPricePattern
+        $options | Should -Not -Match $staticPricePattern
+
+        foreach ($name in $charterNames) {
+            $charter = Get-Content -LiteralPath (Join-Path $SourceRoot "squad-src/.github/agents/squad/$name.agent.md") -Raw
+            $charter | Should -Match 'references/ai-infra-blueprint\.md'
+            $charter | Should -Match 'references/ai-infra-platform-options\.md'
+            $charter | Should -Match 'only while this pack is active'
+            $charter | Should -Match 'decision is not `declined`'
+            $charter | Should -Match 'missing support files is not ready'
+            $charter | Should -Match 'Do not write squad state'
+            $charter | Should -Not -Match $staticPricePattern
+        }
+
+        $costCharter = Get-Content -LiteralPath (Join-Path $SourceRoot 'squad-src/.github/agents/squad/squad-cost-manager.agent.md') -Raw
+        $costCharter | Should -Match 'no static rates'
+        $costCharter | Should -Match '`indicative` labels'
+        $costCharter | Should -Match 'separate currencies'
+        $costCharter | Should -Match '`confirm` tier'
+        $costCharter | Should -Match 'Step 5'
+
+        foreach ($docs in @($script:EnglishDocs, $script:FrenchDocs)) {
+            $docs | Should -Match '<td(?:\s+[^>]*)?><code>ai-infra</code></td>'
+            $docs | Should -Match 'id="ai-infra-setup"'
+            $docs | Should -Match 'azure-aigateway#968f7bfaa01672e782dae2c6bab4fb9505ae047a --target copilot'
+            $docs | Should -Match 'azure-skills-968f7bf'
+        }
+    }
+}

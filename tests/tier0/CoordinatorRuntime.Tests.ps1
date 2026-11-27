@@ -730,6 +730,56 @@ Describe 'Compact confirmed initialization (COORD-01..03)' {
         Get-FixtureHash $repo | Should -BeExactly $before
     }
 
+    It 'deduplicates shared azure-aigateway across foundry and ai-infra, honors declined over host visibility, and previews ai-infra installs (SRC-26, SRC-27)' {
+        $repo = New-FixtureRepo
+        $data = Get-SquadInitData -RepoRoot $repo
+
+        $neither = @(Get-SquadPackResourceInventory -InitData $data -Pack @() -RepoRoot $repo)
+        $neither | Should -BeNullOrEmpty
+
+        $aiInfraOnly = @(Get-SquadPackResourceInventory -InitData $data -Pack @('ai-infra') -RepoRoot $repo)
+        $aiInfraOnly | Should -HaveCount 1
+        $aiInfraOnly[0].resource | Should -BeExactly 'azure-aigateway'
+        @($aiInfraOnly[0].packs) | Should -Be @('ai-infra')
+        @($aiInfraOnly[0].roles) | Should -Be @('azure-architect')
+
+        $foundryOnly = @(Get-SquadPackResourceInventory -InitData $data -Pack @('foundry') -RepoRoot $repo)
+        $foundryOnly | Should -HaveCount 13
+        @(@($foundryOnly | Where-Object resource -eq 'azure-aigateway')[0].packs) | Should -Be @('foundry')
+
+        $both = @(Get-SquadPackResourceInventory -InitData $data -Pack @('foundry', 'ai-infra') -RepoRoot $repo)
+        $both | Should -HaveCount 13
+        $sharedGateway = @($both | Where-Object resource -eq 'azure-aigateway')
+        $sharedGateway | Should -HaveCount 1
+        @($sharedGateway[0].packs) | Should -Be @('foundry', 'ai-infra')
+
+        $withAiInfra = Invoke-Local -Name 'Get-SquadInitContext.ps1' -Repo $repo -Arguments @('-RepoRoot', $repo, '-Pack', 'ai-infra')
+        $withAiInfra.ExitCode | Should -Be 0 -Because $withAiInfra.Output
+        $aiInfraContext = $withAiInfra.Output | ConvertFrom-Json
+        @($aiInfraContext.packResources) | Should -HaveCount 1
+        $aiInfraContext.packResources[0].resource | Should -BeExactly 'azure-aigateway'
+        (@($aiInfraContext.members | ForEach-Object role | Sort-Object) -join ',') |
+            Should -BeExactly 'architect,asbuilt-author,azure-architect,azure-diagnose,cost-manager,deployer,iac-author,observability,security'
+
+        $decisions = Get-PackResourceDecisions -Repo $repo -Packs @('foundry', 'ai-infra') -Status 'declined'
+        $resolvedDeclined = Assert-SquadPackResourceDecisions -InitData $data -Pack @('foundry', 'ai-infra') -RepoRoot $repo `
+            -Decisions $decisions -AvailableSkill @('azure-aigateway')
+        $resolvedDeclined['azure-aigateway'] | Should -BeExactly 'declined'
+
+        $before = Get-FixtureHash -Root $repo
+        $planned = Invoke-Local -Name 'Install-SquadPackResources.ps1' -Repo $repo -Arguments @(
+            '-RepoRoot', $repo, '-Pack', 'ai-infra', '-Confirmed', '-WhatIf'
+        )
+        $planned.ExitCode | Should -Be 0 -Because $planned.Output
+        $receipt = (@($planned.Output -split '\r?\n' | Where-Object { $_ -match '^\{"schemaVersion"' })[-1]) | ConvertFrom-Json
+        $receipt.status | Should -BeExactly 'PLANNED'
+        @($receipt.resources) | Should -HaveCount 1
+        $receipt.resources[0].resource | Should -BeExactly 'azure-aigateway'
+        $receipt.resources[0].commands | Should -Be @('apm install microsoft/azure-skills/skills/azure-aigateway#968f7bfaa01672e782dae2c6bab4fb9505ae047a --target copilot')
+        $receipt.prerequisitesInstalled | Should -BeFalse
+        Get-FixtureHash -Root $repo | Should -BeExactly $before
+    }
+
     It 'requires pack resource dispositions and persists the accepted Foundry activation' {
         $repo = New-FixtureRepo
         $data = Get-SquadInitData -RepoRoot $repo

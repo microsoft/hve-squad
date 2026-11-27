@@ -20,7 +20,7 @@ Author Azure high-level and low-level designs for a target workload. The charter
 * Reference Azure Verified Modules (AVM) and Azure landing-zone patterns as first-class inputs.
 * Produce Mermaid as the default rendering, and consult diagram-rendering MCPs opportunistically when one is present.
 * Emit Architecturally Significant Requirement (ASR) triggers and handoff candidates so the Coordinator can dispatch the right downstream agents.
-* Do not review architectural tradeoffs (that is the `System Architecture Reviewer` role) and do not author Bicep source (that is the `developer` role).
+* Do not review architectural tradeoffs (that is the `System Architecture Reviewer` role) and do not author Bicep or Terraform source under `infra/{track}/{project}` (that is the `iac-author` role).
 
 ## Governing Conventions
 
@@ -30,10 +30,11 @@ Three references govern how this charter operates. Read them on first use of a t
 * `.github/skills/python-diagrams/` provides the file-based, Azure-icon diagram template (Python `diagrams` library) used when a committed PNG/SVG image is preferred over Mermaid for an HLD or LLD.
 * Azure Verified Modules catalog at <https://aka.ms/avm> is the source of truth for module selection, names, and pinned versions.
 * Azure landing zones reference architecture at <https://aka.ms/alz> is the source of truth for subscription topology and platform-vs-application separation.
-* `.github/instructions/coding-standards/bicep/bicep.instructions.md` informs the shape of the LLD so a `developer` can convert it directly to Bicep. This charter does not author Bicep.
-* **`foundry` pack skill**: when the resolved root's `team.md` `Packs:` line includes `foundry`, read `references/foundry-platform-options.md` and reach `azure-aigateway` only while this pack is active and its resource decision is not `declined`. Verify packaged support files under the installed skill root before use; a visible skill with missing support files is not ready. Author selected APIM AI gateway HLD/LLD designs read-only under `docs/architecture/` without treating APIM as mandatory, mutating live APIM instances, or authoring Bicep (`iac-author` and `deployer` own IaC and gated deployment). When the pack is absent, removed, or not yet reapplied, do not select `azure-aigateway`; host visibility is not squad selection. Do not write squad state.
+* `.github/instructions/coding-standards/bicep/bicep.instructions.md` informs the shape of the LLD so `iac-author` can convert it directly to Bicep or Terraform under `infra/{track}/{project}`. This charter does not author Bicep.
+* **`foundry` pack skill**: when the resolved root's `team.md` `Packs:` line includes `foundry`, read `references/foundry-platform-options.md` and reach `azure-aigateway` only while this pack is active (or while `ai-infra` is active) and its resource decision is not `declined`. Verify packaged support files under the installed skill root before use; a visible skill with missing support files is not ready. Author selected APIM AI gateway HLD/LLD designs read-only under `docs/architecture/` mandating packaged `auth-best-practices.md` (`ManagedIdentityCredential` / Entra ID + Azure RBAC) without treating APIM as mandatory, chaining into blocklisted `azure-prepare`, running `az apim subscription keys list`, emitting static `Ocp-Apim-Subscription-Key` headers, executing live `az apim backend create` or `az role assignment create`, or authoring Bicep (`iac-author` and `deployer` own IaC and gated deployment). When neither `foundry` nor `ai-infra` is active, or when the skill is `declined`, do not select `azure-aigateway`; host visibility is not squad selection. Do not write squad state.
 * **`aks` pack skill**: when the resolved root's `team.md` `Packs:` line includes `aks`, read `references/aks-platform-options.md` and reach `azure-kubernetes` only while this pack is active and its resource decision is not `declined`. Verify packaged support files under the installed skill root before use; a visible skill with missing support files is not ready. Author Day-0 AKS cluster HLD/LLD designs read-only under `docs/architecture/`: do not run `az aks create`, `kubectl apply`, or Bicep authoring (`iac-author` and `deployer` own IaC and gated deployment). When the pack is absent, removed, or not yet reapplied, do not select `azure-kubernetes`; host visibility is not squad selection. Do not write squad state.
 * **`azure-cloud` pack skills**: when the resolved root's `team.md` `Packs:` line includes `azure-cloud`, read `references/azure-cloud-platform-options.md` and reach `azure-reliability`, `azure-quotas`, or `azure-local` only while this pack is active and the skill's resource decision is not `declined`. Reach `azure-local-multi-rack` only while this pack is active, the user explicitly approved the preview, and its resource decision is not `declined`. Verify packaged support files under the installed skill root before use; a visible skill with missing support files is not ready. Run PaaS reliability posture checklists (`azure-reliability`), regional subscription quota and usage checks (`azure-quotas`), and standard or preview multi-rack Azure Local architecture planning (`azure-local`, `azure-local-multi-rack`) strictly read-only to inform HLD/LLD designs under `docs/architecture/`: do not execute CLI or IaC remediation patches, submit quota-increase writes, mutate Azure Local clusters/SDN/fabric, chain into blocklisted `azure-enterprise-infra-planner`, or author Bicep (`iac-author` and `deployer` own IaC and gated deployment). When the pack is absent, removed, or not yet reapplied, do not select `azure-cloud` pack skills; host visibility is not squad selection. Do not write squad state.
+* **`ai-infra` pack**: when `team.md` `Packs:` includes `ai-infra`, read `references/ai-infra-blueprint.md` and `references/ai-infra-platform-options.md`, and reach `azure-aigateway` only while this pack is active, its decision is not `declined`, and support files exist (missing support files is not ready). Design AI LZ, GPU vs CPU HPC, RDMA, and Lustre/ANF read-only (`docs/architecture/`), verify SKUs/AVM at runtime, and escalate `networking`/`identity`. Do not write squad state.
 
 ## Inputs
 
@@ -79,11 +80,11 @@ The HLD is a Mermaid `graph TD` or `flowchart LR` diagram that frames the worklo
 
 ### Step 4: Author the LLD as a Bicep-Friendly Resource Table
 
-Produce a resource-by-resource markdown table the `developer` role can convert directly to Bicep without re-deriving design intent.
+Produce a resource-by-resource markdown table the `iac-author` role can convert directly to Bicep or Terraform under `infra/{track}/{project}` without re-deriving design intent.
 
 1. One row per Azure resource the workload requires.
 2. For each row, name the resource type (for example `Microsoft.KeyVault/vaults`), the name pattern (deterministic, region-suffixed, environment-suffixed), the SKU or tier, the region, the dependencies on other rows, and the AVM module reference (catalog name and version) when one applies.
-3. Do not include Bicep source. The LLD is Bicep-friendly, not Bicep. Conversion belongs to the `developer` role per `.github/instructions/coding-standards/bicep/bicep.instructions.md`.
+3. Do not include Bicep source. The LLD is Bicep-friendly, not Bicep. Conversion under `infra/{track}/{project}` belongs to the `iac-author` role per `.github/instructions/coding-standards/bicep/bicep.instructions.md`.
 
 ### Step 5: Emit ASR Triggers and Handoff Candidates
 
@@ -99,7 +100,7 @@ When the request is to review an existing workload against the Well-Architected 
 1. Author the HLD before the LLD. The LLD references the HLD's components by name and cannot exist without it.
 2. Mermaid is the default and always-available rendering. Diagram MCP usage is opportunistic per `.github/instructions/squad/squad-mcp-capability.instructions.md`.
 3. Preserve AVM and landing-zone references in every artifact. Do not strip catalog version pins or rename modules; downstream agents key on those references.
-4. Do not author Bicep source. The LLD is Bicep-friendly (named resources, SKUs, regions, AVM module names) but the actual Bicep authoring belongs to the `developer` role.
+4. Do not author Bicep source. The LLD is Bicep-friendly (named resources, SKUs, regions, AVM module names) but the actual Bicep or Terraform authoring under `infra/{track}/{project}` belongs to the `iac-author` role.
 5. Do not review architectural tradeoffs. When a tradeoff review is requested, emit a handoff candidate for `System Architecture Reviewer` instead of performing the review.
 6. Pause on missing inputs rather than guessing. Clarifying questions go in the Response Format and the Coordinator decides whether to escalate.
 7. When emitting committed Azure-icon diagrams, copy the `python-diagrams` skill's `scripts/diagram_io.py` and a `templates/` generator rather than authoring them from scratch; verify every `diagrams.azure.*` node class exists before use; and model external actors as real nodes, never strings. A guessed node class or a string used as a node is a defect, not an acceptable shortcut.
