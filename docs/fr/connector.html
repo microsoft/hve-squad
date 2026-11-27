@@ -1242,6 +1242,157 @@ Show the proposed member, binding, route, and root before writing.</code></pre><
         Il n'existe aucun commutateur de forçage ; comparez et adoptez délibérément le contenu régénéré.
       </p></div>
 
+      <h2 id="adapter-patterns">Configurer votre adaptateur : agents distants et prompts hébergés en privé</h2>
+
+      <p>
+        Comme le contrat de connecteur utilise uniquement <code>transport: "file"</code>, les
+        manifestes n'acceptent jamais d'URL, de commandes shell, de chemins <code>.agent.md</code>
+        ni d'identifiants secrets, et aucun fichier <code>.agent.md</code> n'est requis dans votre
+        dépôt. C'est votre script adaptateur qui assure les appels réseau, l'authentification et la
+        récupération des prompts hors du périmètre du manifeste.
+      </p>
+
+      <div class="callout"><p>
+        <strong>Conseil : Partez du runner généré.</strong> Exécutez d'abord
+        <strong>Squad Connector Builder</strong> afin de générer
+        <code>scripts/Run-&lt;id&gt;-Connector.ps1</code>, validez la boucle à blanc avec
+        <code>-Once</code>, puis remplacez uniquement <code>Invoke-ExampleEndpoint</code> tout en
+        conservant <code>Get-RequestDeadlineError</code>, <code>Resolve-SafeChildPath</code> et
+        <code>Write-AtomicNewFile</code> intacts.
+      </p></div>
+
+      <h3>Connecter un agent hébergé sur serveur ou Microsoft Foundry</h3>
+
+      <p>
+        Lorsque votre agent tourne sur un serveur externe, un service REST interne ou un endpoint
+        Microsoft Foundry, conservez l'URI de l'endpoint dans une variable d'environnement ou une
+        configuration externe et obtenez des jetons à courte durée de vie à l'exécution auprès de
+        votre fournisseur d'identité ou coffre de secrets :
+      </p>
+
+      <ul>
+        <li>
+          <strong>Transmettez un contexte de dépôt fondé sur les sources :</strong> Lisez localement
+          dans l'adaptateur les fichiers du dépôt mentionnés dans <code>request.task</code> et
+          envoyez ces extraits dans la requête afin qu'un agent distant ne devine pas le contenu de
+          fichiers auxquels il n'a pas accès.
+        </li>
+        <li>
+          <strong>Bornez les délais réseau sur l'échéance de la demande :</strong> Calculez les
+          secondes restantes avant <code>request.deadline</code> et plafonnez le délai HTTP sous
+          cette limite pour que les appels lents échouent proprement au lieu d'écrire des artefacts
+          après expiration.
+        </li>
+        <li>
+          <strong>Convertissez les erreurs distantes terminales en échecs assainis :</strong> Par
+          défaut, <code>Invoke-PendingRequest</code> journalise les exceptions levées et réessaie au
+          passage suivant. Pour les erreurs distantes non réessayables, interceptez-les et écrivez
+          <code>status: "failed"</code> avec un champ <code>narrative</code> expurgé des en-têtes,
+          jetons et traces brutes.
+        </li>
+      </ul>
+
+      <div class="code-block"><div class="code-heading">Remplacer Invoke-ExampleEndpoint pour un agent hébergé ou Foundry</div>
+      <pre><code class="language-powershell">function Invoke-ExampleEndpoint {
+    param(
+        [Parameter(Mandatory)]$Request,
+        [Parameter(Mandatory)]$Manifest,
+        [Parameter(Mandatory)][string]$Workspace
+    )
+
+    $taskId = [string](Get-RequiredValue -Object $Request -Name 'taskId')
+    $role   = [string](Get-RequiredValue -Object $Request -Name 'role')
+    $task   = [string](Get-RequiredValue -Object $Request -Name 'task')
+    Assert-SafeIdentifier -Value $taskId -Name 'taskId'
+    Assert-SafeIdentifier -Value $role -Name 'role'
+
+    $endpointUri = $env:SQUAD_REMOTE_AGENT_URI
+    if ([string]::IsNullOrWhiteSpace($endpointUri)) {
+        throw 'Set SQUAD_REMOTE_AGENT_URI in your adapter environment.'
+    }
+
+    # Acquire a short-lived token at runtime (for example Microsoft Entra ID for Foundry)
+    $accessToken = (&amp; az account get-access-token --resource 'https://ai.azure.com' --query accessToken -o tsv).Trim()
+    $deadlineUtc = [DateTimeOffset]::Parse([string]$Request.deadline)
+    $timeoutSec  = [Math]::Max(5, [Math]::Min(300, [int][Math]::Floor(($deadlineUtc - [DateTimeOffset]::UtcNow).TotalSeconds) - 5))
+
+    $body = @{
+        taskId       = $taskId
+        role         = $role
+        instructions = $task
+    } | ConvertTo-Json -Depth 8
+
+    $response = Invoke-RestMethod -Method Post -Uri $endpointUri `
+        -Headers @{ Authorization = "Bearer $accessToken" } `
+        -ContentType 'application/json' `
+        -Body $body `
+        -TimeoutSec $timeoutSec
+
+    $rootRelative = [string](Get-RequiredValue -Object $Request -Name 'deliverableRoot')
+    $rootPath     = Resolve-SafeChildPath -Root $Workspace -RelativePath $rootRelative
+    $artifactName = "remote-$role-$taskId.md"
+    $artifactPath = Join-Path $rootPath $artifactName
+
+    Write-AtomicNewFile -Path $artifactPath -Content "$([string]$response.markdown)`n"
+    @([pscustomobject]@{
+        OutputId = 'agent-result'
+        FullPath = $artifactPath
+        Artifact = [ordered]@{ path = $artifactName; type = 'md' }
+    })
+}</code></pre></div>
+
+      <h3>Consommer un fichier Markdown d'agent hébergé en privé</h3>
+
+      <p>
+        Si votre équipe maintient ses instructions <code>.agent.md</code> canoniques dans un dépôt
+        Git privé, une bibliothèque de documents SharePoint (via Microsoft Graph) ou un flux
+        d'artefacts interne, votre adaptateur peut récupérer ces instructions en mémoire à
+        l'exécution sans les ajouter à l'espace de travail du projet :
+      </p>
+
+      <ul>
+        <li>
+          <strong>Récupérez en mémoire ou mettez en cache hors du dépôt :</strong> Téléchargez le
+          contenu Markdown distant avec votre CLI ou jeton Graph et passez-le comme instructions
+          système à votre hôte de modèle. Si vous mettez les prompts en cache sur disque, placez-les
+          dans un dossier utilisateur hors de l'espace de travail plutôt que dans
+          <code>.github/agents/</code> ou <code>deliverableRoot</code>.
+        </li>
+        <li>
+          <strong>Ne créez jamais de liens symboliques vers des dossiers externes dans les chemins validés :</strong>
+          Ne reliez pas de lecteurs montés, de dossiers synchronisés dans le cloud ni de jonctions
+          dans <code>.connector-drops/</code> ou <code>deliverableRoot</code> ; le shim rejette les
+          points d'analyse à chaque segment de chemin.
+        </li>
+        <li>
+          <strong>Épinglez les révisions pour la reproductibilité :</strong> Récupérez un SHA de
+          commit, un tag ou une version d'élément SharePoint précis et notez cet identifiant de
+          version non secret dans le champ <code>version</code> du manifeste ou le champ
+          <code>narrative</code> du résultat.
+        </li>
+      </ul>
+
+      <div class="code-block"><div class="code-heading">Récupérer un prompt .agent.md privé en mémoire (dépôt GitHub privé ou SharePoint via Graph)</div>
+      <pre><code class="language-powershell"># Option A: Private GitHub repository via authenticated gh CLI (pinned to a commit or tag)
+$agentPrompt = (&amp; gh api 'repos/contoso-org/private-agents/contents/agents/researcher.agent.md?ref=v1.4.0' `
+    -H 'Accept: application/vnd.github.raw+json') -join "`n"
+
+# Option B: SharePoint document library via Microsoft Graph
+# $graphToken  = (&amp; az account get-access-token --resource 'https://graph.microsoft.com' --query accessToken -o tsv).Trim()
+# $itemContent = "https://graph.microsoft.com/v1.0/sites/$env:SP_SITE_ID/drive/items/$env:SP_AGENT_ITEM_ID/content"
+# $agentPrompt = Invoke-RestMethod -Method Get -Uri $itemContent -Headers @{ Authorization = "Bearer $graphToken" }
+
+# Combine the fetched system instructions with request.task in your model/SDK host call,
+# then write only the generated .md/.json/.txt deliverable under deliverableRoot.</code></pre></div>
+
+      <div class="callout warn"><p>
+        <strong>Important : Gardez les secrets hors de chaque enveloppe et rapport.</strong> Le
+        validateur analyse les manifestes, demandes et enveloppes de résultat pour détecter les
+        chaînes ayant la forme d'identifiants secrets. N'écrivez jamais de jetons porteur, d'URL de
+        téléchargement SharePoint pré-authentifiées, de chaînes SAS ni d'en-têtes HTTP
+        d'autorisation bruts dans <code>narrative</code> ou dans les artefacts livrés.
+      </p></div>
+
       <h2>Ce qui n'est pas encore pris en charge</h2>
 
       <p>

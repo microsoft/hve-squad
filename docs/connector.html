@@ -1186,6 +1186,150 @@ Show the proposed member, binding, route, and root before writing.</code></pre><
         switch; compare and adopt regenerated content deliberately.
       </p></div>
 
+      <h2 id="adapter-patterns">Configure your adapter: remote agents and privately hosted prompts</h2>
+
+      <p>
+        Because the connector contract uses <code>transport: "file"</code> only, manifests never
+        accept URLs, shell commands, <code>.agent.md</code> paths, or credentials, and no
+        <code>.agent.md</code> file is required inside your repository. Instead, your adapter script
+        is the bridge that handles network calls, authentication, and prompt retrieval outside the
+        manifest boundary.
+      </p>
+
+      <div class="callout"><p>
+        <strong>Tip: Start from the generated runner.</strong> Run
+        <strong>Squad Connector Builder</strong> first to generate
+        <code>scripts/Run-&lt;id&gt;-Connector.ps1</code>, verify the dry loop once with
+        <code>-Once</code>, and then replace only <code>Invoke-ExampleEndpoint</code> while keeping
+        <code>Get-RequestDeadlineError</code>, <code>Resolve-SafeChildPath</code>, and
+        <code>Write-AtomicNewFile</code> intact.
+      </p></div>
+
+      <h3>Connect a server-hosted or Microsoft Foundry agent</h3>
+
+      <p>
+        When your agent runs on an external server, internal REST service, or Microsoft Foundry
+        endpoint, keep the endpoint URI in an environment variable or external host configuration
+        and acquire short-lived tokens at runtime from your identity provider or secret store:
+      </p>
+
+      <ul>
+        <li>
+          <strong>Pass grounded repository context:</strong> Read the repository files referenced in
+          <code>request.task</code> locally in the adapter and send those excerpts with the request
+          payload so a remote agent does not guess about workspace files it cannot see.
+        </li>
+        <li>
+          <strong>Bound network timeouts to the request deadline:</strong> Compute the remaining
+          seconds before <code>request.deadline</code> and cap HTTP timeouts below that cutoff so
+          slow calls fail cleanly instead of writing artifacts after expiration.
+        </li>
+        <li>
+          <strong>Convert terminal remote errors into sanitized failures:</strong> By default,
+          <code>Invoke-PendingRequest</code> logs thrown exceptions and retries on the next poll.
+          For non-retryable remote errors, catch them and write <code>status: "failed"</code> with a
+          redacted <code>narrative</code> that omits headers, tokens, and raw stack traces.
+        </li>
+      </ul>
+
+      <div class="code-block"><div class="code-heading">Replace Invoke-ExampleEndpoint for a server-hosted or Foundry agent</div>
+      <pre><code class="language-powershell">function Invoke-ExampleEndpoint {
+    param(
+        [Parameter(Mandatory)]$Request,
+        [Parameter(Mandatory)]$Manifest,
+        [Parameter(Mandatory)][string]$Workspace
+    )
+
+    $taskId = [string](Get-RequiredValue -Object $Request -Name 'taskId')
+    $role   = [string](Get-RequiredValue -Object $Request -Name 'role')
+    $task   = [string](Get-RequiredValue -Object $Request -Name 'task')
+    Assert-SafeIdentifier -Value $taskId -Name 'taskId'
+    Assert-SafeIdentifier -Value $role -Name 'role'
+
+    $endpointUri = $env:SQUAD_REMOTE_AGENT_URI
+    if ([string]::IsNullOrWhiteSpace($endpointUri)) {
+        throw 'Set SQUAD_REMOTE_AGENT_URI in your adapter environment.'
+    }
+
+    # Acquire a short-lived token at runtime (for example Microsoft Entra ID for Foundry)
+    $accessToken = (&amp; az account get-access-token --resource 'https://ai.azure.com' --query accessToken -o tsv).Trim()
+    $deadlineUtc = [DateTimeOffset]::Parse([string]$Request.deadline)
+    $timeoutSec  = [Math]::Max(5, [Math]::Min(300, [int][Math]::Floor(($deadlineUtc - [DateTimeOffset]::UtcNow).TotalSeconds) - 5))
+
+    $body = @{
+        taskId       = $taskId
+        role         = $role
+        instructions = $task
+    } | ConvertTo-Json -Depth 8
+
+    $response = Invoke-RestMethod -Method Post -Uri $endpointUri `
+        -Headers @{ Authorization = "Bearer $accessToken" } `
+        -ContentType 'application/json' `
+        -Body $body `
+        -TimeoutSec $timeoutSec
+
+    $rootRelative = [string](Get-RequiredValue -Object $Request -Name 'deliverableRoot')
+    $rootPath     = Resolve-SafeChildPath -Root $Workspace -RelativePath $rootRelative
+    $artifactName = "remote-$role-$taskId.md"
+    $artifactPath = Join-Path $rootPath $artifactName
+
+    Write-AtomicNewFile -Path $artifactPath -Content "$([string]$response.markdown)`n"
+    @([pscustomobject]@{
+        OutputId = 'agent-result'
+        FullPath = $artifactPath
+        Artifact = [ordered]@{ path = $artifactName; type = 'md' }
+    })
+}</code></pre></div>
+
+      <h3>Consume a privately hosted agent Markdown file</h3>
+
+      <p>
+        If your team maintains canonical <code>.agent.md</code> instructions in a private Git
+        repository, a SharePoint document library (via Microsoft Graph), or an internal artifact
+        feed, your adapter can fetch those instructions in memory at runtime without committing them
+        into the project workspace:
+      </p>
+
+      <ul>
+        <li>
+          <strong>Fetch in memory or cache outside the repository:</strong> Pull the remote Markdown
+          content using your CLI or Graph token and pass it as system instructions to your model
+          runner. If you cache fetched prompts on disk, store them in a user-scoped cache outside
+          the workspace rather than inside <code>.github/agents/</code> or
+          <code>deliverableRoot</code>.
+        </li>
+        <li>
+          <strong>Never symlink external folders into validated paths:</strong> Do not link mounted
+          drives, cloud-synced folders, or junctions into <code>.connector-drops/</code> or
+          <code>deliverableRoot</code>; the shim rejects reparse points at every path segment.
+        </li>
+        <li>
+          <strong>Pin revisions for reproducibility:</strong> Fetch a specific commit SHA, tag, or
+          SharePoint drive-item version and record that non-secret version identifier in your
+          manifest <code>version</code> field or result <code>narrative</code>.
+        </li>
+      </ul>
+
+      <div class="code-block"><div class="code-heading">Fetch a private .agent.md prompt in memory (private GitHub repo or SharePoint via Graph)</div>
+      <pre><code class="language-powershell"># Option A: Private GitHub repository via authenticated gh CLI (pinned to a commit or tag)
+$agentPrompt = (&amp; gh api 'repos/contoso-org/private-agents/contents/agents/researcher.agent.md?ref=v1.4.0' `
+    -H 'Accept: application/vnd.github.raw+json') -join "`n"
+
+# Option B: SharePoint document library via Microsoft Graph
+# $graphToken  = (&amp; az account get-access-token --resource 'https://graph.microsoft.com' --query accessToken -o tsv).Trim()
+# $itemContent = "https://graph.microsoft.com/v1.0/sites/$env:SP_SITE_ID/drive/items/$env:SP_AGENT_ITEM_ID/content"
+# $agentPrompt = Invoke-RestMethod -Method Get -Uri $itemContent -Headers @{ Authorization = "Bearer $graphToken" }
+
+# Combine the fetched system instructions with request.task in your model/SDK host call,
+# then write only the generated .md/.json/.txt deliverable under deliverableRoot.</code></pre></div>
+
+      <div class="callout warn"><p>
+        <strong>Important: Keep secrets out of every envelope and report.</strong> The validator
+        scans manifests, requests, and result envelopes for credential-shaped strings. Never log
+        bearer tokens, SharePoint pre-authenticated download URLs, SAS query strings, or raw HTTP
+        authorization headers into <code>narrative</code> or delivered artifacts.
+      </p></div>
+
       <h2>What is not supported yet</h2>
 
       <p>
